@@ -1,0 +1,11 @@
+GET http://localhost:3000/api/computer
+x-access-token : eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2NDYzMjUyMjAsImV4cCI6MTY0NjMyNTI1MH0.0RGnYSnq-7ra7s9QGl4E3R-TLSOWzDRKG_WdMDO2KBs
+###
+
+POST http://localhost:3000/api/authentication
+
+{
+    "email" : "pvdthien@gmail.com",
+    "password" : "12345678"
+}
+###

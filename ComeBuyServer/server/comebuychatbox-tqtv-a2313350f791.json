@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "comebuychatbox-tqtv",
+  "private_key_id": "a2313350f791928cc675bf9feaa12e8ad78c6cee",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvwIBADANBgkqhkiG9w0BAQEFAASCBKkwggSlAgEAAoIBAQC+CUoF1KuCEP/9\nDXeDpKS5hiSc7KrZyyBc1Geqkwo721jG1O53Au/CI5jSomeeVALJcFlVKAFNSoIH\nYPKumtFf92CMVLdSwo/syFjZyfWKFtJ1zig4kgLrHFzGbck8QOLVlc4c4ofJmWKD\n6/LpAd0t5vVU974TgNuAvm5FIUHZ6ZaVR89lJH1dZ0YzvBxKRf1edscYOaWP6D+i\noAb9mpQkvRFsF9EbohExeOzmYbPlBQWWWyVF8DwCJsq/10OT/ZilmQVBwXQ3TtLy\nl81MQa5KVToxFnxwt+PD1BmbX87IKp7uaS8yvijHt97ymTKL6EX+6sJMPJOYXmzJ\nB63XCGvPAgMBAAECggEAGKWzyBXROMljqjp46cYM51MSpJe9gQnrZJ7X4zO2/BRy\n6zbqxtzGo/Nh+s+9iLd0tROxQm4x3Qhw3OwiDatexIedKhZCwKUjbZ5+h6C+C+7x\n1P2sEco+PqgrEEFk/D+eK/2GAhEPc4JFWL7dfoMTYMS3xRFswbLQxV3th2HM3KpJ\nZT/Cvoy4U+1uZKjTk41kgHYzpPPDQkGPi02iepL54Em997enfLOnjoAUnfdgv+iR\nNfk5AObf9PFJZyllx+m5xdoQGkwC1T98oe4nh9BfchObNZgscHpffA+++R3EJD2O\nJsd/F1b4Ty7xcIBIisZSV+HxOAt0h9RzXxVi/un8AQKBgQD+ZHAAnVwP+s5tZI6p\nPnGpmEO7x3BQ3uM/VIyayEgId3wae7bZxy29bGq0XC0li7ZOeZoglg33leYkxgdG\ncC4Nhz2CmE23LQmMkotvLy0OV3vcFaRwSO46vYyIBkwTd0iIL3pIXVsbA2R4yrMy\nOXpXrzEVN8JLzduwx87gQBHmgQKBgQC/PLwZhebR1o6oUTBVZic1mcjoCw1FFwiP\no5MRXf9oR9Q7cVqa6xGIl2h624XpkQuzLkT247Cbh1IqmbaKiGskAiwbSY3Ytd8P\nKC+98us0iRq+kWegMbO8WNM5IYYFOXX0ZtHP29SMMjesC6gMRuYBpAvNycP9uSIk\nGvrRjmFKTwKBgQCrNFkUcNLmhjqq8IP6buX751eeZqi2JGr30iUWfjfMSu2gvSXg\nBuZHl1FwtKBFpnM4+Sm7SIF54M4UbZmz1AeKXzwMSgfzgUHt8yoX174Q6tuW0JHs\nZ4i8y5hqayKD70FHNfyr+vg3g974VCKpaHlnzaXQy8fdUFvL64zU6wmhAQKBgQCJ\nriFCQtv2MQGN/r3Mjfompew121cXacjZGQwV0dXC7wvGLAruQ9TgwRkQcqGLkciZ\nnPM7yJtqrdcjIn2AaUyxpPq6Po9n+TB5ihYtLAnYTek6UBcKBx5+uHiBxjfl5QOe\nDLR7cKoqsTDRpaa8CAMqJT/2TY/USIhi9CWl31r+EwKBgQCryWQtLEtHudZfT8zK\nRtitEmPMVanuqa2S1Snjy4CGcN25fChnmyZI9N+mhbaK5/djFaxtfiZqtFLNHw0X\n/sUqDTVYw3sGKWghpuslqto6B9LetjMbQ6xnKB2IzKTME3tVp2Vk1tpR91xOAzMk\nHAWLuSzUh6C+fyjEZaoqcp5bqA==\n-----END PRIVATE KEY-----\n",
+  "client_email": "comebuychatbox@comebuychatbox-tqtv.iam.gserviceaccount.com",
+  "client_id": "112985902366187022365",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/comebuychatbox%40comebuychatbox-tqtv.iam.gserviceaccount.com"
+}
