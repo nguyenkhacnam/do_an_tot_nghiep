@@ -1,0 +1,26 @@
+.input-verify {
+  margin: 10px;
+  height: 35px;
+  width: 65px;
+  border: none;
+  border-radius: 5px;
+  text-align: center;
+  font-family: arimo;
+  font-size: 1.2rem;
+  background: #eef2f3;
+}
+
+.text-field-in-form {
+  max-width: 380px;
+  margin-bottom: 50px;
+  margin-top: 20px;
+}
+
+.password-in-form {
+  margin-bottom: 50px;
+  margin-top: -15px;
+  display: flex;
+  width: 100%;
+  max-width: 400px;
+  margin-left: 5%;
+}
