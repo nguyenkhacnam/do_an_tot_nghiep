@@ -38,6 +38,7 @@ import { addInvoiceItem } from "../../redux/slices/invoiceItemSlice";
 import emailApi from '../../api/emailAPI';
 
 import logo from '../../assets/img/logoremovebg.png'
+import axios from 'axios';
 
 const Alert = React.forwardRef(function Alert(props, ref) {
     return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
@@ -89,7 +90,7 @@ export const CheckoutPage = () => {
                     const resultAction = await dispatch(getAllCart())
                     const originalPromiseResult = unwrapResult(resultAction)
                     temp = originalPromiseResult
-                    for (let i = 0; i < temp.length; i++) {
+                    for (let i = 0; i < temp?.length; i++) {
                         if (temp[i].userid === _currentUser.userID) {
                             listCart.push(temp[i])
                             const resultAction2 = await dispatch(getProductWithID(temp[i].productid))
@@ -97,6 +98,7 @@ export const CheckoutPage = () => {
                             listProd.push(originalPromiseResult2)
                         }
                     }
+                    console.log("🚀 ~ file: index.js:102 ~ fetchYourCart ~ listCart:", listCart)
                     await setListCart(listCart)
                     await setListProd(listProd)
                     await CountTotal(listCart, listProd)
@@ -108,7 +110,7 @@ export const CheckoutPage = () => {
                 let temp = _guestCart
                 let listCart = []
                 let listProd = []
-                for (let i = 0; i < temp.length; i++) {
+                for (let i = 0; i < temp?.length; i++) {
                     if (temp.productid != 'undefined') {
                         listCart.push(temp[i])
                         const resultAction2 = await dispatch(getProductWithID(temp[i].productid))
@@ -161,8 +163,8 @@ export const CheckoutPage = () => {
                 value: " " //price
             }
 
-            for (let i = 0; i < listCart.length; i++) {
-                for (let j = 0; j < listProd.length; j++) {
+            for (let i = 0; i < listCart?.length; i++) {
+                for (let j = 0; j < listProd?.length; j++) {
                     if (listProd[j].productID === listCart[i].productid) {
                         // amountObj = {
                         //     ...amountObj,
@@ -189,8 +191,8 @@ export const CheckoutPage = () => {
                 value: " " //price
             }
 
-            for (let i = 0; i < listCart.length; i++) {
-                for (let j = 0; j < listProd.length; j++) {
+            for (let i = 0; i < listCart?.length; i++) {
+                for (let j = 0; j < listProd?.length; j++) {
                     if (listProd[j].productID === listCart[i].productid) {
                         unitAmountObj = {
                             ...unitAmountObj,
@@ -284,9 +286,12 @@ export const CheckoutPage = () => {
     //get province
     useEffect(() => {
         const getProvinceList = async () => {
-            const resProvince = await fetch('https://sheltered-anchorage-60344.herokuapp.com/province')
-            const resProv = resProvince.json()
-            setProvinceList(await resProv)
+            // const resProvince = await fetch('https://sheltered-anchorage-60344.herokuapp.com/province')
+            const resProvince = await axios.get('https://vapi.vnappmob.com/api/province')
+            console.log("🚀 ~ file: index.js:290 ~ getProvinceList ~ resProvince:", resProvince)
+            setProvinceList(resProvince.data.results)
+            // const resProv = resProvince.json()
+            // setProvinceList(await resProv)
         }
         getProvinceList()
     }, [])
@@ -297,9 +302,12 @@ export const CheckoutPage = () => {
     //get district
     useEffect(() => {
         const getDistrict = async () => {
-            const resDistrict = await fetch(`https://sheltered-anchorage-60344.herokuapp.com/district/?idProvince=${province.idProvince}`)
-            const resDis = resDistrict.json()
-            setDistrictList(await resDis)
+            // const resDistrict = await fetch(`https://sheltered-anchorage-60344.herokuapp.com/district/?idProvince=${province.idProvince}`)
+            const resDistrict = await axios.get(`https://vapi.vnappmob.com/api/province/district/01`)
+            setDistrictList(resDistrict.data.results)
+            console.log("🚀 ~ file: index.js:307 ~ getDistrict ~ resDistrict:", resDistrict)
+            // const resDis = resDistrict.json()
+            // setDistrictList(await resDis)
         }
         getDistrict()
     }, [province])
@@ -311,15 +319,18 @@ export const CheckoutPage = () => {
     //get commune
     useEffect(() => {
         const getCommune = async () => {
-            const reCommune = await fetch(`https://sheltered-anchorage-60344.herokuapp.com/commune/?idDistrict=${district.idDistrict}`)
-            const resCom = reCommune.json()
-            setCommuneList(await resCom)
+            const reCommune = await axios.get(`https://vapi.vnappmob.com/api/province/ward/273`)
+            // const resCom = reCommune.json()
+            setCommuneList(reCommune.data.results)
+            console.log("🚀 ~ file: index.js:319 ~ getCommune ~ reCommune:", reCommune)
+            // setCommuneList(await resCom)
         }
         getCommune()
     }, [district])
 
     async function handleChangeCommune(event) {
         setCommune(event.target.value)
+        console.log("🚀 ~ file: index.js:332 ~ handleChangeCommune ~ event.target.value:", event.target.value)
     }
 
     function handleClickToCart(event) {
@@ -350,7 +361,7 @@ export const CheckoutPage = () => {
             if (province === null || district === null && commune === null) {
                 setOpenSnackbar(true)
             } else {
-                const temp = addressShip + ', ' + commune.name + ', ' + district.name + ', ' + province.name
+                const temp = addressShip + ', ' + commune.ward_name + ', ' + district.district_name + ', ' + province.province_name
                 setBigAddress(temp)
                 setOpenPaymentMethodScreen(true)
                 // await MakePurchaseUnit()
@@ -378,7 +389,7 @@ export const CheckoutPage = () => {
     const handleCloseBackdrop = async () => {
         handleCloseConfirm()
         if (localStorage.getItem('role') === "customer") {
-            for (let i = 0; i < listCart.length; i++) {
+            for (let i = 0; i < listCart?.length; i++) {
                 try {
                     const resultAction = await dispatch(deleteCartById(listCart[i]))
                     const originalPromiseResult = unwrapResult(resultAction)
@@ -412,7 +423,7 @@ export const CheckoutPage = () => {
                 date: date + ' ' + m,
                 address: bigAddress,
                 userID: _currentUser.userID,
-                branchID: 'a4a66b5e-182b-4b7d-bd13-8e6a54b686a6'
+                branchID: '9ef0b2b9-9920-4d15-982c-c4a4209700cd'
             }
 
             try {
@@ -429,8 +440,8 @@ export const CheckoutPage = () => {
                 isPaid: false,
                 date: date + ' ' + m,
                 address: bigAddress,
-                userID: "c464ea83-fcf5-44a4-8d90-f41b78b78db8",
-                branchID: 'a4a66b5e-182b-4b7d-bd13-8e6a54b686a6'
+                userID: "49d42e91-39e3-4879-a3b0-76b3315f9e38",
+                branchID: '9ef0b2b9-9920-4d15-982c-c4a4209700cd'
             }
 
             try {
@@ -452,8 +463,8 @@ export const CheckoutPage = () => {
 
     const _addInvoiceItem = async (_invoiceId) => {
         let stringOrder = ''
-        for (let i = 0; i < listCart.length; i++) {
-            for (let j = 0; j < listProd.length; j++) {
+        for (let i = 0; i < listCart?.length; i++) {
+            for (let j = 0; j < listProd?.length; j++) {
                 if (listCart[i].productid === listProd[j].productID) {
                     let item = {
                         invoiceID: _invoiceId,
@@ -544,7 +555,7 @@ export const CheckoutPage = () => {
             }}
             onClick={handleClickToCart}
         >
-            Cart
+            Giỏ hàng
         </Link>,
         <Typography
             key="2"
@@ -556,7 +567,7 @@ export const CheckoutPage = () => {
                 fontFamily: 'sans-serif'
             }}
         >
-            Cart Information
+            Thông tin giỏ hàng
         </Typography>,
         <Typography key="3"
             style={{
@@ -566,7 +577,7 @@ export const CheckoutPage = () => {
                 lineHeight: '1.3em',
                 fontFamily: 'sans-serif'
             }}>
-            Payment method
+            Thanh toán
         </Typography>,
     ];
 
@@ -590,7 +601,7 @@ export const CheckoutPage = () => {
             }}
             onClick={handleClickToCart}
         >
-            Cart
+            Giỏ hàng
         </Link>,
         <Link
             underline="hover"
@@ -605,7 +616,7 @@ export const CheckoutPage = () => {
             }}
             onClick={handleClosePaymentMethodScreen}
         >
-            Cart Information
+            Thông tin giỏ hàng
         </Link>,
         <Typography key="3"
             style={{
@@ -615,7 +626,7 @@ export const CheckoutPage = () => {
                 lineHeight: '1.3em',
                 fontFamily: 'sans-serif'
             }}>
-            Payment method
+            Phương thức thanh toán
         </Typography>,
     ];
 
@@ -682,7 +693,7 @@ export const CheckoutPage = () => {
                                         fontFamily: 'sans-serif'
                                     }}
                                 >
-                                    Delivery method
+                                    Phương thức vận chuyển
                                 </Typography>
                             </Stack>
                             <Stack direction="row"
@@ -703,10 +714,10 @@ export const CheckoutPage = () => {
                                         name="radio-buttons"
                                         sx={{ marginTop: '-0.5em' }}
                                     />
-                                    <Typography>Delivery within 64 provinces</Typography>
+                                    <Typography>Giao hàng khắp 64 tỉnh thành</Typography>
                                 </Stack>
                                 <Stack sx={{ marginTop: '0.55em' }}>
-                                    <Typography>2.00 USD</Typography>
+                                    <Typography>35000₫</Typography>
                                 </Stack>
                             </Stack>
                             <Stack marginTop="2em">
@@ -722,7 +733,7 @@ export const CheckoutPage = () => {
                                         fontFamily: 'sans-serif'
                                     }}
                                 >
-                                    Payment method
+                                    Phương thức thanh toán
                                 </Typography>
                             </Stack>
                             <Stack direction="row"
@@ -751,7 +762,7 @@ export const CheckoutPage = () => {
                                 }}
                                     src="https://hstatic.net/0/0/global/design/seller/image/payment/cod.svg?v=1"
                                 />
-                                <Typography sx={{ marginTop: '0.5em' }}>Pay on delivery</Typography>
+                                <Typography sx={{ marginTop: '0.5em' }}>Thanh toán khi giao hàng</Typography>
                             </Stack>
 
                             <Stack direction="column"
@@ -781,12 +792,12 @@ export const CheckoutPage = () => {
                                     }}
                                         src="https://hstatic.net/0/0/global/design/seller/image/payment/other.svg?v=1"
                                     />
-                                    <Typography sx={{ marginTop: '0.5em' }}>Pay online</Typography>
+                                    <Typography sx={{ marginTop: '0.5em' }}>Thanh toán trực tuyến</Typography>
                                 </Stack>
                                 {openPayOnline ? (
                                     <>
                                         <hr style={{ height: '1px', width: '100%', backgroundColor: 'black' }}></hr>
-                                        <Typography sx={{
+                                        {/* <Typography sx={{
                                             textAlign: 'center',
                                             whiteSpace: 'pre-line',
                                             paddingLeft: '2em',
@@ -795,29 +806,13 @@ export const CheckoutPage = () => {
                                             fontSize: '14px'
                                         }}
                                         >
-                                            VIETCOMBANK -
-                                            VONG MINH HUYNH -
+                                            BIDV -
+                                            NGUYEN KHAC NAM -
                                             Bank Account Number: 1234567896 -
-                                            PGD TP HCM -
                                             Transfer content : Your name-Phone number-Product ID
-                                        </Typography>
-                                        <Typography sx={{
-                                            textAlign: 'center',
-                                            whiteSpace: 'pre-line',
-                                            paddingLeft: '2em',
-                                            paddingRight: '2em',
-                                            color: '#737373',
-                                            fontSize: '14px'
-                                        }}
-                                        >
-                                            TECHCOMBANK -
-                                            PHAM VO DI THIEN -
-                                            Bank Account Number : 1852654970 -
-                                            PGD TP HCM -
-                                            Transfer content : Your name-Phone number-Product ID
-                                        </Typography>
+                                        </Typography> */}
 
-                                        <Typography sx={{
+                                        {/* <Typography sx={{
                                             textAlign: 'center',
                                             whiteSpace: 'pre-line',
                                             paddingLeft: '2em',
@@ -829,7 +824,7 @@ export const CheckoutPage = () => {
                                         }}
                                         >
                                             OR:
-                                        </Typography>
+                                        </Typography> */}
                                         <div style={{ width: '50%', marginTop: '1.2em', alignSelf: 'center' }}>
                                             <Paypal _discount={discount} _lastTotal={subTotal} _bigAddress={bigAddress} _guestEmail={email} _guestName={guestName} _guestPhoneNumber={guestPhoneNum} cartList={listCart} prodList={listProd} purchases={purchaseUnits} />
                                         </div>
@@ -852,7 +847,7 @@ export const CheckoutPage = () => {
                                             marginLeft: '1.2em'
                                         }}
                                     >
-                                        Back to cart information
+                                       Trở lại thông tin giỏ hàng
                                     </a>
                                 </Grid>
                                 <Grid item xs={6}>
@@ -915,7 +910,7 @@ export const CheckoutPage = () => {
                                             fontFamily: 'sans-serif'
                                         }}
                                     >
-                                        Cart Information
+                                        Thông tin giỏ hàng
                                     </Typography>
                                 </Stack>
                                 <Stack direction="row" sx={{ width: '100%', position: 'relative' }} >
@@ -980,7 +975,7 @@ export const CheckoutPage = () => {
                                 <TextField
                                     fullWidth
                                     id="outlined-basic"
-                                    label="Your address"
+                                    label="Nhập địa chỉ"
                                     variant="outlined"
                                     onChange={handleChangeAddress}
                                     sx={{
@@ -992,16 +987,16 @@ export const CheckoutPage = () => {
                                 <Grid spacing={2} container sx={{ width: '100%', position: 'relative', marginTop: '1em' }}>
                                     <Grid item xs={4}>
                                         <FormControl fullWidth>
-                                            <InputLabel id="demo-simple-select-label">City/Province</InputLabel>
+                                            <InputLabel id="demo-simple-select-label">Tỉnh/Thành phố</InputLabel>
                                             <Select
                                                 labelId="demo-simple-select-label"
                                                 id="demo-simple-select"
                                                 value={province}
-                                                label="Province/City"
+                                                label="Tỉnh/Thành phố"
                                                 onChange={handleChangeProvince}
                                             >
-                                                {provinceList.map((province) => (
-                                                    <MenuItem value={province}>{province.name}</MenuItem>
+                                                {provinceList?.map((province) => (
+                                                    <MenuItem value={province}>{province.province_name}</MenuItem>
                                                 )
                                                 )}
                                             </Select>
@@ -1010,16 +1005,16 @@ export const CheckoutPage = () => {
 
                                     <Grid item xs={4}>
                                         <FormControl fullWidth>
-                                            <InputLabel id="demo-simple-select-label">District</InputLabel>
+                                            <InputLabel id="demo-simple-select-label">Quận/Huyện</InputLabel>
                                             <Select
                                                 labelId="demo-simple-select-label"
                                                 id="demo-simple-select"
                                                 value={district}
-                                                label="District"
+                                                label="Quận/Huyện"
                                                 onChange={handleChangeDistrict}
                                             >
-                                                {districtList.map((district) => (
-                                                    <MenuItem value={district}>{district.name}</MenuItem>
+                                                {districtList?.map((district) => (
+                                                    <MenuItem value={district}>{district.district_name}</MenuItem>
                                                 )
                                                 )}
                                             </Select>
@@ -1028,16 +1023,16 @@ export const CheckoutPage = () => {
 
                                     <Grid item xs={4}>
                                         <FormControl fullWidth>
-                                            <InputLabel id="demo-simple-select-label">Commune</InputLabel>
+                                            <InputLabel id="demo-simple-select-label">Xã/Phường</InputLabel>
                                             <Select
                                                 labelId="demo-simple-select-label"
                                                 id="demo-simple-select"
                                                 value={commune}
-                                                label="Commune"
+                                                label="Xã/Phường"
                                                 onChange={handleChangeCommune}
                                             >
-                                                {communeList.map((commune) => (
-                                                    <MenuItem value={commune}>{commune.name}</MenuItem>
+                                                {communeList?.map((commune) => (
+                                                    <MenuItem value={commune}>{commune.ward_name}</MenuItem>
                                                 )
                                                 )}
                                             </Select>
@@ -1059,12 +1054,12 @@ export const CheckoutPage = () => {
                                                     marginLeft: '1.2em'
                                                 }}
                                             >
-                                                My Cart
+                                                Giỏ hàng
                                             </a>
                                         </Grid>
                                         <Grid item xs={6}>
                                             <Button onClick={handleToPayment} variant="contained" sx={{ fontSize: '14px' }} size="large">
-                                                Continue to payment method
+                                                Tiếp tục Thanh toán sản phẩm
                                             </Button>
                                         </Grid>
                                     </Grid>
@@ -1221,8 +1216,8 @@ export const CheckoutPage = () => {
                                                 label="Province/City"
                                                 onChange={handleChangeProvince}
                                             >
-                                                {provinceList.map((province) => (
-                                                    <MenuItem value={province}>{province.name}</MenuItem>
+                                                {provinceList?.map((province) => (
+                                                    <MenuItem value={province}>{province.province_name}</MenuItem>
                                                 )
                                                 )}
                                             </Select>
@@ -1240,8 +1235,8 @@ export const CheckoutPage = () => {
                                                 label="District"
                                                 onChange={handleChangeDistrict}
                                             >
-                                                {districtList.map((district) => (
-                                                    <MenuItem value={district}>{district.name}</MenuItem>
+                                                {districtList?.map((district) => (
+                                                    <MenuItem value={district}>{district.district_name}</MenuItem>
                                                 )
                                                 )}
                                             </Select>
@@ -1258,8 +1253,8 @@ export const CheckoutPage = () => {
                                                 label="Commune"
                                                 onChange={handleChangeCommune}
                                             >
-                                                {communeList.map((commune) => (
-                                                    <MenuItem value={commune}>{commune.name}</MenuItem>
+                                                {communeList?.map((commune) => (
+                                                    <MenuItem value={commune}>{commune.ward_name}</MenuItem>
                                                 )
                                                 )}
                                             </Select>
@@ -1308,8 +1303,9 @@ export const CheckoutPage = () => {
             }} height="auto" item xs={5}>
                 {localStorage.getItem('role') === 'customer' ? (
                     <Stack direction="column" spacing={2} p="2rem" paddingRight="6em">
-                        {listCart.map((cart) => (
+                        {listCart?.map((cart, index) => (
                             <Stack
+                                key={index}
                                 sx={{
                                     backgroundColor: '#F2F2F2',
                                     borderRadius: '8px',
@@ -1327,7 +1323,7 @@ export const CheckoutPage = () => {
                                             position: 'relative'
                                         }}
                                             alt={prod.name}
-                                            src={prod.productimage[0].imageURL}
+                                            src={prod.productimage[0]?.imageURL}
                                         />
                                     ) : (
                                         null
@@ -1335,11 +1331,11 @@ export const CheckoutPage = () => {
                                 )}
                                 <Stack direction="column">
                                     <Typography sx={{ marginLeft: '1em', marginTop: '1em' }}>{cart.product.name}</Typography>
-                                    <Typography sx={{ marginLeft: '1em', marginTop: '0.75em' }}> Quantity: {cart.amount}</Typography>
+                                    <Typography sx={{ marginLeft: '1em', marginTop: '0.75em' }}> Số lượng: {cart.amount}</Typography>
                                 </Stack>
                                 {listProd.map((prod) =>
                                     prod.productID === cart.productid ? (
-                                        <Typography sx={{ alignSelf: 'flex-end', fontWeight: 600 }}> ${Number(prod.price) * Number(cart.amount)}</Typography>
+                                        <Typography sx={{ alignSelf: 'flex-end', fontWeight: 600 }}> {Number(prod.price) * Number(cart.amount)}₫</Typography>
                                     ) : (null)
                                 )}
                             </Stack>
@@ -1350,7 +1346,7 @@ export const CheckoutPage = () => {
                                 <TextField
                                     fullWidth
                                     id="outlined-basic"
-                                    label="Discount code"
+                                    label="Nhập mã giảm giá (nếu có)"
                                     variant="outlined"
                                     // onChange={handleChangeAddress}
                                     sx={{
@@ -1361,61 +1357,32 @@ export const CheckoutPage = () => {
                             </Grid>
                             <Grid item xs={3.5} sx={{ height: '100%' }}>
                                 <Button variant="contained" sx={{ fontSize: '14px', backgroundColor: 'gray', marginTop: '0.5em', width: '100%', height: '100%' }}>
-                                    Use
+                                    Sử dụng
                                 </Button>
                             </Grid>
                         </Grid>
-                        <div style={{ height: '1px', width: '100%', backgroundColor: '#BFBFBF' }}></div>
-                        <Stack direction="column" width="100%">
-                            <Typography sx={{
-                                color: '#333333',
-                                fontFamily: 'sans-serif', fontWeight: 300
-                            }}
-                            >MEMBERSHIP
-                            </Typography>
-                            <Stack direction="row" width="100%" justifyContent="space-between">
-                                <>
-                                    {/* <DiamondIcon sx={{ width: '17px', height: '17px' }} /> */}
-                                    <Typography sx={{
-                                        color: '#333333',
-                                        fontSize: '13px',
-                                        fontWeight: 'bold'
-                                    }}>
-                                        {typeCus} - {_currentUser.score} point(s)
-                                    </Typography>
-                                </>
-                                <Typography sx={{
-                                    color: '#333333',
-                                    fontWeight: 600,
-                                    marginTop: '1.2em'
-                                }}
-                                >
-                                    -{discount}%
-                                </Typography>
-
-                            </Stack>
-                        </Stack>
+                        
                         <div style={{ height: '1px', width: '100%', backgroundColor: '#BFBFBF' }}></div>
                         <Stack direction="row" width='100%' justifyContent="space-between">
-                            <Typography sx={{ marginTop: '1.2em', color: 'gray' }}>Temporary cost</Typography>
+                            <Typography sx={{ marginTop: '1.2em', color: 'gray' }}>Tổng tiền sản phẩm</Typography>
                             <Typography sx={{
                                 color: '#333333',
-                                fontWeight: 600,
+                                fontWeight: 800,
                                 marginTop: '1.2em'
                             }}
                             >
-                                ${subTotal - subTotal * discount / 100}
+                                {subTotal - subTotal * discount / 100}₫
                             </Typography>
                         </Stack>
                         <Stack direction="row" width='100%' justifyContent="space-between">
-                            <Typography sx={{ color: 'gray', marginTop: '-0.5em' }}>Delivery cost</Typography>
+                            <Typography sx={{ color: 'gray', marginTop: '-0.5em' }}>Giá vận chuyển</Typography>
                             <Typography sx={{
                                 color: '#333333',
                                 fontWeight: 800,
                                 marginTop: '-0.5em'
                             }}
                             >
-                                $2.00
+                                35000₫
                             </Typography>
                         </Stack>
                         <div style={{ height: '1px', width: '100%', backgroundColor: '#BFBFBF' }}></div>
@@ -1429,7 +1396,7 @@ export const CheckoutPage = () => {
                                 fontSize: '20px'
                             }}
                             >
-                                {subTotal - subTotal * discount / 100 + 2} USD
+                                {Number(subTotal - subTotal * discount / 100) + Number(35000)}₫
                             </Typography>
                         </Stack>
                     </Stack>
@@ -1455,7 +1422,7 @@ export const CheckoutPage = () => {
                                             position: 'relative'
                                         }}
                                             alt={prod.name}
-                                            src={prod.productimage[0].imageURL}
+                                            src={prod.productimage[0]?.imageURL}
                                         />
                                     ) : (
                                         null

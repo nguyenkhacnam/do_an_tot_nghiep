@@ -23,13 +23,13 @@ const ProductItem = (props) => {
     <Card sx={{ width: 300, height: 380, p: 2, m:1, boxShadow: 5 }}>
       <CardActionArea sx={{height: '100%'}} onClick={handleNavigateToDetail}>
         <Img alt="complex"
-          src={props.product.productimage[0].imageURL} />
+          src={props.product.productimage[0]?.imageURL} />
         <CardContent>
           <Typography gutterBottom variant="body1" fontWeight={'bold'} component="div">
             {props.product.name}
           </Typography>
           <Typography gutterBottom variant="body2" color='#868C7D'  component="div">
-            Warranty {props.product.warranty}
+            Bảo hành {props.product.warranty}
           </Typography>
           <Stack sx={{p : 1}} spacing={1}>
             <Box>
@@ -42,11 +42,11 @@ const ProductItem = (props) => {
               RAM: {props.product.ram}
             </Box>
             <Box>
-              Screen: {props.product.screenDimension}' inch
+              Màn hình: {props.product.screenDimension}' inch
             </Box>
           </Stack>
           <Typography variant="body1" fontWeight={'bold'} sx={{textAlign: 'end', alignSelf: 'end'}} color="#D94A56">
-            $ {props.product.price}
+            {props.product.price}₫
           </Typography>
         </CardContent>
       </CardActionArea>

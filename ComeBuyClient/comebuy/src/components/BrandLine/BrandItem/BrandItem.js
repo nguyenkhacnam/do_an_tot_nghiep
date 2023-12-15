@@ -40,7 +40,7 @@ const BrandItem = (props) => {
       <Grid container spacing={2}>
         <Grid item>
           <ButtonBase sx={{ width: 120, height: 120 }}>
-            <Img alt="complex" src={props.item.productimage[0].imageURL} />
+            <Img alt="complex" src={props.item.productimage[0]?.imageURL} />
           </ButtonBase>
         </Grid>
         <Grid item xs={12} sm container>

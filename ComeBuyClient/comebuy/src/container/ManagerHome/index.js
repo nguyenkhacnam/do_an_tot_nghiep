@@ -12,7 +12,7 @@ const ManagerHome = () => {
                     backgroundColor: 'white',
                     borderRadius: 7,
                     p: 2
-                }}>Welcome to Comebuy Management Site</Typography>
+                }}>Chào mừng bạn đến với Trang quản lý Comebuy</Typography>
             <img
                 src='https://images.unsplash.com/photo-1661961112951-f2bfd1f253ce?ixlib=rb-1.2.1&ixid=MnwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1172&q=80'
                 style={{ height: '100%', width: '100%', position: "absolute" }}

@@ -53,7 +53,7 @@ const StockInBranch = (props) => {
         if (response.status == 200) {
             const newList = stockList.filter((item) => item.id != selectedStk.id)
             setStockList(newList)
-            setMessageSuccess("Delete Stock Successfully")
+            setMessageSuccess("Thành công")
             setOpenSuccessAlert(true)
         }
         else {
@@ -90,7 +90,7 @@ const StockInBranch = (props) => {
     async function LoadData() {
         try {
             const response = await stockApi.getAllStockByBranch(branch.branchID)
-            if (response.status == 200) {
+            if (response.status === 200) {
                 setStockList(response.data)
                 setLoading(true)
                 setMessageSuccess("Load Stock Successfully")
@@ -113,9 +113,9 @@ const StockInBranch = (props) => {
     return (
         <Box sx={{ height: '30%', width: '100%' }}>
             <Stack>
-                <Button sx={style.AddProductButton} startIcon={<AddShoppingCartIcon />} onClick={() => setOpenAddModal(true)}>Add Product</Button>
+                <Button sx={style.AddProductButton} startIcon={<AddShoppingCartIcon />} onClick={() => setOpenAddModal(true)}>Thêm sản phẩm vào kho</Button>
                 {
-                    stockList != undefined && stockList.length > 0 ?
+                    stockList !== undefined && stockList.length > 0 ?
                         <Stack>
                             {
                                 stockList.map((item) => (
@@ -134,10 +134,10 @@ const StockInBranch = (props) => {
                         </Stack>
                         :
                         <Box sx={{ display: 'flex' }}>
-                            { loading == false ? 
+                            { loading === false ? 
                                 <CircularProgress />
                                 :
-                                <Typography variant='h6'>There is no product to show...</Typography>
+                                <Typography variant='h6'>Không có sản phẩm nào để hiển thị...</Typography>
                             }
                         </Box>
                 }

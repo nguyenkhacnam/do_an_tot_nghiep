@@ -30,10 +30,10 @@ const ConfirmDialog = (props) => {
                 </DialogContent>
                 <DialogActions>
                     <Button autoFocus onClick={props.handleClose}>
-                        Disagree
+                        Hủy bỏ
                     </Button>
                     <Button onClick={props.handleConfirm} autoFocus>
-                        Agree
+                        Đồng ý
                     </Button>
                 </DialogActions>
             </Dialog>

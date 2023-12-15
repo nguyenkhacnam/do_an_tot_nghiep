@@ -52,6 +52,7 @@ const Product = () => {
     const _productList = useSelector(productListSelector)  // list get from store
     const dispatch = useDispatch()
     const [productList, setProductList] = useState(_productList)
+    console.log("🚀 ~ file: index.js:55 ~ Product ~ productList:", productList)
     const navigate = useNavigate()
     const initalValue = { index: 0, value: null }
     //For Alert
@@ -121,44 +122,45 @@ const Product = () => {
     const columns = useMemo(
         () => [
             { field: 'id', hide: true },
-            { field: 'brand', headerName: 'Brand', width: 100 },
-            { field: 'name', headerName: 'Name', width: 180 },
+            { field: 'brand', headerName: 'Chi nhánh', width: 100 },
+            { field: 'name', headerName: 'Tên', width: 180 },
             { field: 'memory', headerName: 'Memory', width: 70 },
             { field: 'gpu', headerName: 'GPU', width: 150 },
             { field: 'cpu', headerName: 'CPU', width: 200 },
-            { field: 'weight', headerName: 'Weight', width: 100 },
+            { field: 'weight', headerName: 'Cân nặng', width: 100 },
             {
-                field: 'price', headerName: 'Price', width: 120, renderCell: (params) => (
-                    renderImportantTag(params.value, 300)
-                )
+                field: 'price', headerName: 'Giá', width: 150, 
+                // renderCell: (params) => (
+                //     renderImportantTag(params.value, 300)
+                // )
             },
             {
                 field: 'isPublished', headerName: 'Published', width: 120, renderCell: (params) => (
                     <ColorSwitch param={params} onIsPublishedChange={handleIsPublishedChange} />
                 )
             },
-            { field: 'origin', headerName: 'Origin', width: 80 },
+            { field: 'origin', headerName: 'Xuất xứ', width: 80 },
             {
                 field: 'actions',
                 type: 'actions',
-                headerName: 'Actions',
-                width: 80,
+                headerName: 'Chức năng',
+                width: 100,
                 getActions: (params) => [
                     <GridActionsCellItem
                         icon={<InfoIcon />}
-                        label="Details"
+                        label="Chi tiết"
                         onClick={showDetail(params.row)}
                         showInMenu
                     />,
                     <GridActionsCellItem
                         icon={<EditIcon />}
-                        label="Edit"
+                        label="Cập nhật"
                         onClick={handleEditProduct(params.row)}
                         showInMenu
                     />,
                     <GridActionsCellItem
                         icon={<DeleteIcon />}
-                        label="Delete"
+                        label="Xóa"
                         onClick={deleteProduct(params.id)}
                         showInMenu
                     />,
@@ -174,7 +176,7 @@ const Product = () => {
                 .unwrap()
                 .then((originalPromiseResult) => {
                     setProductList(originalPromiseResult)
-                    setMessageSuccess("Load Product Successfully")
+                    setMessageSuccess("Thành công")
                     setOpenSuccessAlert(true)
                 })
                 .catch((rejectedValueOrSerializedError) => {
@@ -185,7 +187,7 @@ const Product = () => {
         }
         if (_productList.length > 0) {
             setProductList(_productList)
-            setMessageSuccess("Load Product Successfully")
+            setMessageSuccess("Thành công")
             setOpenSuccessAlert(true)
         }
         return () => { setProductList({}) }
@@ -226,7 +228,7 @@ const Product = () => {
                 }}>
                     <Stack sx={{alignItems: 'center', justifyItems: 'center', pl: 2, pt: 2 }} direction={'row'} spacing={2}>
                         <ImportantDevicesIcon />
-                        <Typography variant="h6">Product Manager</Typography>
+                        <Typography variant="h6">Quản lý sản phẩm</Typography>
                     </Stack>
                     <Button sx={{
                         width: 150,
@@ -238,7 +240,7 @@ const Product = () => {
                             backgroundColor: 'black',
                             color: 'white',
                         }
-                    }} onClick={() => navigate('/product/add')}>Add Product</Button>
+                    }} onClick={() => navigate('/product/add')}>Thêm sản phẩm</Button>
                     <DetailProductModal open={openModal} onClose={handleCloseModal} product={currentProduct.value} />
                     <ProductTable
                         pageSize={pageSize}

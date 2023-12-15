@@ -9,12 +9,14 @@ import { BrowserRouter } from 'react-router-dom';
 import ScrollButton from './components/ScrollButton/ScrollButton';
 
 ReactDOM.render(
-  <Provider store={store}>
-    <BrowserRouter>
-      <App />
-      {/* <ScrollButton /> */}
-    </BrowserRouter>
-  </Provider>,
+  <React.StrictMode>
+    <Provider store={store}>
+      <BrowserRouter>
+        <App />
+        {/* <ScrollButton /> */}
+      </BrowserRouter>
+    </Provider>
+  </React.StrictMode>,
   document.getElementById('root')
 );
 

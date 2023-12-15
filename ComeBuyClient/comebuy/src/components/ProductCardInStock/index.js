@@ -44,7 +44,7 @@ const ProductCardInStock = (props) => {
         <CardMedia
           component="img"
           sx={{ width: 200, height: 150, resize: true, alignSelf: 'center' }}
-          image={product != null ? product.productimage[0].imageURL : "https://images.unsplash.com/photo-1530893609608-32a9af3aa95c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=464&q=80"}
+          image={product != null ? product.productimage[0]?.imageURL : "https://images.unsplash.com/photo-1530893609608-32a9af3aa95c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=464&q=80"}
           alt="Live from space album cover"
         />
       }
@@ -54,13 +54,13 @@ const ProductCardInStock = (props) => {
             {product != null ? product.name : props.stock.product.name}
           </Typography>
           <Typography sx={{margin: 1}} variant="body1" color='#2e1534' component="div">
-            {product != null ? "From $" + product.price : null}
+            {product != null ? product.price + "₫" : null}
           </Typography>
           <Typography sx={{margin: 1}} variant="body1" color="teal" component="div">
-            {props.stock != null ? "Total :" + props.stock.totalAmount : null}
+            {props.stock != null ? "Tổng :" + props.stock.totalAmount : null}
           </Typography>
           <Typography sx={{margin: 1}}  variant="body1" color="#BF2604" component="div">
-            {props.stock != null ? "Remaining: " + props.stock.remaining : null}
+            {props.stock != null ? "Còn lại: " + props.stock.remaining : null}
           </Typography>
         </CardContent>
         <Box sx={{ display: 'flex', alignItems: 'center', pl: 1, pb: 1, alignSelf: 'flex-start' }}>

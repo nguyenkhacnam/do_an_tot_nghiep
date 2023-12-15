@@ -157,17 +157,17 @@ const OrderRow = (props) => {
                     <Collapse in={open} timeout="auto" unmountOnExit>
                         <Box sx={{ margin: 1 }}>
                             <Typography variant="h7" style={{ fontWeight: 'bold', color: 'black', textDecoration: 'underline' }} gutterBottom component="div">
-                                Details:
+                                Chi tiết:
                             </Typography>
                             <Typography variant="h8" style={{ fontSize: '14px', fontWeight: 'bold', color: 'black' }} gutterBottom component="div">
-                                Receive at: {row.address}
+                                Nhận đơn hàng tại địa chỉ: {row.address}
                             </Typography>
                             <Table size="small" aria-label="purchases">
                                 <TableHead>
                                     <TableRow>
-                                        <TableCell style={{ color: 'black' }}>Product ID</TableCell>
-                                        <TableCell align="center" style={{ color: 'black' }}>Amount</TableCell>
-                                        <TableCell align="center" style={{ color: 'black' }}>Total price (USD)</TableCell>
+                                        <TableCell style={{ color: 'black' }}>ID Sản phẩm</TableCell>
+                                        <TableCell align="center" style={{ color: 'black' }}>Số lượng</TableCell>
+                                        <TableCell align="center" style={{ color: 'black' }}>Tổng tiền(VND)</TableCell>
                                     </TableRow>
                                 </TableHead>
                                 <TableBody>

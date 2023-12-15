@@ -57,8 +57,8 @@ export default function NavBar(props) {
     const isMenuOpen = Boolean(anchorEl);
     const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
-    const selections_1 = ['Sign In']
-    const selections_2 = ['My place', 'Log Out']
+    const selections_1 = ['Đăng nhập']
+    const selections_2 = ['Yêu thích', 'Trang cá nhân', 'Đơn hàng', 'Đăng xuất']
 
     useEffect(() => {
         setNumberCart(_cart.length)
@@ -92,17 +92,24 @@ export default function NavBar(props) {
         setAnchorEl(null);
         handleMobileMenuClose();
 
-        if (e.target.innerText === 'Sign In')
+        if (e.target.innerText === 'Đăng nhập')
             handleLogin();
-        else if (e.target.innerText === 'Log Out') {
+        else if (e.target.innerText === 'Đăng xuất') {
             dispatch(accountSlice.actions.logout());
             localStorage.setItem('role', '')
             localStorage.setItem('idUser', '')
             localStorage.setItem('cart', JSON.stringify([]));
-            navigate(0)
+            // navigate(0)
+            navigate('/login')
         } else if (e.target.innerText === 'My place') {
             handleMyPlace();
-        }
+        } else if (e.target.innerText === 'Yêu thích') {
+            navigate('/myplace/myfavorite')
+        } else if (e.target.innerText === 'Trang cá nhân') {
+            navigate('/profile')
+        } else if (e.target.innerText === 'Đơn hàng') {
+            navigate('/myplace/myorders')
+        } 
     };
 
     const handleMobileMenuOpen = (event) => {
@@ -127,6 +134,9 @@ export default function NavBar(props) {
                 }}
                 open={isMenuOpen}
                 onClose={handleMenuClose}
+                style={{
+                    marginTop: '50px'
+                }}
             >
                 {
                     !isSignedIn ?
@@ -138,7 +148,11 @@ export default function NavBar(props) {
                             ))}
                         </div>
                         :
-                        <div>
+                        <div 
+                            style={{
+                                width: '140px'
+                            }}
+                        >
                             {selections_2.map((sel) => (
                                 <MenuItem key={sel} onClick={handleMenuClose}>
                                     {sel}
@@ -249,7 +263,8 @@ export default function NavBar(props) {
                             onClick={handleMobileMenuOpen}
                             color="inherit"
                         >
-                            <MoreIcon />
+                            <AccountCircle style={{color: '#B360E6', fontSize: '40px' }}/>
+                            {/* <MoreIcon /> */}
                         </IconButton>
                     </Box>
                 </Toolbar>

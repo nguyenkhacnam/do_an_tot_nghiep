@@ -108,7 +108,7 @@ export default function LiveBanner(props) {
                 }
             </Swiper>
             {/* <ImgFeatureLine src={props.urlImage}></ImgFeatureLine> */}
-            <CustomButton endIcon={<ArrowRightIcon />} onClick={props.onNavigate}>See More</CustomButton>
+            <CustomButton endIcon={<ArrowRightIcon />} onClick={props.onNavigate}>Xem thêm</CustomButton>
         </Container>
     )
 }

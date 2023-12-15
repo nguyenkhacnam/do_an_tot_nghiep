@@ -7,7 +7,7 @@ const AppError = require("../utils/AppError");
 const SendResponse = require("../utils/SendResponse");
 const axios = require("axios");
 // Create and Save a new Comment
-exports.create = catchAsync(async (req, res, next) => {
+exports.create1 = catchAsync(async (req, res, next) => {
   // Validate request
   if (!req.body.body || !req.body.productID || !req.body.userID) {
     next(new AppError("Content can not be empty!", 400));
@@ -57,6 +57,46 @@ exports.create = catchAsync(async (req, res, next) => {
   } else
     next(new AppError("Some error occurred while creating the Comment.", 500));
 });
+exports.create = catchAsync(async (req, res, next) => {
+  // Validate request
+  if (!req.body.body || !req.body.productID || !req.body.userID) {
+    next(new AppError("Content can not be empty!", 400));
+    return;
+  }
+
+  // Tạo một Comment
+  const comment = {
+    productid: req.body.productID,
+    userid: req.body.userID,
+    body: req.body.body,
+    postDate: req.body.postDate,
+  };
+
+  // Lưu Comment vào cơ sở dữ liệu
+  const data = await Comment.create(comment);
+
+  if (data) {
+    const listComment = await Comment.findAll({
+      where: { productid: req.body.productID },
+      include: [
+        {
+          model: Account,
+          as: "account",
+          attributes: ["name", "email", "avatar"],
+        },
+      ],
+    });
+
+    if (listComment) {
+      SendResponse(listComment, 200, res);
+    } else {
+      next(new AppError("Error Load Comment", 500));
+    }
+  } else {
+    next(new AppError("Some error occurred while creating the Comment.", 500));
+  }
+});
+
 // Retrieve all Comments from the database.
 exports.findAll = (req, res) => {
   Comment.findAll({

@@ -9,7 +9,7 @@ const RoleSelect = (props) => {
     return (
         <Box sx={{ minWidth: 120}}>
             <FormControl fullWidth>
-                <InputLabel id="demo-simple-select-label">Role</InputLabel>
+                <InputLabel id="demo-simple-select-label">Quyền</InputLabel>
                 <Select
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
@@ -17,8 +17,8 @@ const RoleSelect = (props) => {
                     label="Role"
                     onChange={props.handleChange}
                 >
-                    <MenuItem value='staff'>Staff</MenuItem>
-                    <MenuItem value='manager'>Manager</MenuItem>
+                    <MenuItem value='staff'>Nhân viên</MenuItem>
+                    <MenuItem value='manager'>Quản lý</MenuItem>
                 </Select>
             </FormControl>
         </Box>

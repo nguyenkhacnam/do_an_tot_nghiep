@@ -298,7 +298,7 @@ const AddProduct = () => {
             .unwrap()
             .then((originalPromiseResult) => {
                 setFeatureList(originalPromiseResult)
-                setMessageSuccess("Load Feature Successfully")
+                setMessageSuccess("Thành công")
                 setOpenSuccessAlert(true)
             })
             .catch((rejectedValueOrSerializedError) => {

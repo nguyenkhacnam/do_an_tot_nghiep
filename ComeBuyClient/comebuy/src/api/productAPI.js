@@ -6,7 +6,7 @@ const productAPI = {
     getAll: async () => {
         const res = await DatabaseClient.get('/' + baseURL)
             .catch(err => { return err.response })
-        return res.data;
+        return res?.data;
     },
 
     edit: async (data) => {

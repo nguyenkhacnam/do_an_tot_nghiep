@@ -93,19 +93,19 @@ const ProfileManage = () => {
             href="/myplace"
             onClick={handleClickToHome}
         >
-            Home
+            Trang chủ
         </Link>,
-        <Link
-            underline="hover"
-            key="2"
-            style={{ color: 'black' }}
-            href="/myplace"
-            onClick={handleClick}
-        >
-            My place
-        </Link>,
+        // <Link
+        //     underline="hover"
+        //     key="2"
+        //     style={{ color: 'black' }}
+        //     href="/myplace"
+        //     onClick={handleClick}
+        // >
+        //     My place
+        // </Link>,
         <Typography key="3" style={{ color: 'black' }}>
-            Profile Management
+            Trang cá nhân
         </Typography>,
     ];
 
@@ -471,12 +471,12 @@ const ProfileManage = () => {
                 fontSize: '24px',
                 fontWeight: 'bold',
             }}>
-                Your information
+                Thông tin của bạn
             </Typography>
             <div style={{ marginLeft: '15%', height: '1px', backgroundColor: 'black', width: '60%' }}></div>
 
             {/* name & Avatar */}
-            <Stack direction="row" width='100%' spacing={2}
+            <Stack direction="row" width='100%' spacing={2} style={{marginLeft: '280px'}}
                 sx={{
                     backgroundColor: '#F2EBDF',
                     marginTop: '2%',
@@ -550,7 +550,7 @@ const ProfileManage = () => {
                         fontStyle: 'italic'
                     }}
                     >
-                        Account holder
+                        Chủ tài khoản
                     </Typography>
                 </Stack>
                 <IconButton onClick={handleOpenModalChangeName}
@@ -569,12 +569,12 @@ const ProfileManage = () => {
                     paddingTop: '-1%'
                 }}
             >
-                <Stack direction="row" spacing={0.5}>
+                {/* <Stack direction="row" spacing={0.5}>
                     <MemberShipStepper />
                     <IconButton onClick={() => setOpenModalMemberRule(true)} style={{ marginLeft: '-2%', marginTop: '-2.5%', backgroundColor: '#F2EBDF' }}>
                         <MoreIcon />
                     </IconButton>
-                </Stack>
+                </Stack> */}
                 <Typography style={{
                     fontSize: '23px',
                     fontWeight: 'bold',
@@ -583,7 +583,7 @@ const ProfileManage = () => {
                     color: 'black'
                 }}
                 >
-                    Contact
+                    Số điện thoại
                 </Typography>
                 <div style={{
                     height: '1px',
@@ -602,7 +602,7 @@ const ProfileManage = () => {
                     fontStyle: 'italic'
                 }}
                 >
-                    Receive important alerts for your profile here.
+                    {/* Receive important alerts for your profile here. */}
                 </Typography>
                 <Stack direction="row" spacing={2}
                     style={{ width: '100%' }}
@@ -660,7 +660,7 @@ const ProfileManage = () => {
                     color: 'black'
                 }}
                 >
-                    Address
+                    Địa chỉ
                 </Typography>
                 <div style={{
                     height: '1px',
@@ -679,7 +679,7 @@ const ProfileManage = () => {
                     fontStyle: 'italic'
                 }}
                 >
-                    Where do your packages go ?
+                    {/* Where do your packages go ? */}
                 </Typography>
                 <Stack direction="row" spacing={2}
                     style={{ width: '100%' }}
@@ -738,7 +738,7 @@ const ProfileManage = () => {
                     marginLeft: '15%'
                 }}
                 >
-                    DOB & Gender
+                    Ngày sinh & Giới tính
                 </Typography>
                 <div style={{
                     height: '1px',
@@ -757,12 +757,12 @@ const ProfileManage = () => {
                     fontStyle: 'italic'
                 }}
                 >
-                    If you're a regular customer, we will have gift for your birthday
+                    {/* If you're a regular customer, we will have gift for your birthday */}
                 </Typography>
                 <Stack direction="row" spacing={2}
                     style={{ width: '100%' }}
                 >
-                    <Typography style={{ color: 'black', fontWeight: 'bold', marginTop: '1%', marginLeft: '15%' }}>Birthday:</Typography>
+                    <Typography style={{ color: 'black', fontWeight: 'bold', marginTop: '1%', marginLeft: '15%' }}>Ngày sinh:</Typography>
                     <LocalizationProvider dateAdapter={AdapterDateFns}>
                         <MobileDatePicker
                             value={selectedDate}
@@ -772,7 +772,7 @@ const ProfileManage = () => {
                             renderInput={(params) => <TextField style={{ height: '5%', backgroundColor: '#F2EBDF' }} {...params} />}
                         />
                     </LocalizationProvider>
-                    <Typography style={{ color: 'black', fontWeight: 'bold', marginTop: '1%', marginLeft: '3%' }}>Gender:</Typography>
+                    <Typography style={{ color: 'black', fontWeight: 'bold', marginTop: '1%', marginLeft: '3%' }}>Giới tính:</Typography>
                     <FormControl variant="standard" width="100" style={{ marginTop: '0.75%' }}>
                         <Select
                             labelId="demo-simple-select-standard-label"
@@ -781,8 +781,8 @@ const ProfileManage = () => {
                             value={gender === 'male' ? 'male' : 'female'}
                             onChange={handleChangeGender}
                         >
-                            <MenuItem value={"male"}>Male</MenuItem>
-                            <MenuItem value={"female"}>Female</MenuItem>
+                            <MenuItem value={"male"}>Nam</MenuItem>
+                            <MenuItem value={"female"}>Nữ</MenuItem>
                         </Select>
                     </FormControl>
                     <Button
@@ -799,7 +799,7 @@ const ProfileManage = () => {
                             height: '3%',
                             padding: '12px 45px',
                             letterSpacing: '1px',
-                        }}>Save</Button>
+                        }}>Lưu</Button>
                 </Stack>
             </Stack>
             {/* change name modal */}
@@ -822,12 +822,12 @@ const ProfileManage = () => {
                     p: 4,
                 }}>
                     <Typography id="modal-modal-title" variant="h6" component="h2">
-                        Edit your name
+                    Chỉnh sửa tên của bạn
                     </Typography>
                     <Typography id="modal-modal-description"
                         sx={{ mt: 2, marginTop: '1%', fontSize: '13px' }}
                     >
-                        Changes made to your profile name here, will be shown anywhere your profile is used.
+                        {/* Những thay đổi được thực hiện đối với tên hồ sơ của bạn ở đây sẽ được hiển thị ở bất kỳ nơi nào hồ sơ của bạn được sử dụng. */}
                     </Typography>
                     <TextField
                         style={{ width: '100%', marginTop: '2%' }}
@@ -839,13 +839,13 @@ const ProfileManage = () => {
                     {toggleSaveBtn ? (
                         <Stack direction="row" spacing={3} style={{ justifyContent: 'space-between' }}>
                             <Button onClick={handleCloseModalChangeName}>
-                                Cancel
+                                Hủy bỏ
                             </Button>
                             <Button onClick={handleChangeName} style={{ marginLeft: '40%' }}>Save</Button>
                         </Stack>
                     ) : (
                         <Button onClick={handleCloseModalChangeName}>
-                            Cancel
+                            Hủy bỏ
                         </Button>
                     )}
                     {/* Backdrop for updating */}
@@ -878,11 +878,11 @@ const ProfileManage = () => {
                     p: 4,
                 }}>
                     <Typography id="modal-modal-title" variant="h6" component="h2">
-                        Edit your phone number
+                        Cập nhật số điện thoại
                     </Typography>
                     <Typography id="modal-modal-description"
                         sx={{ mt: 2, marginTop: '1%', fontSize: '13px' }}>
-                        Changes made to your contact here so we know how to contact you.
+                        {/* Những thay đổi được thực hiện đối với địa chỉ liên hệ của bạn ở đây để chúng tôi biết cách liên hệ với bạn. */}
                     </Typography>
                     <TextField
                         style={{ width: '100%', marginTop: '2%' }}
@@ -894,13 +894,13 @@ const ProfileManage = () => {
                     {toggleSaveContactBtn ? (
                         <Stack direction="row" style={{ justifyContent: 'space-between' }}>
                             <Button onClick={handleCloseModalChangeContact}>
-                                Cancel
+                                Hủy bỏ
                             </Button>
                             <Button onClick={handleChangeContact} style={{ marginLeft: '40%' }}>Save</Button>
                         </Stack>
                     ) : (
                         <Button onClick={handleCloseModalChangeContact}>
-                            Cancel
+                            Hủy bỏ
                         </Button>
                     )}
                     {/* Backdrop for updating */}
@@ -933,10 +933,10 @@ const ProfileManage = () => {
                     p: 4,
                 }}>
                     <Typography id="modal-modal-title" variant="h6" component="h2">
-                        Edit your address
+                        Cập nhật địa chỉ
                     </Typography>
                     <Typography id="modal-modal-description" sx={{ mt: 2, marginTop: '1%', fontSize: '13px' }}>
-                        Changes made to your address here so we know where to send your packages or voucher gift
+                        {/* Changes made to your address here so we know where to send your packages or voucher gift */}
                     </Typography>
                     <TextField
                         style={{ width: '100%', marginTop: '2%' }}
@@ -948,13 +948,13 @@ const ProfileManage = () => {
                     {toggleSaveAddressBtn ? (
                         <Stack direction="row" style={{ justifyContent: 'space-between' }}>
                             <Button onClick={handleCloseModalChangeAddress}>
-                                Cancel
+                                Hủy bỏ
                             </Button>
                             <Button onClick={handleChangeAddress} style={{ marginLeft: '40%' }}>Save</Button>
                         </Stack>
                     ) : (
                         <Button onClick={handleCloseModalChangeAddress}>
-                            Cancel
+                            Hủy bỏ
                         </Button>
                     )}
                     {/* Backdrop for updating */}
@@ -1081,9 +1081,9 @@ const ProfileManage = () => {
                                             height: 255,
                                             display: 'flex',
                                             maxWidth: 255,
-                                            overflow: 'hidden',
+                                            // overflow: 'hidden',
                                             width: '100%',
-                                            marginLeft: '17%'
+                                            // marginLeft: '17%'
                                         }}
                                         src={step.imgPath}
                                         alt={step.label}

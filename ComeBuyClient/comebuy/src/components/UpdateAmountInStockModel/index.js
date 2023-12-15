@@ -33,7 +33,7 @@ const UpdateAmountInStockModal = (props) => {
             props.onSubmit(amount);
             props.onClose()
         }
-        else setError({ isError: true, message: "Amount is not allowed to equal 0!" })
+        else setError({ isError: true, message: "Số lượng không được phép bằng 0!" })
     }
 
     return (
@@ -44,13 +44,13 @@ const UpdateAmountInStockModal = (props) => {
             >
                 <Box sx={style}>
                     <Typography variant="h6" component="h2">
-                        Add quantity of product
+                    Thêm số lượng sản phẩm
                     </Typography>
                     <Box sx={{ height: 5, backgroundColor: '#2e1534', width: '100%', mt: 1, mb: 1, borderRadius: 5 }}></Box>
                     <Typography sx={{ mb: 2 }}>
-                        Please fill in the information.
+                    Vui lòng điền thông tin.
                     </Typography>
-                    <TextFieldForAdd inputConfig="number" Icon={<AddShoppingCartIcon />} Text={amount} Title='Amount' onChange={(event) => setAmount(event.target.value)}></TextFieldForAdd>
+                    <TextFieldForAdd inputConfig="number" Icon={<AddShoppingCartIcon />} Text={amount} Title='Số lượng' onChange={(event) => setAmount(event.target.value)}></TextFieldForAdd>
                     {
                         Error.isError &&
                         <Stack direction='row' spacing={2} sx={{margin: 1}}>
@@ -58,7 +58,7 @@ const UpdateAmountInStockModal = (props) => {
                             <Typography sx={{ color: 'red' }}>{Error.message}</Typography>
                         </Stack>
                     }
-                    <Button onClick={handleAddAmountProduct}>Submit</Button>
+                    <Button onClick={handleAddAmountProduct}>Nhập</Button>
                 </Box>
             </Modal>
         </div>

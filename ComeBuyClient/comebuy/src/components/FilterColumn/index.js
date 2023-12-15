@@ -35,16 +35,20 @@ const FilterColumn = (props) => {
             label: '0',
         },
         {
-            value: 50,
-            label: '1500',
+            value: 20,
+            label: '20 triệu',
         },
+        // {
+        //     value: 30,
+        //     label: '30 triệu',
+        // },
         {
-            value: 67,
-            label: '2000',
+            value: 50,
+            label: '50 triệu',
         },
         {
             value: 100,
-            label: '3000',
+            label: '100 triệu',
         },
     ];
 
@@ -74,15 +78,15 @@ const FilterColumn = (props) => {
     };
     return (
         <Stack sx={{ backgroundColor: '#C69AD9', justifyContent: 'center' }}>
-            <Typography variant="h6" sx={{ m: 1, color: 'white', width: '100%' }} fontWeight={'bold'} >Filter</Typography>
+            <Typography variant="h6" sx={{ m: 1, color: 'white', width: '100%' }} fontWeight={'bold'} >Lọc sản phẩm</Typography>
             <Box sx={{ backgroundColor: 'white', height: 5, width: '100%' }}></Box>
             <Stack sx={{ p: 2 }}>
-                <Typography variant="h6" fontWeight={'bold'} color={'white'} sx={{ pb: 1 }}>Demand</Typography>
+                <Typography variant="h6" fontWeight={'bold'} color={'white'} sx={{ pb: 1 }}>Yêu cầu</Typography>
                 <FeatureSelect features={featureList} currentFeature={currentFeature} handleFeatureChange={handleFeatureChosen}></FeatureSelect>
                 <Box sx={{ backgroundColor: 'white', height: 2, width: '100%' }}></Box>
             </Stack>
             <Stack sx={{ pr: 2, pl: 2 }}>
-                <Typography variant="h6" fontWeight={'bold'} color={'white'} sx={{ pb: 1 }}>Price</Typography>
+                <Typography variant="h6" fontWeight={'bold'} color={'white'} sx={{ pb: 1 }}>Giá tiền</Typography>
                 <AirbnbSlider
                     valueLabelDisplay="auto"
                     components={{ Thumb: AirbnbThumbComponent }}
@@ -95,11 +99,11 @@ const FilterColumn = (props) => {
                 <Box sx={{ backgroundColor: 'white', height: 2, marginTop: 2, width: '100%' }}></Box>
             </Stack>
             <Stack sx={{ p: 2 }}>
-                <Typography variant="h6" fontWeight={'bold'} color={'white'} sx={{ pb: 1 }}>Choose With Your Option</Typography>
+                <Typography variant="h6" fontWeight={'bold'} color={'white'} sx={{ pb: 1 }}>Chọn theo lựa chọn</Typography>
                 <FilterAccordion handleFilter={props.handleFilter} />
                 <Box sx={{ backgroundColor: 'white', height: 2, width: '100%' }}></Box>
             </Stack>
-            <FilerByPriceBtn onClick={() => props.getRecords(1)}  variant="contained" sx={{ p: 1, m: 2 }}>Filter</FilerByPriceBtn>
+            <FilerByPriceBtn onClick={() => props.getRecords(1)}  variant="contained" sx={{ p: 1, m: 2 }}>Lọc sản phẩm</FilerByPriceBtn>
         </Stack>
     )
 }

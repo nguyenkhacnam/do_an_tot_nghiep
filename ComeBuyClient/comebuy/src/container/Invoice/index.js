@@ -40,10 +40,10 @@ const BGImg = styled('img')({
 })
 
 const actions = [
-    { icon: <CheckCircleIcon />, name: 'Show done orders' },
-    { icon: <RemoveDoneIcon />, name: 'Show not done orders' },
-    { icon: <SortIcon />, name: 'Show increased orders' },
-    { icon: <FilterListIcon />, name: 'Show decreased orders' }
+    { icon: <CheckCircleIcon />, name: 'Hiển thị đơn hàng hoàn thành' },
+    { icon: <RemoveDoneIcon />, name: 'Hiển thi đơn hàng chưa hoàn thành' },
+    // { icon: <SortIcon />, name: 'Hiển thị đơn hàng tăng' },
+    // { icon: <FilterListIcon />, name: 'Hiển thị đơn hàng giảm' }
 
 ];
 
@@ -71,8 +71,9 @@ const Invoice = () => {
                 try {
                     const resultAction = await dispatch(getAllInvoice())
                     const originalPromiseResult = unwrapResult(resultAction)
+                    console.log("🚀 ~ file: index.js:74 ~ fetchInvoice ~ originalPromiseResult:", originalPromiseResult)
                     let tempList = []
-                    originalPromiseResult.map((invoice) => {
+                    originalPromiseResult?.data?.map((invoice) => {
                         let t = 0
                         invoice.invoiceitem.map(i => {
                             t = t + Number(i.total)
@@ -156,7 +157,7 @@ const Invoice = () => {
     }
 
     const handleSpeedDialClick = (action) => {
-        if (action.name === 'Show done orders') {
+        if (action.name === 'Hiển thị đơn hàng hoàn thành') {
             let temp = []
             invoiceList.map((i) => {
                 if (i.isPaid === true && i.isChecked === true) {
@@ -165,7 +166,7 @@ const Invoice = () => {
             })
             setOutput(temp)
             setChangeDataBySearch(true)
-        } else if (action.name === 'Show not done orders') {
+        } else if (action.name === 'Hiển thi đơn hàng chưa hoàn thành') {
             let temp = []
             invoiceList.map((i) => {
                 if (i.isPaid === false || i.isChecked === false) {
@@ -201,7 +202,7 @@ const Invoice = () => {
             backgroundColor: 'grey',
             overflowY: 'auto'
         }}>
-            {console.log(invoiceList)}
+            {console.log('invoiceList', invoiceList)}
             <Box sx={{
                 width: "90%",
                 height: "95%",
@@ -215,14 +216,18 @@ const Invoice = () => {
                     width: "100%",
                     height: "100%"
                 }}>
-                    <Stack direction="row" spacing={2} sx={{
+                    <Stack direction="row" spacing={2} 
+                        style={{
+                            marginLeft: '160px'
+                        }}
+                    sx={{
                         mt: 3,
                         mb: 2,
                         ml: 11
                     }}>
                         <TextField
                             id="date"
-                            label="From"
+                            label="Từ ngày"
                             type="date"
                             size="small"
                             value={fromDate}
@@ -237,7 +242,7 @@ const Invoice = () => {
                         />
                         <TextField
                             id="date"
-                            label="To"
+                            label="Đến ngày"
                             type="date"
                             value={toDate}
                             size="small"
@@ -251,7 +256,7 @@ const Invoice = () => {
                             onChange={e => setToDate(e.target.value)}
                         />
                         <Button onClick={handleSearch} color="success" variant="outlined" startIcon={<SearchIcon />}>
-                            Search
+                            Tìm kiếm
                         </Button>
                         <IconButton onClick={handleRefresh} style={{ backgroundColor: 'white' }}>
                             <RefreshIcon style={{ backgroundColor: 'white' }} />
@@ -259,8 +264,8 @@ const Invoice = () => {
                     </Stack>
                     <TableContainer
                         style={{
-                            height: 600,
-                            width: 1200,
+                            height: 720,
+                            width: 1400,
                             alignSelf: 'center',
                             backgroundColor: 'white',
                         }}
@@ -270,12 +275,12 @@ const Invoice = () => {
                             <TableHead style={{ backgroundColor: 'white', borderRadius: '15px' }}>
                                 <TableRow>
                                     <TableCell />
-                                    <TableCell style={{ color: '#0D0D0D', fontWeight: 'bold', fontSize: '13px' }}>Invoice ID</TableCell>
-                                    <TableCell align="center" style={{ color: '#0D0D0D', fontWeight: 'bold', fontSize: '13px' }}>Customer ID</TableCell>
-                                    <TableCell align="center" style={{ color: '#0D0D0D', fontWeight: 'bold', fontSize: '13px' }}>Date</TableCell>
-                                    <TableCell align="center" style={{ color: '#0D0D0D', fontWeight: 'bold', fontSize: '13px' }}>Total&nbsp;(USD)</TableCell>
-                                    <TableCell align="center" style={{ color: '#0D0D0D', fontWeight: 'bold', fontSize: '13px' }}>Status</TableCell>
-                                    <TableCell align="center" style={{ color: '#0D0D0D', fontWeight: 'bold', fontSize: '13px' }}>Print out</TableCell>
+                                    <TableCell style={{ color: '#0D0D0D', fontWeight: 'bold', fontSize: '13px' }}>ID Hóa đơn</TableCell>
+                                    <TableCell align="center" style={{ color: '#0D0D0D', fontWeight: 'bold', fontSize: '13px' }}>ID Khách hàng</TableCell>
+                                    <TableCell align="center" style={{ color: '#0D0D0D', fontWeight: 'bold', fontSize: '13px' }}>Ngày</TableCell>
+                                    <TableCell align="center" style={{ color: '#0D0D0D', fontWeight: 'bold', fontSize: '13px' }}>Tổng&nbsp;(VND)</TableCell>
+                                    <TableCell align="center" style={{ color: '#0D0D0D', fontWeight: 'bold', fontSize: '13px' }}>Trạng thái</TableCell>
+                                    <TableCell align="center" style={{ color: '#0D0D0D', fontWeight: 'bold', fontSize: '13px' }}>In hóa đơn</TableCell>
                                 </TableRow>
                             </TableHead>
                             <TableBody>

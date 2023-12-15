@@ -1,6 +1,7 @@
 const db = require("../models");
 const Feature = db.feature;
 const Product = db.product;
+const Stock = db.stock;
 const ProductImage = db.productimage;
 const Comment = db.comment;
 const Op = db.Sequelize.Op;
@@ -33,8 +34,6 @@ exports.create = catchAsync(async (req, res, next) => {
     name: req.body.name,
     brand: req.body.brand,
     description: req.body.description,
-    // name: req.body.name,
-    // description: req.body.description,
     weight: req.body.weight,
     origin: req.body.origin,
     screenDimension: req.body.screenDimension,
@@ -47,28 +46,8 @@ exports.create = catchAsync(async (req, res, next) => {
     year: req.body.year,
     // isPublished: false,
     // keyIndex: req.body.keyIndex
-    // keyIndex: req.body.keyIndex
   };
 
-  const fakeProductData = {
-    ram: '8GB',
-    memory: '512GB SSD',
-    gpu: 'NVIDIA GeForce RTX 3060',
-    cpu: 'Intel Core i7-10700K',
-    name: 'Fake Laptop',
-    brand: 'FakeBrand',
-    description: 'This is a fake product description.',
-    weight: '2.5 kg',
-    origin: 'Fake Country',
-    screenDimension: '15.6 inches',
-    colorCoverage: 16,
-    price: 1200,
-    externalIOPort: 'USB-C, HDMI, Thunderbolt',
-    battery: 'Li-ion 6-cell',
-    warranty: '1 year',
-    promotion: 'Discount on accessories',
-    year: 2023,
-  };
 
   // Save Product in the database
   const data = await Product.create(product);
@@ -128,14 +107,14 @@ exports.findAll = (req, res) => {
 // Find a single Product with an id
 exports.findOne = catchAsync(async (req, res) => {
   const id = req.params.id;
-  const statusRes = await sequelize.query(
-    "CALL up_GetStatusOfProduct(:productid,null)",
-    {
-      replacements: { productid: id },
-      type: QueryTypes.SELECT,
-      raw: true,
-    }
-  );
+  // const statusRes = await sequelize.query(
+  //   "CALL up_GetStatusOfProduct(:productid,null)",
+  //   {
+  //     replacements: { productid: id },
+  //     type: QueryTypes.SELECT,
+  //     raw: true,
+  //   }
+  // );
   Product.findByPk(id, {
     include: [
       {
@@ -160,7 +139,7 @@ exports.findOne = catchAsync(async (req, res) => {
   })
     .then((data) => {
       if (data) {
-        data.dataValues["status"] = statusRes[0].rs;
+        // data.dataValues["status"] = statusRes[0].rs;
         SendResponse(data, 200, res);
       } else {
         res.status(404).send({
@@ -194,10 +173,15 @@ exports.update = catchAsync(async (req, res, next) => {
 // Delete a Product with the specified id in the request
 exports.delete = catchAsync(async (req, res, next) => {
   const id = req.params.id;
+  console.log("🚀 ~ file: product.controller.js:175 ~ exports.delete ~ id:", id)
   try {
+    await Stock.destroy({
+      where: { productid: id }
+    });
     const num = await Product.destroy({
       where: { productid: id },
     });
+    console.log("🚀 ~ file: product.controller.js:180 ~ exports.delete ~ num:", num)
     if (num && num == 1) {
       SendResponse({ message: "Product was deleted successfully!" }, 200, res);
     } else
@@ -389,6 +373,7 @@ exports.filter = catchAsync(async (req, res, next) => {
     query2 = `'{${query2}}' `;
     const index = (offset - 1) * 9;
     query = query + query2;
+    console.log("🚀 ~ file: product.controller.js:376 ~ result ~ query:", query)
     const response = await sequelize.query(query, {
       replacements: {
         brand: brandOptions,
@@ -404,6 +389,15 @@ exports.filter = catchAsync(async (req, res, next) => {
       },
       type: QueryTypes.SELECT,
     });
+    console.log("🚀 ~ file: product.controller.js:391 ~ result ~ response:", brandOptions,
+    cpuOptions,
+    gpuOptions,
+    ramOptions,
+    memoryOptions,
+    yearOptions,
+    weightOptions,
+    SDOptions,
+    )
 
     let response_2 = [];
     console.log(response[0].records);

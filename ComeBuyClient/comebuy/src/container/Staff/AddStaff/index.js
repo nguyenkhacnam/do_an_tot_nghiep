@@ -59,7 +59,7 @@ const AddStaff = () => {
             const response = await branchApi.getAll()
             if (response.status == 200) {
                 setBranchList(response.data)
-                setMessageSuccess("Load Account Successfully")
+                setMessageSuccess("Thành công")
                 setOpenSuccessAlert(true)
             }
             else {
@@ -164,18 +164,18 @@ const AddStaff = () => {
                     padding={1}
                     sx={style.boxInfor_Stack}>
                     <AddReactionIcon />
-                    <Typography variant='h6' fontWeight='bold'>Add New Member</Typography>
+                    <Typography variant='h6' fontWeight='bold'>Thêm mới nhân viênr</Typography>
                 </Stack>
                 <Grid container>
                     <Grid item xs={12} paddingLeft={2}>
                         <Stack xs={12} spacing={2} padding={2}>
-                            <TextFieldForAdd inputConfig="text" Icon={<DriveFileRenameOutlineIcon />} Text={name} Title='Name' onChange={handleValueChange} />
+                            <TextFieldForAdd inputConfig="text" Icon={<DriveFileRenameOutlineIcon />} Text={name} Title='Tên nhân viên' onChange={handleValueChange} />
                             <Box sx={style.boxinfor_Stack_Line}></Box>
                             <TextFieldForAdd inputConfig="email" Icon={<EmailIcon />} Text={email} Title='Email' onChange={handleValueChange} />
                             <Box sx={style.boxinfor_Stack_Line}></Box>
-                            <TextFieldForAdd inputConfig="password" Icon={<PasswordIcon />} Text={password} Title='Password' onChange={handleValueChange} />
+                            <TextFieldForAdd inputConfig="password" Icon={<PasswordIcon />} Text={password} Title='Mật khẩu' onChange={handleValueChange} />
                             <Box sx={style.boxinfor_Stack_Line}></Box>
-                            <TextFieldForAdd inputConfig="password" Icon={<PasswordIcon />} Text={confirmPassword} Title='Confirm Password' onChange={handleValueChange} />
+                            <TextFieldForAdd inputConfig="password" Icon={<PasswordIcon />} Text={confirmPassword} Title='Nhập lại mật khẩu' onChange={handleValueChange} />
                             <Box sx={style.boxinfor_Stack_Line}></Box>
                             <RoleSelect value={role} handleChange={handleRoleChange} />
                             {
@@ -203,8 +203,8 @@ const AddStaff = () => {
                     <Grid item xs={12} paddingLeft={2} paddingTop={2}></Grid>
                 </Grid>
                 <Stack sx={{ width: '100%', justifyContent: 'center' }} direction='row' spacing={3}>
-                    <Button sx={style.BackButton} variant="contained" onClick={() => navigate('/staff')}>Back</Button>
-                    <Button sx={style.SaveButton} variant="contained" onClick={() => setOpenConfirmDialog(true)}>Save</Button>
+                    <Button sx={style.BackButton} variant="contained" onClick={() => navigate('/staff')}>Hủy</Button>
+                    <Button sx={style.SaveButton} variant="contained" onClick={() => setOpenConfirmDialog(true)}>Lưu</Button>
                 </Stack>
             </Box>
             <SnackBarAlert severity='success' open={openSuccessAlert} handleClose={handleClose} message={messageSuccess} />

@@ -44,7 +44,7 @@ const NewProductLine = () => {
             isCancel = true
         }
     }, [])
-
+    console.log('data', data)
     return (
         <Stack direction={'row'} sx={{ width: '100%', p: 3 }} spacing={2}>
             {
@@ -57,16 +57,18 @@ const NewProductLine = () => {
                                     {ite.name.split(' (')[0]}
                                 </Typography>
                                 <Typography gutterBottom variant="subtitle1" fontStyle={'italic'} sx={{ color: 'teal', cursor: 'pointer', textDecoration: 'underline' }}>
-                                    New
+                                    Mới
+
                                 </Typography>
                                 <Typography variant="body2" color="text.secondary">
-                                    Click to view product details. Buy today to receive many great promotions from Comebuy.
+
+                                    Nhấn vào đây để xem chi tiết sản phẩm. Hãy mua ngay hôm nay để nhận được nhiều khuyến mãi lớn từ Comebuy.
                                 </Typography>
                             </CardContent>
                             <CardActions>
                                 <Button size="small"
                                     sx={{ textDecoration: 'underline' }}
-                                    onClick={() => navigate("/productSpace/" + ite.productID)}>Learn More</Button>
+                                    onClick={() => navigate("/productSpace/" + ite.productID)}>TÌM HIỂU THÊM</Button>
                             </CardActions>
                         </Box>
                         <CardMedia

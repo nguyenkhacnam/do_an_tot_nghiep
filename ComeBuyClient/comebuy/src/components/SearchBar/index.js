@@ -24,7 +24,7 @@ const SearchBar = (props) => {
                 renderInput={(params) => (
                     <TextField
                         {...params}
-                        label="Search Laptop..."
+                        label="Tìm kiếm Laptop..."
                         InputProps={{
                             ...params.InputProps,
                             type: 'search',

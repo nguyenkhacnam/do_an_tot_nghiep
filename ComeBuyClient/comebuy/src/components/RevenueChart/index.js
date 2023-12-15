@@ -75,7 +75,7 @@ const RevenueChart = (props) => {
   }, [])
   return (
     <ResponsiveContainer width='95%' height='100%'>
-      {data.length > 0 && loading == true ?
+      {data.length > 0 && loading === true ?
         <BarChart BarChart
           width={500}
           height={300}
@@ -100,8 +100,8 @@ const RevenueChart = (props) => {
         :
         <Box sx={{ width: '100%' }}>
           {
-            loading == true ?
-              <Typography variant='h6'>There is nothing to show...</Typography> :
+            loading === true ?
+              <Typography variant='h6'>Không có sản phẩm nào để hiển thị...</Typography> :
               <Box sx={{ width: '100%' }}>
                 <LinearProgress />
                 <Typography variant='h6' sx={{ alignSelf: 'center', margin: 5 }}>Loading....</Typography>

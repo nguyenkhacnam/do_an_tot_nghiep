@@ -47,18 +47,18 @@ const FilterAccordion = (props) => {
     const [memoryOptions, setMemoryOptions] = useState({ loading: false, options: [] })
     const [yearOptions, setYearOptions] = useState({ loading: false, options: [] })
     const [featureFilter, setFeatureFilter] = useState([
-        { featureName: 'Brand', option: brandOptions },
+        { featureName: 'Chi nhánh', option: brandOptions },
         { featureName: 'RAM', option: ramOptions },
         { featureName: 'CPU', option: cpuOptions },
         { featureName: 'GPU', option: gpuOptions },
-        { featureName: 'Screen Dimension', option: screenDimensionOptions },
-        { featureName: 'Weight', option: weightOptions },
-        { featureName: 'Memory', option: memoryOptions },
-        { featureName: 'Year', option: yearOptions }
+        { featureName: 'Màn hình', option: screenDimensionOptions },
+        { featureName: 'Cân nặng', option: weightOptions },
+        { featureName: 'Ổ cứng', option: memoryOptions },
+        { featureName: 'Năm', option: yearOptions }
     ])
     useEffect(async () => {
         const response = await productAPI.getProductFilterOptions()
-        if (response.status == 200)
+        if (response?.status === 200)
         await SplitFeatureFromList(
                     response.data,
                     setBrandOptions,
@@ -76,14 +76,14 @@ const FilterAccordion = (props) => {
 
     useEffect(() => {
         setFeatureFilter([
-            { featureName: 'Brand', option: brandOptions },
+            { featureName: 'Chi nhánh', option: brandOptions },
             { featureName: 'RAM', option: ramOptions },
             { featureName: 'CPU', option: cpuOptions },
             { featureName: 'GPU', option: gpuOptions },
-            { featureName: 'ScreenDimension', option: screenDimensionOptions },
-            { featureName: 'Weight', option: weightOptions },
-            { featureName: 'Memory', option: memoryOptions },
-            { featureName: 'Year', option: yearOptions }
+            { featureName: 'Màn hình', option: screenDimensionOptions },
+            { featureName: 'Cân nặng', option: weightOptions },
+            { featureName: 'Ổ cứng', option: memoryOptions },
+            { featureName: 'Năm', option: yearOptions }
         ])
     }, [brandOptions, 
         ramOptions, 

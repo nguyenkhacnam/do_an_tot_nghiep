@@ -35,12 +35,12 @@ const FeatureSelect = (props) => {
     return (
         <Stack item="true" sx={{ marginLeft: 2}}>
             <FormControl sx={{ m: 1 }}>
-                <InputLabel >Product's Feature</InputLabel>
+                <InputLabel >Thương hiệu</InputLabel>
                 <Select
                     multiple
                     value={props.currentFeature}
                     onChange={props.handleFeatureChange}
-                    input={<OutlinedInput label="Product's Feature" />}
+                    input={<OutlinedInput label="Thương hiệu" />}
                     renderValue={(selected) => (
                         <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
                             {selected.map((value) => (
@@ -50,7 +50,7 @@ const FeatureSelect = (props) => {
                     )}
                     MenuProps={MenuProps}
                 >
-                    {props.features.map((item) => (
+                    {props?.features?.map((item) => (
                         <MenuItem
                             key={item.name}
                             value={item.name}

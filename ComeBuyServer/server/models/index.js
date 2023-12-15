@@ -7,7 +7,7 @@ const sequelize = new Sequelize(dbConfig.database, dbConfig.user, dbConfig.passw
     host: dbConfig.host,
     dialect: dbConfig.dialect,
     protocol:'postgres',
-    // operatorsAliases: 0,
+    operatorsAliases: 0,
     dialectOptions: {
         ssl: {
           require: true,
@@ -20,6 +20,7 @@ const sequelize = new Sequelize(dbConfig.database, dbConfig.user, dbConfig.passw
         acquire: dbConfig.pool.acquire,
         idle: dbConfig.pool.idle
     },
+    logging: false,
 });
 const db = {};
 

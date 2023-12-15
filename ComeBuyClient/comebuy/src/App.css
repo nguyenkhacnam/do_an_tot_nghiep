@@ -53,3 +53,16 @@ body {
   margin: -20px 0 50px;
 } */
 
+.css-sbount-MuiStack-root {
+  padding-left: 50px !important;
+  padding-right: 50px !important;
+}
+
+.MuiStack-root.css-z6gmwc-MuiStack-root {
+  margin: 0 32px !important;
+}
+
+body {
+  padding-right: 0 !important;
+  overflow: visible !important;
+}

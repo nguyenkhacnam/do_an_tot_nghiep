@@ -287,7 +287,7 @@ const ForgotPasswordInLogin = () => {
             display: 'flex',
             justifyContent: 'center'
         }}>
-            <BGImg src='https://images.unsplash.com/photo-1490810194309-344b3661ba39?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1448&q=80' />
+            {/* <BGImg src='https://images.unsplash.com/photo-1490810194309-344b3661ba39?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1448&q=80' /> */}
             <Stack direction="column" spacing={3}
                 style={{
                     width: 300,
@@ -306,7 +306,7 @@ const ForgotPasswordInLogin = () => {
                     alignSelf: 'center'
                 }}
                 >
-                    Reset password
+                    Lấy lại mật khẩu
                 </Typography>
                 <input style={{
                     backgroundColor: 'white',
@@ -317,7 +317,7 @@ const ForgotPasswordInLogin = () => {
                 }}
                     id="outlined-basic"
                     type="text"
-                    placeholder="Your email here..."
+                    placeholder="Nhập email"
                     variant="standard"
                     onChange={(e) => setEmail(e.target.value)}
                 >
@@ -333,7 +333,7 @@ const ForgotPasswordInLogin = () => {
                     }}
                         id="outlined-basic"
                         type={passwordShown ? "text" : "password"}
-                        placeholder="New password..."
+                        placeholder="Nhập mật khẩu mới"
                         variant="standard"
                         onChange={(e) => setNewPassword(e.target.value)}
                     >
@@ -360,7 +360,7 @@ const ForgotPasswordInLogin = () => {
                     }}
                         id="outlined-basic"
                         type={cfPasswordShown ? "text" : "password"}
-                        placeholder="Confirm Password..."
+                        placeholder="Nhập lại mẩu khẩu"
                         variant="standard"
                         onChange={(e) => setConfirmNewPassword(e.target.value)}
                     >
@@ -391,7 +391,7 @@ const ForgotPasswordInLogin = () => {
                         letterSpacing: '1px',
                     }}
                 >
-                    Reset
+                    Lấy lại mật khẩu
                 </Button>
             </Stack>
 

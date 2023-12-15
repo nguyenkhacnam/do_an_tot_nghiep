@@ -89,7 +89,7 @@ const Profile = () => {
 
     return (
         <div>
-            {canAccess ? (
+            {!canAccess ? (
                 <ProfileManage />
             ) : (
                 // PasswordForm

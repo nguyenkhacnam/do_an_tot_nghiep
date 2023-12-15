@@ -68,8 +68,7 @@ const BigFooter = () => {
       >
         <h1>COMEBUY.</h1>
         <p style={{ margin: '20px 0px' }}>
-          ComeBuy is a web store which includes a lot of the best laptop in the world.
-          Come with us, you will never be confused about choosing type, proper price of Laptop you want
+        ComeBuy là một cửa hàng trực tuyến bao gồm rất nhiều máy tính xách tay tốt nhất trên thế giới. Hãy đến với chúng tôi bạn sẽ không bao giờ bối rối trong việc lựa chọn chủng loại, mức giá phù hợp Laptop mình mong muốn.
         </p>
         <div style={{ display: 'flex' }}>
           <div
@@ -139,7 +138,7 @@ const BigFooter = () => {
         padding: '20px'
       }}
       >
-        <h3 style={{ marginBottom: '30px' }}>Useful Links</h3>
+        <h3 style={{ marginBottom: '30px' }}>Liên kết hữu ích</h3>
         <ul style={{
           margin: 0,
           padding: 0,
@@ -157,7 +156,7 @@ const BigFooter = () => {
               style={{ color: 'black', cursor: 'pointer' }}
               onClick={gotoHome}
             >
-              Home
+              Trang chủ
             </Link>
           </li>
           <li style={{
@@ -170,7 +169,7 @@ const BigFooter = () => {
               style={{ color: 'black', cursor: 'pointer' }}
               onClick={gotoCart}
             >
-              Your cart
+              Giỏ hàng
             </Link>
           </li>
           <li style={{
@@ -183,7 +182,7 @@ const BigFooter = () => {
               style={{ color: 'black', cursor: 'pointer' }}
               onClick={gotoPlace}
             >
-              Your place
+              Danh mục chọn
             </Link>
           </li>
           <li style={{
@@ -196,7 +195,7 @@ const BigFooter = () => {
               style={{ color: 'black', cursor: 'pointer' }}
               onClick={gotoFavorite}
             >
-              Your favorite
+              Sản phẩm yêu thích
             </Link>
           </li>
           <li style={{
@@ -209,7 +208,7 @@ const BigFooter = () => {
               style={{ color: 'black', cursor: 'pointer' }}
               onClick={gotoOrders}
             >
-              Your orders
+              Đơn đặt hàng
             </Link>
           </li>
           <li style={{
@@ -222,7 +221,7 @@ const BigFooter = () => {
               style={{ color: 'black', cursor: 'pointer' }}
               onClick={logOut}
             >
-              Log out
+              Đăng xuất
             </Link>
           </li>
         </ul>
@@ -231,27 +230,27 @@ const BigFooter = () => {
         flex: 1,
         padding: '20px'
       }}>
-        <h3 style={{ marginBottom: '30px' }}>Contact</h3>
+        <h3 style={{ marginBottom: '30px' }}>Liên hệ</h3>
         <div style={{
           marginBottom: '20px',
           display: 'flex',
           alignItems: 'center'
         }}>
-          <Room style={{ marginRight: "10px" }} /> KTPM2019, Software engineering team 89, UIT
+          <Room style={{ marginRight: "10px" }} /> Đại học Mỏ Địa chất Hà Nội
         </div>
         <div style={{
           marginBottom: '20px',
           display: 'flex',
           alignItems: 'center'
         }}>
-          <Phone style={{ marginRight: "10px" }} /> +84 358075274
+          <Phone style={{ marginRight: "10px" }} /> +84 329465355
         </div>
         <div style={{
           marginBottom: '20px',
           display: 'flex',
           alignItems: 'center'
         }}>
-          <MailOutline style={{ marginRight: "10px" }} /> comebuyproject@gmail.com
+          <MailOutline style={{ marginRight: "10px" }} /> nguyenkhacnam06052001@gmail.com
         </div>
         <img style={{ width: '50%' }} src="https://i.ibb.co/Qfvn4z6/payment.png" />
       </div>

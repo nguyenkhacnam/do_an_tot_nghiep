@@ -11,6 +11,7 @@ import { useState, useEffect } from 'react';
 import productAPI from '../../api/productAPI';
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
+import ClearIcon from '@mui/icons-material/Clear';
 
 const Img = styled('img')({
     margin: 'auto',
@@ -21,6 +22,7 @@ const Img = styled('img')({
 });
 
 const ProductInCart = (props) => {
+    console.log('productInCart', props.productInCart)
     const [product, setProduct] = useState(null)
     const [amount, setAmount] = useState(props.productInCart.amount)
 
@@ -47,7 +49,7 @@ const ProductInCart = (props) => {
             {product != null ?
                 <Stack direction={'row'} sx={{ height: '100%', alignContent: 'center' }} >
                     <Img alt="complex" sx={{ maxWidth: 180 }}
-                        src={product.productimage[0].imageURL} />
+                        src={product.productimage[0]?.imageURL} />
                     <CardContent sx={{ maxWidth: 500 }}>
                         <Typography gutterBottom variant="body1" fontWeight={'bold'} component="div" onClick={handleNavigateToDetail}>
                             {product.name}
@@ -66,7 +68,7 @@ const ProductInCart = (props) => {
                                 RAM: {product.ram}
                             </Box>
                             <Box>
-                                Screen: {product.screenDimension}' inch
+                                Màn hình: {product.screenDimension}' inchs
                             </Box>
                         </Stack>
 
@@ -81,8 +83,18 @@ const ProductInCart = (props) => {
                         </IconButton>
                     </Stack>
                     <Typography variant="body1" fontWeight={'bold'} sx={{ textAlign: 'end', alignSelf: 'center', minWidth: 100 }} color="#D94A56">
-                        $ {product.price * amount}
+                        {product.price * amount}₫
                     </Typography>
+                    <Stack direction={'row'} sx={{ height: '10%', justifyContent: 'center', alignSelf: 'center', p: 2, marginLeft: '3%' }} spacing={1}>
+                        <IconButton  color="primary" aria-label="add to shopping cart"
+                        // onClick={() => props.onAgree(props.productInCart)}
+                        >
+                            <ClearIcon color="error" />
+                        </IconButton>
+                        {/* <IconButton onClick={() => props.handleMoveItemToCart(props.productInFavorite)} color="primary" aria-label="add to shopping cart">
+                            <ShoppingCartCheckoutSharp />
+                        </IconButton> */}
+                    </Stack>
                 </Stack>
                 :
                 <Stack>

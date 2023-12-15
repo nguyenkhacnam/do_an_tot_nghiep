@@ -23,9 +23,9 @@ import { WS_URL, DEPLOYED_WS } from '../../constant'
 import io from "socket.io-client"
 
 const HomePage = () => {
-    const socket = io(DEPLOYED_WS, {
-        transports: ["websocket"]
-    });
+    // const socket = io(DEPLOYED_WS, {
+    //     transports: ["websocket"]
+    // });
     const _productList = useSelector(productListSelector)
     const navigate = useNavigate()
     const dispatch = useDispatch()
@@ -62,18 +62,18 @@ const HomePage = () => {
     }, [])
 
     const handleSocket = () => {
-        socket.on("connect", () => {
-            console.log('Connect socket successfully!'); // x8WIv7-mJelg7on_ALbx
-        });
-        socket.on("update-new-banner", (message) => {
-            const data = JSON.parse(message)
-            if (liveBanner.find(ite => ite.bannerID == data.bannerID) == undefined)
-                SetLiveBanner(prev => [data, ...prev])
+        // socket.on("connect", () => {
+        //     console.log('Connect socket successfully!'); // x8WIv7-mJelg7on_ALbx
+        // });
+        // socket.on("update-new-banner", (message) => {
+        //     const data = JSON.parse(message)
+        //     if (liveBanner.find(ite => ite.bannerID == data.bannerID) == undefined)
+        //         SetLiveBanner(prev => [data, ...prev])
 
-        })
-        socket.on("delete-banner", async (message) => {
-            await LoadBanner();
-        })
+        // })
+        // socket.on("delete-banner", async (message) => {
+        //     await LoadBanner();
+        // })
     }
 
     const LoadBanner = async () => {
@@ -135,11 +135,11 @@ const HomePage = () => {
                 <FeatureBar></FeatureBar>
                 <BrandLineImage
                     urlImage='https://images.unsplash.com/photo-1615750173609-2fbf12fd1d2d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80'
-                    BigText='CHOOSE AND GET YOUR WORK EFFECTIVELY'
+                    BigText='CHỌN VÀ NHẬN CÔNG VIỆC CỦA BẠN MỘT CÁCH HIỆU QUẢ'
                     SmallText='ComeBuy Store. The best way to buy the products you love.'
                 ></BrandLineImage>
-                <Typography variant='h4' fontWeight={'bold'} sx={{ alignSelf: 'center' }}>Our store.
-                    <Typography variant='h4' fontWeight={'bold'} sx={{ color: '#BCBFB0' }}>The best way to buy the products you love.</Typography>
+                <Typography variant='h4' fontWeight={'bold'} sx={{ alignSelf: 'center' }}>Cửa hàng của chúng tôi.
+                    <Typography variant='h4' fontWeight={'bold'} sx={{ color: '#BCBFB0' }}>Cách tốt nhất để mua các sản phẩm bạn yêu thích.</Typography>
                 </Typography>
                 <div>
                     {
@@ -151,8 +151,8 @@ const HomePage = () => {
                         })
                     }
                 </div>
-                <Typography variant='h4' fontWeight={'bold'} sx={{ alignSelf: 'center' }}>Feedback.
-                    <Typography variant='h4' fontWeight={'bold'} sx={{ color: '#BCBFB0' }}>Here's where the fun begins.</Typography>
+                <Typography variant='h4' fontWeight={'bold'} sx={{ alignSelf: 'center' }}>Nhận xét.
+                    <Typography variant='h4' fontWeight={'bold'} sx={{ color: '#BCBFB0' }}>Đây là nơi niềm vui bắt đầu.</Typography>
                 </Typography>
                 <LaptopImageLine></LaptopImageLine>
             </Stack>

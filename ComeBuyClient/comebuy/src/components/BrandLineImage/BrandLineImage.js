@@ -80,7 +80,7 @@ export default function BrandLineImage(props) {
         <Container>
             <ImgFeatureLine src={props.urlImage}></ImgFeatureLine>
             <Text>{props.BigText}</Text>
-            <CustomButton endIcon={<ArrowRightIcon />}>See More</CustomButton>
+            <CustomButton endIcon={<ArrowRightIcon />}>Xem thêm</CustomButton>
         </Container>
     )
 }

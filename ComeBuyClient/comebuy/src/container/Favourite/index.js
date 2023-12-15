@@ -88,8 +88,8 @@ const Alert = React.forwardRef(function Alert(props, ref) {
 });
 
 const actions = [
-  { icon: <ShoppingCartCheckoutOutlined />, name: 'Get all to cart' },
-  { icon: <DeleteForeverOutlined />, name: 'Delete all favorite' }
+  { icon: <ShoppingCartCheckoutOutlined />, name: 'Chuyển tất cả sang giỏ hàng' },
+  { icon: <DeleteForeverOutlined />, name: 'Xóa tất cả sản phẩm yêu thích' }
 ];
 
 const filter = createFilterOptions();
@@ -246,7 +246,7 @@ const FavoritePlace = () => {
     setOpenMoveAllSuccess(true)
   }
   const handleSpeedDialClick = (action) => {
-    if (action.name === 'Get all to cart') {
+    if (action.name === 'Thêm tắt cả vào giỏ hàng') {
       if (favoriteList.length != 0) {
         setOpenConfirmMove(true)
       }
@@ -287,9 +287,9 @@ const FavoritePlace = () => {
       href="/myplace"
       onClick={handleClickToHome}
     >
-      Home
+      Trang chủ
     </Link>,
-    <Link
+    /* <Link
       underline="hover"
       key="2"
       style={{ color: '#000D0A' }}
@@ -297,9 +297,9 @@ const FavoritePlace = () => {
       onClick={handleClick}
     >
       My place
-    </Link>,
+    </Link>, */
     <Typography key="3" style={{ color: '#000D0A' }}>
-      My Favorite
+      Sản phẩm yêu thích
     </Typography>,
   ];
 
@@ -315,7 +315,7 @@ const FavoritePlace = () => {
         </Breadcrumbs>
       </Stack>
       <Wrapper>
-        <Title>YOUR FAVORITE</Title>
+        <Title>DANH SÁCH SẢN PHẨM YÊU THÍCH</Title>
         <Top>
           <TopTexts style={{ marginLeft: '12%' }}>
             <Autocomplete
@@ -364,7 +364,7 @@ const FavoritePlace = () => {
               sx={{ width: 500 }}
               freeSolo
               renderInput={(params) => (
-                <TextField {...params} label="Search your Favorite" />
+                <TextField {...params} label="Tìm kiếm sản phẩm yêu thích" />
               )}
             />
           </TopTexts>
@@ -444,7 +444,7 @@ const FavoritePlace = () => {
 
       <Snackbar open={openDeleteAllSuccess} autoHideDuration={6000} onClose={handleCloseDeleteAllSuccess}>
         <Alert onClose={handleCloseDeleteAllSuccess} severity="success" sx={{ width: '100%' }}>
-          Deleted favorite successfully
+          Xóa thành công
         </Alert>
       </Snackbar>
 
@@ -460,15 +460,15 @@ const FavoritePlace = () => {
         keepMounted
         aria-describedby="alert-dialog-slide-description"
       >
-        <DialogTitle>Confirm task</DialogTitle>
+        <DialogTitle>Xác nhận thông tin</DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-slide-description">
-            Are you sure to delete all your favorite product ?
+          Bạn có chắc chắn xóa tất cả sản phẩm yêu thích của mình không?
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleCloseConfirmDelete}>Cancel</Button>
-          <Button onClick={handleDeleteAllFavorite}>Ok</Button>
+          <Button onClick={handleCloseConfirmDelete}>Hủy</Button>
+          <Button onClick={handleDeleteAllFavorite}>Xác nhận</Button>
         </DialogActions>
       </Dialog>
 
@@ -478,15 +478,15 @@ const FavoritePlace = () => {
         keepMounted
         aria-describedby="alert-dialog-slide-description"
       >
-        <DialogTitle>Confirm task</DialogTitle>
+        <DialogTitle>Xác nhận thông tin</DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-slide-description">
-            Are you sure to add all your favorite product to cart ?
+          Bạn có chắc chắn thêm tất cả sản phẩm yêu thích của mình vào giỏ hàng không?
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleCloseConfirmMove}>Cancel</Button>
-          <Button onClick={handlePlaceAllToCart}>Ok</Button>
+          <Button onClick={handleCloseConfirmMove}>Hủy</Button>
+          <Button onClick={handlePlaceAllToCart}>Xác nhận</Button>
         </DialogActions>
       </Dialog>
     </Container >

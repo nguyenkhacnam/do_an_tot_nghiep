@@ -260,6 +260,7 @@ const LoginRegister = () => {
             } else {
                 try {
                     const resultAction = await dispatch(login({ email: emailUser, password: passwordUser }))
+                    console.log("🚀 ~ file: LoginRegister.js:263 ~ handleLogin ~ resultAction:", resultAction)
                     const originalPromiseResult = unwrapResult(resultAction)
                     // handle result here
                 } catch (rejectedValueOrSerializedError) {
@@ -391,13 +392,13 @@ const LoginRegister = () => {
                 <div className="signin-signup">
                     <form className='sign-up-form'>
                         <Stack width="70%" justifyItems="center" direction="column" spacing={2}>
-                            <h2 className="title">Sign up</h2>
+                            <h2 className="title">Đăng ký</h2>
                             {/*USERNAME*/}
                             <TextField
                                 className='text-field-in-form'
                                 name="username"
                                 variant='outlined'
-                                label="User name"
+                                label="Tên tài khoản"
                                 type="text"
                                 fullWidth
                                 value={dataForReg.name}
@@ -432,7 +433,7 @@ const LoginRegister = () => {
                                 <TextField
                                     name="password"
                                     variant='outlined'
-                                    label="Password"
+                                    label="Mật khẩu"
                                     style={{
                                         maxWidth: '380px',
                                         lineHeight: '1',
@@ -462,7 +463,7 @@ const LoginRegister = () => {
                                 <TextField
                                     name="password"
                                     variant='outlined'
-                                    label="Confirm Password"
+                                    label="Nhập lại mật khẩu"
                                     style={{
                                         maxWidth: '380px',
                                         lineHeight: '1',
@@ -518,7 +519,7 @@ const LoginRegister = () => {
                                         marginBottom: '10px'
                                     }}
                                 >
-                                    View Term for signing up
+                                    Xem điều khoản đăng ký
                                 </Button>
                             )}
                             <div style={{
@@ -541,7 +542,7 @@ const LoginRegister = () => {
                                         letterSpacing: '1px',
                                     }}
                                 >
-                                    Register
+                                    Đăng ký
                                 </Button>
                             </div>
                             <Modal
@@ -817,7 +818,7 @@ const LoginRegister = () => {
                     <form action="#" className="sign-in-form">
                         {/*PASSWORD */}
                         <Stack direction="column" width='100%' spacing={2}>
-                            <h2 className="title">Sign in</h2>
+                            <h2 className="title">Đăng nhập</h2>
                             {/*EMAIL*/}
                             <TextField
                                 name="email"
@@ -845,7 +846,7 @@ const LoginRegister = () => {
                                     }}
                                     name="password"
                                     variant='outlined'
-                                    label="Password"
+                                    label="Mật khẩu"
                                     type={passwordShown ? "text" : "password"}
                                     fullWidth
                                     value={passwordUser}
@@ -867,7 +868,7 @@ const LoginRegister = () => {
                                 sx={{
                                     maxWidth: '60px'
                                 }}
-                            >Forgot Password ?</Button>
+                            >Quên mật khẩu ?</Button>
                         </Stack>
                         {openPasswordLoginError ? (
                             <Alert severity="warning">
@@ -891,7 +892,7 @@ const LoginRegister = () => {
                                 letterSpacing: '1px',
                             }}
                         >
-                            Login
+                            Đăng nhập
                         </Button>
                         {
                             _loadingUser == true ?
@@ -905,24 +906,32 @@ const LoginRegister = () => {
             <div className="panels-container">
                 <div className="panel left-panel">
                     <div className="content">
-                        <h3>New here ?</h3>
-                        <p>
-                            Getting your best laptop on ComeBuy is always your best choice
+                        <h3 style={{
+                            opacity: 0
+                        }}>Mới ở đây à?</h3>
+                        <p style={{
+                            opacity: 0
+                        }}>
+                        Sở hữu chiếc laptop tốt nhất trên ComeBuy luôn là sự lựa chọn tốt nhất của bạn
                         </p>
                         <button className="btn transparent" id="sign-up-btn" onClick={() => setAddClass('sign-up-mode')}>
-                            Go to sign up
+                            Đăng ký
                         </button>
                     </div>
                     <Register2SVG className="image" />
                 </div>
                 <div className="panel right-panel">
                     <div className="content">
-                        <h3>One of us ?</h3>
-                        <p>
-                            Let's log in now. Something perfect is waiting for you
+                        <h3 style={{
+                            opacity: 0
+                        }}>Một trong số chúng tôi ?</h3>
+                        <p style={{
+                            opacity: 0
+                        }}>
+                        Hãy đăng nhập ngay bây giờ. Một điều gì đó hoàn hảo đang chờ đợi bạn
                         </p>
                         <button className="btn transparent" id="sign-in-btn" onClick={() => setAddClass('')}>
-                            Go to sign in
+                            Đăng nhập
                         </button>
                     </div>
                     <Register1SVG className="image" />

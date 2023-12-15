@@ -13,7 +13,7 @@ import Stock from '../container/Stock';
 
 const adminRoutes = [
     {
-        name: 'Product',
+        name: 'Sản phẩm',
         path: '/product/*',
         page: <Product />,
     },
@@ -28,7 +28,7 @@ const adminRoutes = [
         page: <EditProduct />,
     },
     {
-        name: 'Staff',
+        name: 'Nhân viên',
         path: '/staff',
         page: <Staff />,
     },
@@ -38,22 +38,22 @@ const adminRoutes = [
         page: <AddStaff />,
     },
     {
-        name: 'Stock',
+        name: 'Kho',
         path: '/stock',
         page: <Stock />,
     },
     {
-        name: 'Revenue',
+        name: 'Doanh thu',
         path: '/revenue',
         page: <Revenue />,
     },
+    // {
+    //     name: 'Data Analysis',
+    //     path: '/dataAnalysis/*',
+    //     page: <DataAnalysis />,
+    // },
     {
-        name: 'Data Analysis',
-        path: '/dataAnalysis/*',
-        page: <DataAnalysis />,
-    },
-    {
-        name: 'Banner Manage',
+        name: 'Banner',
         path: '/bannerManage/*',
         page: <BannerManage />,
     },
@@ -66,32 +66,32 @@ const adminRoutes = [
 
 const adminMenuItems = [
     {
-        name: 'Product',
+        name: 'Sản phẩm',
         path: '/product/*',
         page: <Product />,
     },
     {
-        name: 'Staff',
+        name: 'Nhân viên',
         path: '/staff',
         page: <Staff />,
     },
     {
-        name: 'Stock',
+        name: 'Kho',
         path: '/stock',
         page: <Stock />,
     },
     {
-        name: 'Revenue',
+        name: 'Doanh thu',
         path: '/revenue',
         page: <Revenue />,
     },
+    // {
+    //     name: 'Data Analysis',
+    //     path: '/dataAnalysis/*',
+    //     page: <DataAnalysis />,
+    // },
     {
-        name: 'Data Analysis',
-        path: '/dataAnalysis/*',
-        page: <DataAnalysis />,
-    },
-    {
-        name: 'Banner Manage',
+        name: 'Banner',
         path: '/bannerManage/*',
         page: <BannerManage />,
     },

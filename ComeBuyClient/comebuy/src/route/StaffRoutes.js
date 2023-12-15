@@ -3,7 +3,7 @@ import Invoice from '../container/Invoice';
 
 const staffRoutes = [
   {
-    name: 'Invoice',
+    name: 'Hóa đơn',
     path: '/invoice/*',
     exact: true,
     page: <Invoice />,
@@ -12,7 +12,7 @@ const staffRoutes = [
 
 const staffMenuItems = [
   {
-    name: 'Invoice',
+    name: 'Hóa đơn',
     path: '/invoice/*',
     page: <Invoice />,
   }

@@ -13,9 +13,9 @@ import { cartListSelector, productListSelector } from "../../redux/selectors";
 import { WS_URL } from "../../constant";
 import productAPI from "../../api/productAPI";
 const ProductSpace = () => {
-    const socket = io(WS_URL, {
-        transports: ["websocket"]
-    });
+    // const socket = io(WS_URL, {
+    //     transports: ["websocket"]
+    // });
     const [productList, setProductList] = useState([])
     const [openSuccessAlert, setOpenSuccessAlert] = useState(false);
     const [openErrorAlert, setOpenErrorAlert] = useState(false);
@@ -32,13 +32,15 @@ const ProductSpace = () => {
         memory: [],
         year: []
     })
-    const [selectedPrices, SetSelectedPrices] = useState([0, 3000])
+    const [selectedPrices, SetSelectedPrices] = useState([0, 10000000])
     const [currentFeature, setCurrentFeature] = useState([])
     const [total, SetTotal] = useState(0)
 
     const handleFilter = (value) => {
+        console.log("🚀 ~ file: index.js:40 ~ handleFilter ~ value:", value)
         let newFilterOptions = Object.assign({}, filterOptions);  // Shallow copy for the reference value as object
         newFilterOptions[value.name.toLowerCase()] = value.option
+        console.log("🚀 ~ file: index.js:42 ~ handleFilter ~ newFilterOptions:", newFilterOptions)
         setFilterOptions(newFilterOptions)
     }
 
@@ -52,10 +54,14 @@ const ProductSpace = () => {
                 { offset: offset })
         );
 
-        if (response.status == 200) {
-            setProductList(response.data.data)
-            SetTotal(response.data.total)
-            setMessageSuccess("Load Product Successfully")
+        const products = await productAPI.getAll();
+        console.log("🚀 ~ file: index.js:56 ~ LoadRecords ~ products:", products)
+        setProductList(products)
+        SetTotal(products?.length)
+        if (response?.status === 200) {
+            // setProductList(response.data.data)
+            // SetTotal(response.data.total)
+            setMessageSuccess("Thành công")
             setOpenSuccessAlert(true)
             setLoading(false)
         }
@@ -76,9 +82,9 @@ const ProductSpace = () => {
     };
 
     const handleSocket = () => {
-        socket.on("update-new-product", (message) => {
-            console.log(message);
-        })
+        // socket.on("update-new-product", (message) => {
+        //     console.log(message);
+        // })
     }
 
     useEffect(() => {
@@ -113,12 +119,12 @@ const ProductSpace = () => {
                     <Grid item xs={9} sx={{ p: 2 }}>
                         <Stack>
                             {
-                                productList.length > 0 &&
+                                productList?.length > 0 &&
                                 <Stack sx={{ width: '100%' }}>
                                     <SearchBar productList={productList} />
                                 </Stack>
                             }
-                            <Typography variant="h6" fontWeight={'bold'} sx={{ alignSelf: 'center', m: 1 }}>Our Product</Typography>
+                            <Typography variant="h6" fontWeight={'bold'} sx={{ alignSelf: 'center', m: 1 }}>Danh sách sản phẩm</Typography>
                             <Box sx={{ backgroundColor: '#C69AD9', height: 5, width: '100%' }}></Box>
                             <Stack direction={"row"} flexWrap={"wrap"} sx={{ alignSelf: 'center', m: 2, justifyContent: 'center', alignItems: 'center' }}>
                                 {

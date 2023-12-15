@@ -15,15 +15,18 @@ exports.createInvoice = async (req, res) => {
     let listProdId = [];
     let resultFilterRemain = [];
     let resultFilterNonRemain = [];
+    console.log("🚀 ~ file: invoice.controller.js:14 ~ exports.createInvoice= ~ req:", req.body)
     try {
-        if (!req.body.branchID || !req.body.userID || !req.body.address || req.body.listGoods.length === 0) {
+        if (!req.body.branchID || !req.body.userID || !req.body.address || req.body?.listGoods?.length === 0) {
+            console.log('undefined')
             res.status(400).send({
                 message: "Invoice controller >> create invoice failed >> lack of information!"
             });
             return;
         }
         const listProds = req.body.listGoods;
-        listProds.map(i => listProdId.push(i.productid));
+        console.log("🚀 ~ file: invoice.controller.js:28 ~ exports.createInvoice= ~ listProds:", listProds)
+        listProds?.map(i => listProdId.push(i.productid));
         const invoice = {
             date: req.body.date,
             total: req.body.total,
@@ -34,6 +37,7 @@ exports.createInvoice = async (req, res) => {
             branchid: req.body.branchID,
             address: req.body.address
         };
+        console.log("🚀 ~ file: invoice.controller.js:39 ~ exports.createInvoice= ~ invoice:", invoice)
         if (!transaction.status && transaction.error) {
             throw transaction.error;
         }
@@ -48,7 +52,8 @@ exports.createInvoice = async (req, res) => {
                 attributes: ['name', 'price']
             }]
         });
-        listProds.map(pro1 => {
+        console.log("🚀 ~ file: invoice.controller.js:55 ~ exports.createInvoice= ~ remain:", remain)
+        listProds?.map(pro1 => {
             remain.map(pro2 => {
                 if (pro2.productid === pro1.productid && pro2.remaining < pro1.quantity) {
                     resultFilterNonRemain.push(pro2);
@@ -108,33 +113,33 @@ exports.createInvoiceItem = async (req, res) => {
             amount: req.body.amount,
             total: req.body.total
         };
-        const existInvoice = await Invoice.findOne({
-            where: {
-                invoiceid: req.body.invoiceID
-            }
-        }, { transaction: transaction.data });
-        const existProduct = await Product.findOne({
-            where: {
-                productid: req.body.productID
-            }
-        }, { transaction: transaction.data });
+        // const existInvoice = await Invoice.findOne({
+        //     where: {
+        //         invoiceid: req.body.invoiceID
+        //     }
+        // }, { transaction: transaction.data });
+        // const existProduct = await Product.findOne({
+        //     where: {
+        //         productid: req.body.productID
+        //     }
+        // }, { transaction: transaction.data });
         const createInvoiceItem = await InvoiceItem.create(invoiceItem, { transaction: transaction.data });
-        if (!existInvoice || !existProduct) {
-            await t.rollback(transaction.data);
-            SendResponse({
-                status: 'error',
-                message: 'Invoice controller >> create invoice item failed!'
-            }, 404, res)
-        } else {
-            const commit = await t.commit(transaction.data);
-            if (!commit.status && commit.error) {
-                throw commit.error;
-            }
-            SendResponse({
-                status: 'success',
-                data: createInvoiceItem
-            }, 200, res)
+        // if (!existInvoice || !existProduct) {
+        //     await t.rollback(transaction.data);
+        //     SendResponse({
+        //         status: 'error',
+        //         message: 'Invoice controller >> create invoice item failed!'
+        //     }, 404, res)
+        // } else {
+        // }
+        const commit = await t.commit(transaction.data);
+        if (!commit.status && commit.error) {
+            throw commit.error;
         }
+        SendResponse({
+            status: 'success',
+            data: createInvoiceItem
+        }, 200, res)
     } catch (error) {
         res.status(500).send({
             message: error.message || "Some error occurred while creating the Invoice item."

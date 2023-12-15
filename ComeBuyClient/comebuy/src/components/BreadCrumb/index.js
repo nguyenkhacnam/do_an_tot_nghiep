@@ -23,7 +23,7 @@ const BreadCrumb = () => {
                     href="/"
                 >
                     <HomeIcon sx={{ mr: 0.5 }} fontSize="inherit" />
-                    Home
+                    Trang chủ
                 </Link>
                 <Link
                     underline="hover"
@@ -32,7 +32,7 @@ const BreadCrumb = () => {
                     href="/productSpace"
                 >
                     <HomeIcon sx={{ mr: 0.5 }} fontSize="inherit" />
-                    ProductSpace
+                    Sản phẩm
                 </Link>
                
                 <Typography
@@ -40,7 +40,7 @@ const BreadCrumb = () => {
                     color="secondary"
                 >
                     <GrainIcon sx={{ mr: 0.5 }} fontSize="inherit" />
-                    Product Place
+                    Danh sách sản phẩm
                 </Typography>
             </Breadcrumbs>
         </div>

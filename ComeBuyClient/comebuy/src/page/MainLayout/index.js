@@ -102,13 +102,13 @@ const MainLayout = props => {
           <ListItem sx={{ backgroundColor: '#593940' }} button key={route.name} onClick={ItemClick}>
             <ListItemIcon sx={{ color: 'white' }}>
               {/* {index % 2 === 0 ? <InboxIcon /> : <MailIcon />} */}
-              {route.name == 'Product' && <ComputerIcon />}
-              {route.name == 'Staff' && <PeopleIcon />}
-              {route.name == 'Stock' && <InventoryIcon />}
-              {route.name == 'Revenue' && <AssessmentIcon />}
+              {route.name == 'Sản phẩm' && <ComputerIcon />}
+              {route.name == 'Nhân viên' && <PeopleIcon />}
+              {route.name == 'Kho' && <InventoryIcon />}
+              {route.name == 'Doanh thu' && <AssessmentIcon />}
               {route.name == 'Data Analysis' && <InsightsIcon />}
               {route.name == 'Workspace' && <CountertopsIcon />}
-              {route.name == 'Invoice' && <ReceiptIcon />}
+              {route.name == 'Hóa đơn' && <ReceiptIcon />}
               {route.name == 'Distribution' && <MoveDownIcon />}
               {route.name == 'Banner Manage' && <ViewCarouselIcon />}
             </ListItemIcon>

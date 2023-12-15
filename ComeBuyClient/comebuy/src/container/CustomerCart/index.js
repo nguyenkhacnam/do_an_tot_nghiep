@@ -282,6 +282,7 @@ const CustomerCart = () => {
 
   //handle agree dis-cart
   const handleAgree = async (item) => {
+    /* console.log("🚀 ~ file: index.js:285 ~ handleAgree ~ item:", item) */
     try {
       const resultAction = await dispatch(deleteCartById(item))
       const originalPromiseResult = unwrapResult(resultAction)
@@ -323,7 +324,7 @@ const CustomerCart = () => {
       href="/myplace"
       onClick={handleClickToHome}
     >
-      Home
+      Trang chủ
     </Link>,
     <Link
       underline="hover"
@@ -332,10 +333,10 @@ const CustomerCart = () => {
       href="/myplace"
       onClick={handleClick}
     >
-      My place
+      Danh mục chọn
     </Link>,
     <Typography key="3" style={{ color: '#000D0A' }}>
-      My Cart
+      Giỏ hàng
     </Typography>,
   ];
 
@@ -355,25 +356,25 @@ const CustomerCart = () => {
         </Breadcrumbs>
       </Stack>
       <Wrapper>
-        <Title>YOUR CART</Title>
+        <Title>GIỎ HÀNG CỦA BẠN</Title>
         <Top>
-          <TopButton onClick={gotoProductScreen}>CONTINUE SHOPPING</TopButton>
+          <TopButton onClick={gotoProductScreen}>XEM CÁC SẢN PHẨM KHÁC</TopButton>
           <TextField
             sx={{ p: '2px 4px 2px 2px', display: 'flex', alignItems: 'center', width: 500 }}
-            placeholder="Search cart "
+            placeholder="Tìm kiếm sản phẩm "
             variant='outlined'
-            inputProps={{ 'aria-label': 'Search cart' }}
+            inputProps={{ 'aria-label': 'Tìm kiếm sản phẩm' }}
             value={search}
             onChange={(text) => searchFilter(text.target.value)}
           />
-          <TopButton onClick={handleCheckout} type="filled">CHECKOUT NOW</TopButton>
+          <TopButton onClick={handleCheckout} type="filled">THANH TOÁN NGAY</TopButton>
         </Top>
         <Bottom>
           <Stack sx={{ m: 2, p: 2 }}>
             {
-              cartList.map((item, i) => (
-                <>
-                  <ProductInCart key={i} productInCart={item} handleChangeAmount={handleChangeAmount}></ProductInCart>
+              cartList?.map((item, i) => (
+                <div key={i}>
+                  <ProductInCart productInCart={item} handleChangeAmount={handleChangeAmount} onAgree={handleAgree} ></ProductInCart>
                   <Dialog
                     open={open}
                     TransitionComponent={Transition}
@@ -383,36 +384,36 @@ const CustomerCart = () => {
                     <DialogTitle>{"Discart"}</DialogTitle>
                     <DialogContent>
                       <DialogContentText id="alert-dialog-slide-description">
-                        Are you sure want discart this product ?
+                      Bạn có chắc chắn muốn loại bỏ sản phẩm này?
                       </DialogContentText>
                     </DialogContent>
                     <DialogActions>
-                      <Button onClick={handleClose}>Cancel</Button>
-                      <Button onClick={() => handleAgree(item)}>Ok</Button>
+                      <Button onClick={handleClose}>Hủy</Button>
+                      <Button onClick={() => handleAgree(item)}>Xác nhận</Button>
                     </DialogActions>
                   </Dialog>
-                </>
+                </div>
               ))
             }
           </Stack>
           <Summary>
-            <SummaryTitle>ORDER SUMMARY</SummaryTitle>
+            <SummaryTitle>THÔNG TIN ĐẶT HÀNG</SummaryTitle>
             <SummaryItem>
-              <SummaryItemText>Subtotal</SummaryItemText>
-              <SummaryItemPrice>${subTotal}</SummaryItemPrice>
+              <SummaryItemText>Tổng (chưa tính vận chuyển)</SummaryItemText>
+              <SummaryItemPrice>{subTotal}₫</SummaryItemPrice>
             </SummaryItem>
             <SummaryItem>
-              <SummaryItemText>Estimated Shipping (Temporary)</SummaryItemText>
-              <SummaryItemPrice>$ 2</SummaryItemPrice>
+              <SummaryItemText>Vận chuyển ước tính (Tạm thời)</SummaryItemText>
+              <SummaryItemPrice>30.000₫</SummaryItemPrice>
             </SummaryItem>
             <SummaryItem>
-              <SummaryItemText>Shipping Discount (Temporary)</SummaryItemText>
-              <SummaryItemPrice>$ -2</SummaryItemPrice>
+              <SummaryItemText>Giảm giá vận chuyển (Tạm thời)</SummaryItemText>
+              <SummaryItemPrice>-30.000₫</SummaryItemPrice>
             </SummaryItem>
             <div style={{ height: '1px', width: '100%', backgroundColor: 'black' }}></div>
             <SummaryItem type="total">
-              <SummaryItemText>Total</SummaryItemText>
-              <SummaryItemPrice>${subTotal}</SummaryItemPrice>
+              <SummaryItemText>Tổng: </SummaryItemText>
+              <SummaryItemPrice>{subTotal}₫</SummaryItemPrice>
             </SummaryItem>
             <Button sx={{
               width: '100%',
@@ -425,7 +426,7 @@ const CustomerCart = () => {
               variant="contained"
               onClick={handleCheckout}
             >
-              CHECKOUT NOW
+              THANH TOÁN NGAY
             </Button>
           </Summary>
         </Bottom>

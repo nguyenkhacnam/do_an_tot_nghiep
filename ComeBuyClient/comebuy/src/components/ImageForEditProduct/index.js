@@ -37,7 +37,7 @@ const ImageForEditProduct = (props) => {
     return (
         <Grid sx={style.container}>
             <ProductImage item="true" xs={12} src={props.image.imageURL}></ProductImage>
-            <DeleteButton item="true" variant="contained" onClick={handleClickOpen} startIcon={<DeleteIcon />}>Delete</DeleteButton>
+            <DeleteButton item="true" variant="contained" onClick={handleClickOpen} startIcon={<DeleteIcon />}>Xóa hình ảnh</DeleteButton>
             <Dialog
                 item="true"
                 open={open}
@@ -46,17 +46,17 @@ const ImageForEditProduct = (props) => {
                 aria-describedby="alert-dialog-description"
             >
                 <DialogTitle id="alert-dialog-title">
-                    {"Do you really want to delete this photo?"}
+                    {"Xác nhận xóa hình ảnh"}
                 </DialogTitle>
                 <DialogContent>
                     <DialogContentText id="alert-dialog-description">
-                       You have just deleted this photo. Please confirm again for reliability because this action is not allowed to redo?
+                    Vui lòng xác nhận lại một lần nữa để đảm bảo độ tin cậy vì thao tác này không được phép thực hiện lại?
                     </DialogContentText>
                 </DialogContent>
                 <DialogActions>
-                    <Button onClick={handleClose}>Disagree</Button>
+                    <Button onClick={handleClose}>Hủy</Button>
                     <Button onClick={handleDelete} autoFocus>
-                        Agree
+                        Đồng ý
                     </Button>
                 </DialogActions>
             </Dialog>

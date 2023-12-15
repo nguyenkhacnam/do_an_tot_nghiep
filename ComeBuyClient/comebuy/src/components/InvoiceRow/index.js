@@ -48,7 +48,7 @@ const Alert = React.forwardRef(function Alert(props, ref) {
     return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
 });
 
-const steps = ['Checked', 'Delivered'];
+const steps = ['Đã xác nhận', 'Đã vận chuyển'];
 
 const Row = (props) => {
     const componentRef = React.useRef()
@@ -269,7 +269,7 @@ const Row = (props) => {
                                     <Box sx={{ flex: '1 1 auto' }} />
                                     {activeStep !== steps.length ? (
                                         <Button onClick={handleClickPaidInvoice} sx={{ fontSize: '9px' }} >
-                                            Done
+                                            Hoàn thành
                                         </Button>
                                     ) : (
                                         null
@@ -281,11 +281,11 @@ const Row = (props) => {
                 </TableCell>
                 {dataForUpdate.isPaid ? (
                     <TableCell align="center">
-                        <Button sx={{ fontSize: '13px' }} onClick={() => setOpenModalBill(true)}>Print</Button>
+                        <Button sx={{ fontSize: '13px' }} onClick={() => setOpenModalBill(true)}>In</Button>
                     </TableCell>
                 ) : (
                     <TableCell align="center">
-                        <Typography sx={{ fontSize: '13px' }}>Execute</Typography>
+                        <Typography sx={{ fontSize: '13px' }}>{''}</Typography>
                     </TableCell>
                 )}
             </TableRow>
@@ -294,17 +294,17 @@ const Row = (props) => {
                     <Collapse in={open} timeout="auto" unmountOnExit>
                         <Box sx={{ margin: 1 }}>
                             <Typography variant="h7" style={{ fontSize: '13px', fontWeight: 'bold', color: 'black', textDecoration: 'underline' }} gutterBottom component="div">
-                                Details:
+                                Chi tiết:
                             </Typography>
                             <Typography variant="h8" style={{ fontSize: '13px', fontWeight: 'bold', color: 'black' }} gutterBottom component="div">
-                                Ship to: {row.address}
+                                Vận chuyển đến: {row.address}
                             </Typography>
                             <Table size="small" aria-label="purchases">
                                 <TableHead>
                                     <TableRow>
-                                        <TableCell style={{ color: 'black', fontSize: '13px' }}>Product ID</TableCell>
-                                        <TableCell align="center" style={{ color: 'black', fontSize: '13px' }}>Amount</TableCell>
-                                        <TableCell align="center" style={{ color: 'black', fontSize: '13px' }}>Total price (USD)</TableCell>
+                                        <TableCell style={{ color: 'black', fontSize: '13px' }}>ID Sản phẩm</TableCell>
+                                        <TableCell align="center" style={{ color: 'black', fontSize: '13px' }}>Số lượng</TableCell>
+                                        <TableCell align="center" style={{ color: 'black', fontSize: '13px' }}>Tổng tiền(VND)</TableCell>
                                     </TableRow>
                                 </TableHead>
                                 <TableBody>

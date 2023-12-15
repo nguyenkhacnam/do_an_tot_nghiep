@@ -34,6 +34,7 @@ const NavigateBrandLine = (value) => {
 }
 function BrandNavBar(props) {
     const brandLine = props.brandLine;
+    console.log("🚀 ~ file: BrandNavBar.js:37 ~ BrandNavBar ~ brandLine:", brandLine)
     return (
         <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex', justifyContent: 'space-evenly' } }}>
             {brandLine.map((brand, i) => (

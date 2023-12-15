@@ -51,7 +51,7 @@ const Staff = () => {
             const response = await accountApi.getAll()
             if (response.status == 200) {
                 setAccountList(response.data)
-                setMessageSuccess("Load Account Successfully")
+                setMessageSuccess("Thành công")
                 setOpenSuccessAlert(true)
             }
             else {
@@ -104,7 +104,7 @@ const Staff = () => {
         () => [
             {
                 field: 'name',
-                headerName: 'Name',
+                headerName: 'Tên',
                 width: 250,
                 renderCell: (params) => (
                     <UserInfoPopOver user={params.row} />
@@ -118,26 +118,26 @@ const Staff = () => {
                     renderAvatar(params)
                 )
             },
-            { field: 'dob', headerName: 'Day of birth', width: 130 },
+            { field: 'dob', headerName: 'Ngày sinh', width: 130 },
             {
-                field: 'role', headerName: 'Role', width: 150, renderCell: (params) => (
+                field: 'role', headerName: 'Quyền', width: 150, renderCell: (params) => (
                     renderStatus(params)
                 )
             },
             {
-                field: 'phoneNumber', headerName: 'Contact', width: 200,
+                field: 'phoneNumber', headerName: 'Số điện thoại', width: 200,
                 valueFormatter: (params) => {
                     if (params.value == "") {
-                        return "Have not updated yet";
+                        return "Chưa cập nhật";
                     }
                     return params.value;
                 }
             },
             {
-                field: 'branch', headerName: 'Branch', width: 350,
+                field: 'branch', headerName: 'Chi nhánh', width: 200,
                 valueFormatter: (params) => {
                     if (params.value == null) {
-                        return "This is not Manager or Not Authorized";
+                        return "Chưa cập nhật";
                     }
 
                     return params.value.address;
@@ -146,8 +146,8 @@ const Staff = () => {
             {
                 field: 'actions',
                 type: 'actions',
-                headerName: 'Action',
-                width: 80,
+                headerName: 'Chức năng',
+                width: 100,
                 getActions: (params) => [
                     <GridActionsCellItem
                         icon={<DeleteIcon />}
@@ -184,7 +184,7 @@ const Staff = () => {
                 }}>
                     <Stack sx={{ alignItems: 'center', justifyItems: 'center', pl: 2, pt: 2 }} direction={'row'} spacing={2}>
                         <AccountCircleIcon />
-                        <Typography variant="h6">Staff Manager</Typography>
+                        <Typography variant="h6">Quản lý nhân viên</Typography>
                     </Stack>
                     <Button sx={{
                         width: 150,
@@ -198,7 +198,7 @@ const Staff = () => {
                             backgroundColor: 'black',
                             color: 'white',
                         }
-                    }} onClick={() => navigate('/staff/add')}>Add Staff</Button>
+                    }} onClick={() => navigate('/staff/add')}>Thêm nhân viên</Button>
                     <ProductTable
                         rowHeight={100}
                         columns={columns}
@@ -206,8 +206,8 @@ const Staff = () => {
                         pagination
                         getRowId={(row) => row.userID} />
                     <ConfirmDialog
-                        body="Please check the product information again to make sure. This operation cannot be redo. If you are sure, please confirm!"
-                        title="Confirm Action?"
+                        body="Vui lòng kiểm tra lại thông tin sản phẩm để đảm bảo. Thao tác này không thể làm lại. Nếu bạn chắc chắn, vui lòng xác nhận!"
+                        title="Xác nhận thông tin"
                         open={openConfirmDialog} handleClose={handleClose} handleConfirm={handleDeleteUser} />
                     <SnackBarAlert severity='success' open={openSuccessAlert} handleClose={handleClose} message={messageSuccess} />
                     <SnackBarAlert severity='error' open={openErrorAlert} handleClose={handleClose} message={messageError} />

@@ -43,14 +43,14 @@ const DetailProductModal = ({ open, product, onClose }) => {
                     product != null ?
                         <Box sx={style.boxContainer}>
                             <Grid container>
-                                <Grid item xs={11}>
+                                <Grid item xs={10}>
                                     <Typography xs={12} color="#2E1534" id="modal-modal-title" fontWeight='bold' variant="h6" component="h2">
                                         {product.name}
                                     </Typography>
                                 </Grid>
-                                <Grid item xs={1}>
+                                <Grid item xs={2}>
                                     <Typography xs={12} color="#2E1534" id="modal-modal-title" fontWeight='bold' variant="h6" component="h2">
-                                        {"$ " + product.price}
+                                        {product.price + "₫"}
                                     </Typography>
                                 </Grid>
                             </Grid>
@@ -58,7 +58,7 @@ const DetailProductModal = ({ open, product, onClose }) => {
                             </Box>
                             <Grid container>
                                 <Typography xs={12} sx={{ marginBottom: 2 }} color="#152659" id="modal-modal-title" fontWeight='bold' variant="h6">
-                                    Detail Images
+                                    Hình ảnh
                                 </Typography>
                             </Grid>
                             {
@@ -96,15 +96,15 @@ const DetailProductModal = ({ open, product, onClose }) => {
 
                                 }}>
                                     <Stack direction='row' spacing={1}>
-                                        <Typography fontWeight='bold' color='white' variant='h6'>Brand:</Typography>
+                                        <Typography fontWeight='bold' color='white' variant='h6'>Chi nhánh:</Typography>
                                         <Typography fontWeight='bold' color='white' variant='h6'>{product.brand}</Typography>
                                     </Stack>
                                     <Stack direction='row' spacing={1}>
-                                        <Typography fontWeight='bold' color='white' variant='h6'>Origin:</Typography>
+                                        <Typography fontWeight='bold' color='white' variant='h6'>Xuất xứ:</Typography>
                                         <Typography fontWeight='bold' color='white' variant='h6'>{product.origin}</Typography>
                                     </Stack>
                                     <Stack direction='row' spacing={1}>
-                                        <Typography fontWeight='bold' color='white' variant='h6'>Year:</Typography>
+                                        <Typography fontWeight='bold' color='white' variant='h6'>Năm:</Typography>
                                         <Typography fontWeight='bold' color='white' variant='h6'>{product.year}</Typography>
                                     </Stack>
                                 </Stack>
@@ -112,7 +112,7 @@ const DetailProductModal = ({ open, product, onClose }) => {
                             <FeatureChart data={product.feature.map(item => item.name)}/>
                             <Stack>
                                 <Typography xs={12} sx={style.buttonFeature} color="white" id="modal-modal-title" fontWeight='bold' variant="body1">
-                                    Feature
+                                    Nhãn hiệu
                                 </Typography>
                             </Stack>
                             <Box sx={style.boxInfor}>
@@ -123,31 +123,31 @@ const DetailProductModal = ({ open, product, onClose }) => {
                                     padding={1}
                                     sx={style.boxInfor_Stack}>
                                     <BallotIcon />
-                                    <Typography variant='h6' fontWeight='bold'>Technical Information</Typography>
+                                    <Typography variant='h6' fontWeight='bold'>Thông tin kĩ thuật</Typography>
                                 </Stack>
                                 <Grid container>
                                     <Grid item xs={6} paddingLeft={2}>
-                                        <Stack  xs={12} spacing={2} padding={2}>
+                                        <Stack xs={12} spacing={2} padding={2}>
                                             <TechInforLine Icon={<MemoryIcon />} Text={product.cpu} Title='CPU' />
                                             <Box sx={style.boxinfor_Stack_Line}></Box>
-                                            <TechInforLine Icon={<ScreenshotMonitorIcon />} Text={product.screenDimension + ' inch, ' + product.colorCoverage + ' RGBs'} Title='Screen Dimension' />
+                                            <TechInforLine Icon={<ScreenshotMonitorIcon />} Text={product.screenDimension + ' inch, ' + product.colorCoverage + ' RGBs'} Title='Màn hình' />
                                             <Box sx={style.boxinfor_Stack_Line}></Box>
-                                            <TechInforLine Icon={<InventoryIcon />} Text={product.memory + ' SSD'} Title='Store' />
+                                            <TechInforLine Icon={<InventoryIcon />} Text={product.memory + ' SSD'} Title='Ổ cứng' />
                                             <Box sx={style.boxinfor_Stack_Line}></Box>
-                                            <TechInforLine Icon={<CableIcon />} Text={product.externalIOPort} Title='External IO Port' />
+                                            <TechInforLine Icon={<CableIcon />} Text={product.externalIOPort} Title='Giao tiếp và kết nối' />
                                             <Box sx={style.boxinfor_Stack_Line}></Box>
                                         </Stack>
                                     </Grid>
                                     <Grid item xs={6} paddingLeft={2}>
                                         <Stack xs={12} spacing={2} padding={2}>
-                                            <TechInforLine Icon={<AutofpsSelectIcon />} Text={product.ram + " GB"} Title='RAM' />
-                                            <Box sx={style.boxinfor_Stack_Line}></Box>
-                                            <TechInforLine Icon={<ChromeReaderModeIcon />} Text={product.gpu} Title="GPU" />
-                                            <Box sx={style.boxinfor_Stack_Line}></Box>
-                                            <TechInforLine Icon={<Battery3BarIcon />} Text={product.battery + "Whr"} Title="Battery" />
-                                            <Box sx={style.boxinfor_Stack_Line}></Box>
-                                            <TechInforLine Icon={<ScaleIcon />} Text={product.weight + ' kg'} Title="Weight" />
-                                            <Box sx={style.boxinfor_Stack_Line}></Box>
+                                                <TechInforLine Icon={<AutofpsSelectIcon />} Text={product.ram + " GB"} Title='RAM' />
+                                                <Box sx={style.boxinfor_Stack_Line}></Box>
+                                                <TechInforLine Icon={<ChromeReaderModeIcon />} Text={product.gpu} Title="GPU" />
+                                                <Box sx={style.boxinfor_Stack_Line}></Box>
+                                                <TechInforLine Icon={<Battery3BarIcon />} Text={product.battery + "Whr"} Title="Pin" />
+                                                <Box sx={style.boxinfor_Stack_Line}></Box>
+                                                <TechInforLine Icon={<ScaleIcon />} Text={product.weight + ' kg'} Title="Cân nặng" />
+                                                <Box sx={style.boxinfor_Stack_Line}></Box>
                                         </Stack>
                                     </Grid>
                                 </Grid>
@@ -159,13 +159,13 @@ const DetailProductModal = ({ open, product, onClose }) => {
                                     padding={1}
                                     sx={style.boxDes_Stack}>
                                     <DescriptionIcon />
-                                    <Typography variant='h6' fontWeight='bold'>Description</Typography>
+                                    <Typography variant='h6' fontWeight='bold'>Mô tả chi tiết </Typography>
                                 </Stack>
                                 <Grid container sx={style.BoxDes_Grid} paddingLeft={4} paddingRight={4}>
                                     <Stack xs={12}>
                                         {
                                             product.productimage.length > 0 &&
-                                            <ProductImage xs={12} src={product.productimage[0].imageURL}></ProductImage>
+                                            <ProductImage xs={12} src={product.productimage[0]?.imageURL}></ProductImage>
                                         }
                                         <Typography xs={12} sx={{ marginBottom: 2 }} variant='body1'>{product.description}</Typography>
                                     </Stack>
@@ -177,7 +177,7 @@ const DetailProductModal = ({ open, product, onClose }) => {
                                 '&:hover': {
                                     backgroundColor: '#BF0404',
                                 }
-                            }} onClick={onClose} variant="contained">Close</Button>
+                            }} onClick={onClose} variant="contained">Đóng</Button>
                         </Box>
                         : <Typography variant='h6'>No Data</Typography> 
                 }

@@ -29,23 +29,23 @@ const BoxShopInfo = () => {
         <Grid container item xs={10} sx={style.boxShopInfo}>
             <Grid container item xs={8} >
                 <Stack>
-                    <Typography variant='h5' fontWeight={'bold'}>Shop with confidence with Comebuy</Typography>
+                    <Typography variant='h5' fontWeight={'bold'}>Tự tin mua sắm với Comebuy</Typography>
                     <Grid container sx={{ p: 3 }}>
                         <Grid container item xs={6} sx={{ p: 2 }}>
                             <Stack spacing={2}>
                                 <AddCircleIcon />
-                                <Typography variant="h6" fontWeight={'bold'}>Safety warranty</Typography>
+                                <Typography variant="h6" fontWeight={'bold'}>Bảo hành an toàn</Typography>
                                 <Typography variant="body1">
-                                    All products sold by ThinkPro are subject to the manufacturer's and supplier's warranty conditions. If there is a problem with product quality, ThinkPro is committed to supporting you to the end.</Typography>
+                                Tất cả các sản phẩm bán ra đều tuân theo các điều kiện bảo hành của nhà sản xuất và nhà cung cấp. Nếu có vấn đề về chất lượng sản phẩm, chúng tôi cam kết hỗ trợ bạn đến cùng.</Typography>
                             </Stack>
 
                         </Grid>
                         <Grid container item xs={6} sx={{ p: 2 }}>
                             <Stack spacing={2}>
                                 <CurrencyExchangeIcon />
-                                <Typography variant="h6" fontWeight={'bold'}>Support 1-1 exchange</Typography>
+                                <Typography variant="h6" fontWeight={'bold'}>Hỗ trợ trao đổi 1-1</Typography>
                                 <Typography variant="body1">
-                                    With a trial period of up to 15 days, you will be supported to exchange 1-1 or 100% refund if there is an error or feel that the product does not meet the needs.</Typography>
+                                Với thời gian dùng thử lên tới 15 ngày, bạn sẽ được hỗ trợ đổi 1-1 hoặc hoàn tiền 100% nếu có sai sót hoặc cảm thấy sản phẩm không đáp ứng được nhu cầu.</Typography>
                             </Stack>
                         </Grid>
                         <Grid container xs={12} item>
@@ -54,21 +54,21 @@ const BoxShopInfo = () => {
                         <Grid container xs={12} item>
                             <Stack sx={{ width: '100%', p: 4 }} spacing={2}>
                                 <InfoIcon />
-                                <Typography variant="h6" fontWeight={'bold'}>Useful Information</Typography>
+                                <Typography variant="h6" fontWeight={'bold'}>Thông tin hữu ích</Typography>
                                 <Grid container item xs={12}>
                                     <Grid container item xs={6} sx={{ p: 2 }}>
                                         <Stack spacing={2} >
-                                            <CustomButton startIcon={<LocalPhoneIcon />}>Hotline : 0939.888</CustomButton>
-                                            <CustomButton startIcon={<StoreMallDirectoryIcon />}>Chain Stores</CustomButton>
-                                            <CustomButton startIcon={<LocalPhoneIcon />}>Hotline : 0939.888</CustomButton>
+                                            <CustomButton startIcon={<LocalPhoneIcon />}>Gọi mua hàng : 0329465355</CustomButton>
+                                            <CustomButton startIcon={<StoreMallDirectoryIcon />}>Gọi khiếu nại: 0329465355</CustomButton>
+                                            <CustomButton startIcon={<LocalPhoneIcon />}>Gọi bảo hành : 0329465355</CustomButton>
                                         </Stack>
 
                                     </Grid>
                                     <Grid container item xs={6} sx={{ p: 2 }}>
                                         <Stack spacing={2}>
-                                            <CustomButton startIcon={<LocalShippingIcon />}>Delivery and Payment</CustomButton>
-                                            <CustomButton startIcon={<AttachMoneyIcon />}>Service Cost</CustomButton>
-                                            <CustomButton startIcon={<LocalPhoneIcon />}>Hotline : 0939.888</CustomButton>
+                                            <CustomButton startIcon={<LocalShippingIcon />}>Giao hàng và thanh toán</CustomButton>
+                                            <CustomButton startIcon={<AttachMoneyIcon />}>Miễn phí vận chuyển</CustomButton>
+                                            <CustomButton startIcon={<LocalPhoneIcon />}>Chính sách bảo hành</CustomButton>
                                         </Stack>
                                     </Grid>
                                 </Grid>

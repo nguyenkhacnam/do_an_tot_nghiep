@@ -108,7 +108,7 @@ const ProductComment = (props) => {
     useEffect(async () => {
             let cancel = false
             const response = await commentApi.getCommentsWithID(props.productID)
-            if (!cancel && response.status == 200) {
+            if (!cancel && response?.status === 200) {
                 if (cancel) return;
                 setComments(response.data)
                 setLoading(false)
@@ -145,7 +145,7 @@ const ProductComment = (props) => {
             <Stack sx={{ width: '100%' }}>
                 <Stack direction={'row'} sx={{ alignItems: 'center', p: 2 }} spacing={2}>
                     <MessageIcon />
-                    <Typography variant='h5' fontWeight={'bold'}>Reviews and Comments</Typography>
+                    <Typography variant='h5' fontWeight={'bold'}>Đánh giá và bình luận</Typography>
                 </Stack>
                 {loading == true ?
                     <Grid container item xs={12} sx={{ p: 3, width: '100%' }}>
@@ -157,8 +157,10 @@ const ProductComment = (props) => {
                             !comments.length > 0 ?
                                 <Stack spacing={2} sx={{ boxShadow: 5, p: 4, borderRadius: 5 }}>
                                     <ChatBubbleOutlineIcon />
-                                    <Typography variant="h6" fontWeight={'bold'}>There are no reviews and comments yet</Typography>
-                                    <Typography variant="body1">
+                                    <Typography variant="h6" fontWeight={'bold'}>Chưa có đánh giá và bình luận nào</Typography>
+                                    <Typography variant="body1" style={{
+                                        opacity: 0
+                                    }}>
                                         Should buy or not? Please help my brother.
                                     </Typography>
                                     {/* <Button onClick={handleOpen} sx={{ backgroundColor: '#B360E6' }} variant="contained" startIcon={<SendIcon />}>Post Comment</Button> */}
@@ -176,7 +178,7 @@ const ProductComment = (props) => {
                                                         primary={item.account.name}
                                                         secondary={
                                                             <React.Fragment>
-                                                                <Typography
+                                                                {/* <Typography
                                                                     sx={{ display: 'inline' }}
                                                                     component="span"
                                                                     variant="body1"
@@ -184,7 +186,9 @@ const ProductComment = (props) => {
                                                                 >
                                                                     {item.account.name}
                                                                 </Typography>
-                                                                -  {item.body}
+                                                                -   */}
+                                                                {item.body}
+                                                                {console.log(item)}
 
                                                             </React.Fragment>
 
@@ -204,7 +208,7 @@ const ProductComment = (props) => {
                 }
                 <Fab onClick={handleOpen} sx={{ alignSelf: 'flex-start' }} variant="extended" size="medium" color="secondary" aria-label="post">
                     <EditIcon sx={{ mr: 1 }} />
-                    Post Comment
+                    Đăng bình luận
                 </Fab>
             </Stack>
             <Modal
@@ -216,11 +220,11 @@ const ProductComment = (props) => {
                 <Stack sx={style.modal} spacing={1}>
                     <RateReviewIcon fontSize="large" />
                     <Typography id="modal-modal-title" variant="h6" component="h2">
-                        Write your comment below. We appreciate your assistance!
+                    Viết bình luận của bạn dưới đây. Chúng tôi đánh giá cao sự giúp đỡ của bạn!
                     </Typography>
                     <TextField onChange={(e) => setNewCommentBody(e.target.value)}>
                     </TextField>
-                    <Button onClick={HandlePostNewComment} variant="contained" color="secondary" endIcon={<SendIcon />}>Post</Button>
+                    <Button onClick={HandlePostNewComment} variant="contained" color="secondary" endIcon={<SendIcon />}>Đăng bình luận</Button>
                 </Stack>
             </Modal>
             <SnackBarAlert severity='success' open={openSuccessAlert} handleClose={handleCloseAlert} message={messageSuccess} />

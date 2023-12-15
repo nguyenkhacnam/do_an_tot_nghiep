@@ -14,7 +14,7 @@ export default function BannerItem(props) {
         alt="green iguana"
       />
       <CardActions sx={{ alignItems: 'flex-end'}}>
-        <Button onClick={async () => props.HandleDelete(props.item.bannerID)} size="small">Delete</Button>
+        <Button onClick={async () => props.HandleDelete(props.item.bannerID)} size="small">Xóa</Button>
       </CardActions>
     </Card>
   );

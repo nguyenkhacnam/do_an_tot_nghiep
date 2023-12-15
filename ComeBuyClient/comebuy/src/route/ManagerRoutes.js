@@ -10,7 +10,7 @@ const managerRoutes = [
     page: <CounterForManager />,
   },
   {
-    name: 'Revenue',
+    name: 'Doanh thu',
     path: '/revenue/*',
     page: <Revenue />,
   },
@@ -29,7 +29,7 @@ const managerMenuItems = [
     page: <CounterForManager />,
   },
   {
-    name: 'Revenue',
+    name: 'Doanh thu',
     path: '/revenue/*',
     page: <Revenue />,
   },

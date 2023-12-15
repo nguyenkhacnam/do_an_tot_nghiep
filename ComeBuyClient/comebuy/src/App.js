@@ -38,10 +38,16 @@ function App() {
   }
   }
 
-  useEffect(async () => {
-    await LoadCurrentUser()
-    navigate('/')
-  }, [role])
+useEffect(() => {
+  const loadUserData = async () => {
+    await LoadCurrentUser();
+    navigate('/');
+    // navigate(previousPath);
+  };
+
+  loadUserData();
+}, [role]);
+
 
   const renderRoutes = () => {
 

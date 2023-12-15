@@ -88,7 +88,7 @@ const DetailProduct = () => {
 
     const LoadData = async () => {
         const response = await productAPI.getProductWithID(id)
-        if (response.status == 200)
+        if (response?.status === 200)
             setProduct(response.data)
         else
             setError("Error Load Product!")
@@ -218,21 +218,21 @@ const DetailProduct = () => {
                             <Box sx={style.boxContainer}>
                                 <Box sx={style.boxInfor1}>
                                     <Grid item container>
-                                        <Grid item xs={11}>
+                                        <Grid item xs={10}>
                                             <Typography xs={12} color="#152659" id="modal-modal-title" fontWeight='bold' variant="h6" component="h2">
                                                 {product.name}
                                             </Typography>
                                         </Grid>
-                                        <Grid item xs={1}>
+                                        <Grid item xs={2}>
                                             <Typography xs={12} color="#152659" id="modal-modal-title" fontWeight='bold' variant="h6" component="h2">
-                                                {"$ " + product.price}
+                                                {product.price + "₫"}
                                             </Typography>
                                         </Grid>
                                     </Grid>
                                     <Box sx={style.boxInfor_Line}></Box>
                                     <Grid item container>
                                         <Typography sx={{ marginBottom: 2 }} color="#152659" id="modal-modal-title" fontWeight='bold' variant="h6">
-                                            Detail Images
+                                            Hình ảnh sản phẩm
                                         </Typography>
                                     </Grid>
                                     {
@@ -271,23 +271,23 @@ const DetailProduct = () => {
 
                                         }}>
                                             <Stack direction='row' spacing={1}>
-                                                <Typography fontWeight='bold' color='white' variant='h6'>Brand:</Typography>
+                                                <Typography fontWeight='bold' color='white' variant='h6'>Chi nhánh:</Typography>
                                                 <Typography fontWeight='bold' color='white' variant='h6'>{product.brand}</Typography>
                                             </Stack>
                                             <Stack direction='row' spacing={1}>
-                                                <Typography fontWeight='bold' color='white' variant='h6'>Origin:</Typography>
+                                                <Typography fontWeight='bold' color='white' variant='h6'>Nguồn gốc:</Typography>
                                                 <Typography fontWeight='bold' color='white' variant='h6'>{product.origin}</Typography>
                                             </Stack>
                                             <Stack direction='row' spacing={1}>
-                                                <Typography fontWeight='bold' color='white' variant='h6'>Year:</Typography>
-                                                <Typography fontWeight='bold' color='white' variant='h6'>2021</Typography>
+                                                <Typography fontWeight='bold' color='white' variant='h6'>Năm:</Typography>
+                                                <Typography fontWeight='bold' color='white' variant='h6'>{product?.year}</Typography>
                                             </Stack>
                                         </Stack>
                                     </Box>
                                     <FeatureChart data={product.feature.map(item => item.name)} />
                                     <Stack>
                                         <Typography sx={style.buttonFeature} color="white" id="modal-modal-title" fontWeight='bold' variant="body1">
-                                            Feature
+                                            Thương hiệu
                                         </Typography>
                                     </Stack>
                                 </Box>
@@ -298,18 +298,18 @@ const DetailProduct = () => {
                                         padding={1}
                                         sx={style.boxInfor_Stack}>
                                         <BallotIcon />
-                                        <Typography variant='h6' fontWeight='bold'>Technical Information</Typography>
+                                        <Typography variant='h6' fontWeight='bold'>Thông tin kĩ thuật</Typography>
                                     </Stack>
                                     <Grid container>
                                         <Grid item xs={6} paddingLeft={2}>
                                             <Stack xs={12} spacing={2} padding={2}>
                                                 <TechInforLine Icon={<MemoryIcon />} Text={product.cpu} Title='CPU' />
                                                 <Box sx={style.boxinfor_Stack_Line}></Box>
-                                                <TechInforLine Icon={<ScreenshotMonitorIcon />} Text={product.screenDimension + ' inch, ' + product.colorCoverage + ' RGBs'} Title='Screen Dimension' />
+                                                <TechInforLine Icon={<ScreenshotMonitorIcon />} Text={product.screenDimension + ' inch, ' + product.colorCoverage + ' RGBs'} Title='Màn hình' />
                                                 <Box sx={style.boxinfor_Stack_Line}></Box>
-                                                <TechInforLine Icon={<InventoryIcon />} Text={product.memory + ' SSD'} Title='Store' />
+                                                <TechInforLine Icon={<InventoryIcon />} Text={product.memory + ' SSD'} Title='Ổ cứng' />
                                                 <Box sx={style.boxinfor_Stack_Line}></Box>
-                                                <TechInforLine Icon={<CableIcon />} Text={product.externalIOPort} Title='External IO Port' />
+                                                <TechInforLine Icon={<CableIcon />} Text={product.externalIOPort} Title='Giao tiếp và kết nối' />
                                                 <Box sx={style.boxinfor_Stack_Line}></Box>
                                             </Stack>
                                         </Grid>
@@ -319,9 +319,9 @@ const DetailProduct = () => {
                                                 <Box sx={style.boxinfor_Stack_Line}></Box>
                                                 <TechInforLine Icon={<ChromeReaderModeIcon />} Text={product.gpu} Title="GPU" />
                                                 <Box sx={style.boxinfor_Stack_Line}></Box>
-                                                <TechInforLine Icon={<Battery3BarIcon />} Text={product.battery + "Whr"} Title="Battery" />
+                                                <TechInforLine Icon={<Battery3BarIcon />} Text={product.battery + "Whr"} Title="Pin" />
                                                 <Box sx={style.boxinfor_Stack_Line}></Box>
-                                                <TechInforLine Icon={<ScaleIcon />} Text={product.weight + ' kg'} Title="Weight" />
+                                                <TechInforLine Icon={<ScaleIcon />} Text={product.weight + ' kg'} Title="Cân nặng" />
                                                 <Box sx={style.boxinfor_Stack_Line}></Box>
                                             </Stack>
                                         </Grid>
@@ -334,13 +334,13 @@ const DetailProduct = () => {
                                         padding={1}
                                         sx={style.boxDes_Stack}>
                                         <DescriptionIcon />
-                                        <Typography variant='h6' fontWeight='bold'>Description</Typography>
+                                        <Typography variant='h6' fontWeight='bold'>Thông tin mô tả sản phẩm</Typography>
                                     </Stack>
                                     <Grid container sx={style.BoxDes_Grid} paddingLeft={4} paddingRight={4}>
                                         <Stack xs={12}>
                                             {
                                                 product.productimage.length > 0 &&
-                                                <ProductImage xs={12} src={product.productimage[0].imageURL}></ProductImage>
+                                                <ProductImage xs={12} src={product.productimage[0]?.imageURL}></ProductImage>
                                             }
                                             <Typography xs={12} sx={{ marginBottom: 2 }} variant='body1'>{product.description}</Typography>
                                         </Stack>
@@ -358,26 +358,26 @@ const DetailProduct = () => {
                                 <Stack>
                                     <Chip
                                         sx={{ backgroundColor: "#B3FFC9", color: 'black', fontWeight: 'bold' }}
-                                        label="Comebuy is a reputable retailer in Vietnam"
+                                        label="Comebuy là nhà bán lẻ uy tín tại Việt Nam"
                                         icon={<DoneIcon />}
                                     />
                                     <Typography variant='h6' fontWeight={'bold'} padding={1}>{product.name}</Typography>
                                     <Typography variant='body2' fontWeight={'bold'} sx={{ color: '#778899', pl: 1 }} >ID: {product.productID}</Typography>
-                                    <Typography variant='h6' fontWeight={'bold'} sx={{ color: '#F23E2E', pl: 1 }} >$ {product.price}</Typography>
+                                    <Typography variant='h6' fontWeight={'bold'} sx={{ color: '#F23E2E', pl: 1 }} >{product.price}₫</Typography>
                                     <Box sx={{ p: 3, backgroundColor: '#FFFFF7', borderRadius: 2, boxShadow: 1, mt: 1 }}>
                                         <Chip
                                             sx={{ backgroundColor: 'inherit', color: 'black', fontWeight: 'bold' }}
-                                            label="Free 1 to 1 for the first 15 days"
+                                            label="Miễn phí 1 đổi 1 trong 15 ngày đầu tiên"
                                             icon={<ChangeCircleIcon color='error' />}
                                         />
                                         <Chip
                                             sx={{ backgroundColor: 'inherit', color: 'black', fontWeight: 'bold' }}
-                                            label={`Support ${product.warranty}`}
+                                            label={`Hỗ trợ ${product.warranty}`}
                                             icon={<AddTaskIcon color='error' />}
                                         />
                                     </Box>
                                     <Stack direction="row" sx={{ alignItems: 'center' }}>
-                                        <Typography variant='body1' fontWeight={'bold'} padding={1}>Version</Typography>
+                                        <Typography variant='body1' fontWeight={'bold'} padding={1}>Phiên bản</Typography>
                                         <InfoIcon />
                                     </Stack>
                                     <Box sx={{ p: 1, backgroundColor: 'white', borderRadius: 2, boxShadow: 1, mt: 1 }}>
@@ -387,25 +387,25 @@ const DetailProduct = () => {
                                                 value="a"
                                                 name="radio-buttons"
                                             />
-                                            <Typography variant='body2' fontWeight={'bold'}>{product.screenDimension}", {product.colorCoverage}% RGB, {product.battery} Whr</Typography>
+                                            <Typography variant='body2' fontWeight={'bold'}>{product.screenDimension}", {product.colorCoverage}% RGB, {product.battery} mAh</Typography>
                                         </Stack>
-                                        <Typography variant='body2' fontWeight={'bold'} sx={{ color: '#F23E2E', pl: 6 }}>${product.price}</Typography>
+                                        <Typography variant='body2' fontWeight={'bold'} sx={{ color: '#F23E2E', pl: 6 }}>{product.price}₫</Typography>
                                         <Stack direction="row" spacing={1} sx={{ color: '#F23E2E', pt: 1, pl: 3 }}>
-                                            <Chip label="Official" color="primary" variant="outlined" />
-                                            <Chip label="New Seal" color="success" variant="outlined" />
+                                            <Chip label="Văn phòng" color="primary" variant="outlined" />
+                                            <Chip label="Mới" color="success" variant="outlined" />
                                         </Stack>
                                     </Box>
                                     <CustomButton onClick={handleAddToCart} variant="filled" sx={{ color: 'white', backgroundColor: '#D92365', p: 1, mt: 2 }} startIcon={<AddTaskIcon />}>
-                                        Add To Cart
+                                        Thêm vào giỏ hàng
                                     </CustomButton>
                                     {
                                         localStorage.getItem('idUser') != "" &&
                                         <CustomButton onClick={handleAddToFavorite} variant="filled" sx={{ color: 'white', backgroundColor: '#8C030E', p: 1, mt: 2 }} startIcon={<FavoriteIcon />}>
-                                            Add To Favorite
+                                            Thêm vào yêu thích
                                         </CustomButton>
                                     }
                                     <CustomButton1 variant="filled" sx={{ p: 1, mt: 2, backgroundColor: 'black', color: 'white' }} startIcon={<LocalPhoneIcon />}>
-                                        Hotline 0834344655
+                                        Gọi mua hàng 0329465355
                                     </CustomButton1>
                                 </Stack>
                                 :
@@ -428,7 +428,7 @@ const DetailProduct = () => {
             </Backdrop>
             <Snackbar open={openSnackbar} autoHideDuration={6000} onClose={handleCloseSnackbar}>
                 <Alert onClose={handleCloseSnackbar} severity="success" sx={{ width: '100%' }}>
-                    Added successfully
+                    Thêm thành công
                 </Alert>
             </Snackbar>
         </Stack>

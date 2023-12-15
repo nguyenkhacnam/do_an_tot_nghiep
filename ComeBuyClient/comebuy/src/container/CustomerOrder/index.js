@@ -14,6 +14,7 @@ import { currentUser } from '../../redux/selectors';
 
 export const CustomerOrderSpace = () => {
     const [invoiceList, setInvoiceList] = React.useState([])
+    console.log("🚀 ~ file: index.js:17 ~ CustomerOrderSpace ~ invoiceList:", invoiceList)
     const _currentUser = useSelector(currentUser)
 
     const dispatch = useDispatch();
@@ -35,8 +36,10 @@ export const CustomerOrderSpace = () => {
             if (invoiceList.length === 0) {
                 try {
                     const resultAction = await dispatch(getAllInvoice())
+                    console.log("🚀 ~ file: index.js:39 ~ fetchInvoice ~ resultAction:", resultAction)
                     const originalPromiseResult = unwrapResult(resultAction)
-                    originalPromiseResult.map((i) => {
+                    console.log("🚀 ~ file: index.js:41 ~ fetchInvoice ~ originalPromiseResult:", originalPromiseResult)
+                    originalPromiseResult?.data?.map((i) => {
                         if (i.userid === _currentUser.userID) {
                             temp.push(i)
                         }
@@ -69,6 +72,7 @@ export const CustomerOrderSpace = () => {
     }
 
     const [output, setOutput] = React.useState([])
+    console.log('output', output);
     const [changeDataBySearch, setChangeDataBySearch] = React.useState(false)
 
     const [openSnackbar, setOpenSnackbar] = React.useState(false)
@@ -81,7 +85,7 @@ export const CustomerOrderSpace = () => {
         if (new Date(fromDate) > new Date(toDate)) {
             setOpenSnackbar(true)
         } else {
-            invoiceList.map((i) => {
+            invoiceList?.map((i) => {
                 if (fromDate != '') {
                     if (toDate != '') {
                         if ((makeDate(i.date) >= new Date(fromDate)) && (makeDate(i.date) <= new Date(toDate))) {
@@ -140,14 +144,18 @@ export const CustomerOrderSpace = () => {
                     height: "100%",
                     marginBottom: 5
                 }}>
-                    <Stack direction="row" spacing={2} sx={{
+                    <Stack direction="row" spacing={2} 
+                        style={{
+                            marginLeft: '250px'
+                        }}
+                    sx={{
                         marginTop: 3,
                         marginBottom: 2,
                         marginLeft: 10,
                     }}>
                         <TextField
                             id="date"
-                            label="From"
+                            label="Từ ngày"
                             type="date"
                             value={fromDate}
                             sx={{
@@ -161,7 +169,7 @@ export const CustomerOrderSpace = () => {
                         />
                         <TextField
                             id="date"
-                            label="To"
+                            label="Đến ngày"
                             type="date"
                             value={toDate}
                             sx={{
@@ -174,7 +182,7 @@ export const CustomerOrderSpace = () => {
                             onChange={e => setToDate(e.target.value)}
                         />
                         <Button onClick={handleSearch} sx={{ fontSize: '14px' }} color="success" variant="outlined" startIcon={<SearchIcon />}>
-                            Search
+                            Tìm kiếm theo ngày
                         </Button>
                         <IconButton onClick={handleRefresh} style={{ backgroundColor: 'white' }}>
                             <RefreshIcon style={{ backgroundColor: 'white' }} />
@@ -196,16 +204,16 @@ export const CustomerOrderSpace = () => {
                             }}>
                                 <TableRow>
                                     <TableCell />
-                                    <TableCell style={{ color: '#0D0D0D', fontWeight: 'bold' }}>Invoice ID</TableCell>
-                                    <TableCell align="center" style={{ color: '#0D0D0D', fontWeight: 'bold' }}>Date</TableCell>
-                                    <TableCell align="center" style={{ color: '#0D0D0D', fontWeight: 'bold' }}>Total&nbsp;(USD)</TableCell>
-                                    <TableCell align="center" style={{ color: '#0D0D0D', fontWeight: 'bold' }}>Status</TableCell>
+                                    <TableCell style={{ color: '#0D0D0D', fontWeight: 'bold' }}>ID Hóa đơn</TableCell>
+                                    <TableCell align="center" style={{ color: '#0D0D0D', fontWeight: 'bold' }}>Ngày đặt hàng</TableCell>
+                                    <TableCell align="center" style={{ color: '#0D0D0D', fontWeight: 'bold' }}>Tổng&nbsp;(VND)</TableCell>
+                                    <TableCell align="center" style={{ color: '#0D0D0D', fontWeight: 'bold' }}>Trạng thái đơn hàng</TableCell>
                                 </TableRow>
                             </TableHead>
                             <TableBody>
                                 {changeDataBySearch != true ? (
                                     invoiceList.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                                        .map((row) => (
+                                        ?.map((row) => (
                                             <OrderRow key={row.invoiceID} row={row} />
                                         ))
 

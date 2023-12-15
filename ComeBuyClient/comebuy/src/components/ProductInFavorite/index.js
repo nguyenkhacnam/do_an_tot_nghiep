@@ -42,13 +42,13 @@ const ProductInFavorite = (props) => {
             {product != null ?
                 <Stack direction={'row'} sx={{ height: '100%', alignContent: 'center' }} >
                     <Img alt="complex" sx={{ maxWidth: 180 }}
-                        src={product.productimage[0].imageURL} />
+                        src={product.productimage[0]?.imageURL} />
                     <CardContent sx={{ maxWidth: 500 }}>
                         <Typography gutterBottom variant="body1" fontWeight={'bold'} component="div" onClick={handleNavigateToDetail}>
                             {product.name}
                         </Typography>
                         <Typography gutterBottom variant="body2" color='#868C7D' component="div">
-                            Warranty {product.warranty}
+                            Bảo hành {product.warranty}
                         </Typography>
                         <Stack sx={{ p: 1 }} spacing={1}>
                             <Box>
@@ -61,7 +61,7 @@ const ProductInFavorite = (props) => {
                                 RAM: {product.ram}
                             </Box>
                             <Box>
-                                Screen: {product.screenDimension}' inch
+                                Màn hình: {product.screenDimension}' inchs
                             </Box>
                         </Stack>
 
@@ -75,7 +75,7 @@ const ProductInFavorite = (props) => {
                         </IconButton>
                     </Stack>
                     <Typography variant="body1" fontWeight={'bold'} sx={{ marginLeft: '5%', textAlign: 'end', alignSelf: 'center', minWidth: 100 }} color="#D94A56">
-                        $ {product.price}
+                        {product.price}₫
                     </Typography>
                 </Stack>
                 :

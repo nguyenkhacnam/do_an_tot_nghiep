@@ -73,7 +73,7 @@ const BannerManage = () => {
             justifyContent="center"
             alignItems="center"
         >
-            <Typography variant="h5" fontWeight={'bold'}>Banner Management</Typography>
+            <Typography variant="h5" fontWeight={'bold'}>Quản lý Banner</Typography>
             <Button sx={{
                 width: 150,
                 backgroundColor: '#2E1534',
@@ -87,7 +87,7 @@ const BannerManage = () => {
                     backgroundColor: 'black',
                     color: 'white',
                 }
-            }} onClick={() => SetOpenModal(true)}>Add Banner</Button>
+            }} onClick={() => SetOpenModal(true)}>Thêm Banner</Button>
             <Stack
                 direction={'row'}
                 justifyContent="center"

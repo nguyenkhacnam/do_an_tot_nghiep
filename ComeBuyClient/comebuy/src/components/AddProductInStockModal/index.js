@@ -42,8 +42,8 @@ const AddProductInStockModal = (props) => {
             });
             props.onClose()
         }
-        else if (amount == 0) setError({ isError: true, message: "Amount is not allowed to equal 0!" })
-        else setError({ isError: true, message: "Please select the product!" })
+        else if (amount == 0) setError({ isError: true, message: "Số lượng không được phép bằng 0!" })
+        else setError({ isError: true, message: "Chọn sản phẩm!" })
     }
 
     return (
@@ -56,14 +56,14 @@ const AddProductInStockModal = (props) => {
             >
                 <Box sx={style}>
                     <Typography id="modal-modal-title" variant="h6" component="h2">
-                        Add Product
+                        Thêm sản phẩm vào kho
                     </Typography>
                     <Box sx={{ height: 5, backgroundColor: '#2e1534', width: '100%', mt: 1, mb: 1, borderRadius: 5 }}></Box>
                     <Typography id="modal-modal-description" sx={{ mb: 2 }}>
-                        Fill the information.
+                        Điền thông tin.
                     </Typography>
                     <ProductSelect existedProduct={currentList} sx={{ mb: 2 }} onChange={onProductChange} />
-                    <TextFieldForAdd inputConfig="number" Icon={<AddShoppingCartIcon />} Text={amount} Title='Amount' onChange={(event) => setAmount(event.target.value)}></TextFieldForAdd>
+                    <TextFieldForAdd inputConfig="number" Icon={<AddShoppingCartIcon />} Text={amount} Title='Số lượng' onChange={(event) => setAmount(event.target.value)}></TextFieldForAdd>
                     {
                         Error.isError &&
                         <Stack direction='row' spacing={2} sx={{ margin: 1 }}>
@@ -71,7 +71,7 @@ const AddProductInStockModal = (props) => {
                             <Typography sx={{ color: 'red' }}>{Error.message}</Typography>
                         </Stack>
                     }
-                    <Button sx={{justifySelf:'center'}} onClick={handleAddProduct}>Submit</Button>
+                    <Button sx={{justifySelf:'center'}} onClick={handleAddProduct}>Thêm</Button>
                 </Box>
             </Modal>
         </div>

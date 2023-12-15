@@ -50,7 +50,7 @@ export default function Paypal({ _discount, _lastTotal, cartList, purchases, pro
         isPaid: false,
         address: _bigAddress,
         userID: _currentUser.userID,
-        branchID: 'a4a66b5e-182b-4b7d-bd13-8e6a54b686a6'
+        branchID: '9ef0b2b9-9920-4d15-982c-c4a4209700cd'
     })
 
     const [orderDataItem, setOrderDataItem] = useState({
@@ -63,6 +63,7 @@ export default function Paypal({ _discount, _lastTotal, cartList, purchases, pro
     // const [listOrderDataItem, setListOrderDataItem] = useState([])
 
     const [listItem, setListItem] = useState([])
+    console.log("🚀 ~ file: index.js:66 ~ Paypal ~ listItem:", listItem)
 
     const _addInvoiceItem = async (_invoiceId) => {
         let t = []
@@ -103,6 +104,7 @@ export default function Paypal({ _discount, _lastTotal, cartList, purchases, pro
                     "-------------------------------------------------------- \n" +
                     "Any wondered things. Please contact with our shop with contact below site: ComeBuy.com"
             }).then(data => {
+                console.log("🚀 ~ file: index.js:107 ~ const_addInvoiceItem= ~ data:", data, t)
                 setListItem(t)
                 setStartAddInvoiceItem(true)
             })
@@ -145,6 +147,7 @@ export default function Paypal({ _discount, _lastTotal, cartList, purchases, pro
     useEffect(() => {
         const addItem = async () => {
             for (let i = 0; i < listItem.length; i++) {
+                console.log("🚀 ~ file: index.js:150 ~ addItem ~ listItem:", listItem) 
                 try {
                     const resultAction = await dispatch(addInvoiceItem(listItem[i]))
                     const originalPromiseResult = unwrapResult(resultAction)
@@ -175,7 +178,7 @@ export default function Paypal({ _discount, _lastTotal, cartList, purchases, pro
                 date: date + ' ' + m,
                 userID: _currentUser.userID,
                 address: _bigAddress,
-                branchID: 'a4a66b5e-182b-4b7d-bd13-8e6a54b686a6'
+                branchID: '9ef0b2b9-9920-4d15-982c-c4a4209700cd'
             }
             setOrderData(temp)
             setStartAddInvoice(true)
@@ -190,8 +193,8 @@ export default function Paypal({ _discount, _lastTotal, cartList, purchases, pro
                 isPaid: false,
                 date: date + ' ' + m,
                 address: _bigAddress,
-                userID: "c464ea83-fcf5-44a4-8d90-f41b78b78db8",
-                branchID: 'a4a66b5e-182b-4b7d-bd13-8e6a54b686a6'
+                userID: "49d42e91-39e3-4879-a3b0-76b3315f9e38",
+                branchID: '9ef0b2b9-9920-4d15-982c-c4a4209700cd'
             }
             setOrderData(temp)
             setStartAddInvoice(true)
@@ -210,9 +213,11 @@ export default function Paypal({ _discount, _lastTotal, cartList, purchases, pro
     useEffect(async () => {
         if (startAddInvoice === true) {
             try {
+                console.log('orderData', orderData)
                 const resultAction = await dispatch(addInvoice(orderData))
                 const originalPromiseResult = unwrapResult(resultAction)
-                setInvoiceId(originalPromiseResult.data.invoiceID)
+                console.log("🚀 ~ file: index.js:219 ~ useEffect ~ originalPromiseResult:", originalPromiseResult)
+                setInvoiceId(originalPromiseResult?.data?.data?.invoiceID)
             } catch (rejectedValueOrSerializedError) {
                 alert(rejectedValueOrSerializedError)
                 setStartAddInvoice(false)
@@ -260,7 +265,7 @@ export default function Paypal({ _discount, _lastTotal, cartList, purchases, pro
                 })
                 .render(paypal.current);
         } else {
-            window.paypal
+        window.paypal
                 .Buttons({
                     createOrder: (data, actions, err) => {
                         return actions.order.create({

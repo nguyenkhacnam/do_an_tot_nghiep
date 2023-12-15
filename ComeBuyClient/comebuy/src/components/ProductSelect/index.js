@@ -43,7 +43,7 @@ const ProductSelect = (props) => {
                 groupBy={(option) => option.firstLetter}
                 getOptionLabel={(option) => option.name}
                 sx={{ width: 300, margin: 3}}
-                renderInput={(params) => <TextField {...params} label="Please select product!" />}
+                renderInput={(params) => <TextField {...params} label="Chọn sản phẩm!" />}
                 onChange={props.onChange}
             />
         );

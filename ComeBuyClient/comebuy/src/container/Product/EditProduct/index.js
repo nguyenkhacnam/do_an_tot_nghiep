@@ -48,7 +48,7 @@ const EditProduct = () => {
     const [messageError, setMessageError] = useState("No Error")
     const [messageSuccess, setMessageSuccess] = useState("Notification")
     const [featureList, setFeatureList] = useState(_featureList);  /// All of features 
-    const [currentFeature, setCurrentFeature] = useState(product.feature.map((item) => item.name))  ///feature of current product
+    const [currentFeature, setCurrentFeature] = useState(product?.feature?.map((item) => item.name))  ///feature of current product
     const navigate = useNavigate()
     const dispatch = useDispatch()
 
@@ -60,23 +60,23 @@ const EditProduct = () => {
     };
 
     // properties for edit product
-    const [name, SetName] = useState(product.name)
-    const [brand, SetBrand] = useState(product.brand)
-    const [cpu, SetCPU] = useState(product.cpu)
-    const [ram, SetRam] = useState(product.ram)
-    const [gpu, SetGPU] = useState(product.gpu)
-    const [memory, SetMemory] = useState(product.memory)
-    const [description, SetDescription] = useState(product.description)
-    const [screenDimension, SetScreenDimension] = useState(product.screenDimension)
-    const [battery, SetBattery] = useState(product.battery)
-    const [weight, SetWeight] = useState(product.weight)
-    const [origin, SetOrigin] = useState(product.origin)
-    const [externalIOPort, SetExternalIOPort] = useState(product.externalIOPort)
-    const [colorCoverage, SetColorCoverage] = useState(product.colorCoverage)
-    const [warranty, SetWarranty] = useState(product.warranty)
-    const [year, SetYear] = useState(product.year)
-    const [price, SetPrice] = useState(product.price)
-    const [productImages, SetProductImages] = useState(product.productimage)
+    const [name, SetName] = useState(product?.name)
+    const [brand, SetBrand] = useState(product?.brand)
+    const [cpu, SetCPU] = useState(product?.cpu)
+    const [ram, SetRam] = useState(product?.ram)
+    const [gpu, SetGPU] = useState(product?.gpu)
+    const [memory, SetMemory] = useState(product?.memory)
+    const [description, SetDescription] = useState(product?.description)
+    const [screenDimension, SetScreenDimension] = useState(product?.screenDimension)
+    const [battery, SetBattery] = useState(product?.battery)
+    const [weight, SetWeight] = useState(product?.weight)
+    const [origin, SetOrigin] = useState(product?.origin)
+    const [externalIOPort, SetExternalIOPort] = useState(product?.externalIOPort)
+    const [colorCoverage, SetColorCoverage] = useState(product?.colorCoverage)
+    const [warranty, SetWarranty] = useState(product?.warranty)
+    const [year, SetYear] = useState(product?.year)
+    const [price, SetPrice] = useState(product?.price)
+    const [productImages, SetProductImages] = useState(product?.productimage)
     const [previewSource, SetPreviewSource] = useState([])
     const [openPreviewModal, SetOpenPreviewModal] = useState(false)
 
@@ -107,7 +107,7 @@ const EditProduct = () => {
                 response.data.map((imgurl) => {
                     newImagesList.push({
                         imageURL: imgurl,
-                        productid: product.productID
+                        productid: product?.productID
                     })
                 })
                 SetProductImages(productImages.concat(newImagesList))
@@ -199,11 +199,11 @@ const EditProduct = () => {
     };
 
     const UpdateImages = async () => {
-        const response = await productImageAPI.deleteImagesOfProduct(product.productID)
+        const response = await productImageAPI.deleteImagesOfProduct(product?.productID)
         if (response != undefined && response.status == 200) {
             const response_2 = await productImageAPI.addMany(
                 productImages.map(
-                    (item) => { return Object.assign(item, { productid: product.productID }) })
+                    (item) => { return Object.assign(item, { productid: product?.productID }) })
             )
             return response_2.status == 200 ? true : false
         }
@@ -215,7 +215,7 @@ const EditProduct = () => {
 
     const UpdateSpecifications = () => {
         const newProduct = {
-            "productID": product.productID,
+            "productID": product?.productID,
             "ram": ram,
             "memory": memory,
             "gpu": gpu,
@@ -231,13 +231,13 @@ const EditProduct = () => {
             "externalIOPort": externalIOPort,
             "battery": battery,
             "warranty": warranty,
-            "promotion": product.promotion,
+            "promotion": product?.promotion,
             "year": year
         }
         dispatch(editProduct(newProduct))
             .unwrap()
             .then((originalPromiseResult) => {
-                setMessageSuccess("Edit Product Successfully")
+                setMessageSuccess("Cập nhật thành công")
                 setOpenSuccessAlert(true);
             })
             .catch((rejectedValueOrSerializedError) => {
@@ -254,9 +254,9 @@ const EditProduct = () => {
     }
 
     const UpdateFeature = async () => {
-        if (product.feature.length != currentFeature.length) {
-            const response = await productAPI.deleteAndUpdate_Feature(product.productID, ConvertToFeatureIDList(currentFeature))
-            if (response.status == 200) {
+        if (product?.feature.length !== currentFeature.length) {
+            const response = await productAPI.deleteAndUpdate_Feature(product?.productID, ConvertToFeatureIDList(currentFeature))
+            if (response.status === 200) {
                 console.log("Update Feature Successfully")
                 return true;
             }
@@ -267,8 +267,8 @@ const EditProduct = () => {
         }
         else {
             for (let i = 0; i < currentFeature.length; i++) {
-                if (currentFeature[i] != product.feature[i]) {
-                    const response = await productAPI.deleteAndUpdate_Feature(product.productID, ConvertToFeatureIDList(currentFeature))
+                if (currentFeature[i] != product?.feature[i]) {
+                    const response = await productAPI.deleteAndUpdate_Feature(product?.productID, ConvertToFeatureIDList(currentFeature))
                     if (response.status == 200) {
                         console.log("Update Feature Successfully")
                         return true;
@@ -285,9 +285,9 @@ const EditProduct = () => {
 
     const SaveChange = async () => {
         let isCheck = true;
-        if (productImages.length == product.productimage.length && product.feature.length == currentFeature.length) {
+        if (productImages.length === product?.productimage.length && product?.feature.length === currentFeature.length) {
             for (let i = 0; i < productImages.length; i++) {
-                if (productImages[i] != product.productimage[i]) {
+                if (productImages[i] !== product?.productimage[i]) {
                     ///// check status of updating images and features successfully or not
                     //// Flow -> update images -> update feature -> update specification
                     if (UpdateImages() && await UpdateFeature()) {
@@ -317,7 +317,7 @@ const EditProduct = () => {
             .unwrap()
             .then((originalPromiseResult) => {
                 setFeatureList(originalPromiseResult)
-                setMessageSuccess("Load Feature Successfully")
+                setMessageSuccess("Thành công")
                 setOpenSuccessAlert(true)
             })
             .catch((rejectedValueOrSerializedError) => {
@@ -327,24 +327,24 @@ const EditProduct = () => {
     }, [])
 
     useEffect(() => {
-        setCurrentFeature(product.feature.map((item) => item.name))
-        SetName(product.name)
-        SetBattery(product.battery)
-        SetBrand(product.brand)
-        SetCPU(product.cpu)
-        SetGPU(product.gpu)
-        SetExternalIOPort(product.externalIOPort)
-        SetWeight(product.weight)
-        SetColorCoverage(product.colorCoverage)
-        SetDescription(product.description)
-        SetMemory(product.memory)
-        SetOrigin(product.origin)
-        SetPrice(product.price)
-        SetProductImages(product.productimage)
-        SetRam(product.ram)
-        SetYear(product.year)
-        SetWarranty(product.warranty)
-        SetScreenDimension(product.screenDimension)
+        setCurrentFeature(product?.feature.map((item) => item.name))
+        SetName(product?.name)
+        SetBattery(product?.battery)
+        SetBrand(product?.brand)
+        SetCPU(product?.cpu)
+        SetGPU(product?.gpu)
+        SetExternalIOPort(product?.externalIOPort)
+        SetWeight(product?.weight)
+        SetColorCoverage(product?.colorCoverage)
+        SetDescription(product?.description)
+        SetMemory(product?.memory)
+        SetOrigin(product?.origin)
+        SetPrice(product?.price)
+        SetProductImages(product?.productimage)
+        SetRam(product?.ram)
+        SetYear(product?.year)
+        SetWarranty(product?.warranty)
+        SetScreenDimension(product?.screenDimension)
     }, [product])
 
 
@@ -358,16 +358,16 @@ const EditProduct = () => {
                     padding={1}
                     sx={style.boxInfor_Stack}>
                     <BallotIcon />
-                    <Typography variant='h6' fontWeight='bold'>Edit Technical Specifications</Typography>
+                    <Typography variant='h6' fontWeight='bold'>Chỉnh sửa thông số kỹ thuật</Typography>
                 </Stack>
                 <PreviewImagesModal open={openPreviewModal} onSubmit={handleUploadImages} onClose={() => SetOpenPreviewModal(false)} images={previewSource}></PreviewImagesModal>
                 <Box sx={{ backgroundColor: '#8F8EBF', height: 5, width: '100%' }}></Box>
-                <Typography variant='h6' fontWeight='bold'>Images</Typography>
+                <Typography variant='h6' fontWeight='bold'>Hình ảnh</Typography>
                 {
-                    productImages.length > 0 ?
+                    productImages?.length > 0 ?
                         <Swiper slidesPerView={1} modules={[Pagination]} spaceBetween={30} pagination={true}>
                             {
-                                productImages.map((item, i) => (
+                                productImages?.map((item, i) => (
                                     <SwiperSlide key={i}>
                                         <ImageForEditProduct image={item} deleteImage={deleteImage} />
                                     </SwiperSlide>
@@ -380,7 +380,7 @@ const EditProduct = () => {
                         </Stack>
                 }
                 <Button component="label" sx={style.AddImageButton} endIcon={<AddPhotoAlternateIcon />}>
-                    <Typography variant="overline" fontWeight="bold">Upload Image</Typography>
+                    <Typography variant="overline" fontWeight="bold">Tải ảnh sản phẩm</Typography>
                     <input multiple accept="image/*" type="file" hidden onChange={handleImageChange} />
                 </Button>
                 <Grid sx={{ marginTop: 5 }} container>
@@ -389,39 +389,39 @@ const EditProduct = () => {
                     </Grid>
                     <Grid item xs={6} paddingLeft={2}>
                         <Stack item="true" xs={12} spacing={2} padding={2}>
-                            <TextFieldForEdit Icon={<DriveFileRenameOutlineIcon />} Text={name} Title='Name' onChange={handleValueChange} />
+                            <TextFieldForEdit Icon={<DriveFileRenameOutlineIcon />} Text={name} Title='Tên sản phẩm' onChange={handleValueChange} />
                             <Box sx={style.boxinfor_Stack_Line}></Box>
                             <TextFieldForEdit Icon={<MemoryIcon />} Text={cpu} Title='CPU' onChange={handleValueChange} />
                             <Box sx={style.boxinfor_Stack_Line}></Box>
-                            <TextFieldForEdit Icon={<ScreenshotMonitorIcon />} Text={screenDimension} Title='Screen Dimension (inch)' onChange={handleValueChange} />
+                            <TextFieldForEdit Icon={<ScreenshotMonitorIcon />} Text={screenDimension} Title='Màn hình (inchs)' onChange={handleValueChange} />
                             <Box sx={style.boxinfor_Stack_Line}></Box>
-                            <TextFieldForEdit Icon={<InventoryIcon />} Text={memory} Title='Store (SSD)' onChange={handleValueChange} />
+                            <TextFieldForEdit Icon={<InventoryIcon />} Text={memory} Title='Ổ cứng (SSD)' onChange={handleValueChange} />
                             <Box sx={style.boxinfor_Stack_Line}></Box>
-                            <TextFieldForEdit Icon={<CableIcon />} Text={externalIOPort} Title='External IO Port' onChange={handleValueChange} />
+                            <TextFieldForEdit Icon={<CableIcon />} Text={externalIOPort} Title='Giao tiếp và kết nối' onChange={handleValueChange} />
                             <Box sx={style.boxinfor_Stack_Line}></Box>
-                            <TextFieldForEdit Icon={<LanguageIcon />} Text={origin} Title='Origin' onChange={handleValueChange} />
+                            <TextFieldForEdit Icon={<LanguageIcon />} Text={origin} Title='Xuất xứ' onChange={handleValueChange} />
                             <Box sx={style.boxinfor_Stack_Line}></Box>
-                            <TextFieldForEdit Icon={<AddModeratorIcon />} Text={warranty} Title='Warranty' onChange={handleValueChange} />
+                            <TextFieldForEdit Icon={<AddModeratorIcon />} Text={warranty} Title='Bản hành' onChange={handleValueChange} />
                             <Box sx={style.boxinfor_Stack_Line}></Box>
                         </Stack>
                     </Grid>
                     <Grid item xs={6} paddingLeft={2}>
                         <Stack item="true" xs={12} spacing={2} padding={2}>
-                            <TextFieldForEdit Icon={<CottageIcon />} Text={brand} Title='Brand' onChange={handleValueChange} />
+                            <TextFieldForEdit Icon={<CottageIcon />} Text={brand} Title='Chi nhánh' onChange={handleValueChange} />
                             <Box sx={style.boxinfor_Stack_Line}></Box>
                             <TextFieldForEdit Icon={<AutofpsSelectIcon />} Text={ram} Title='RAM (GB)' onChange={handleValueChange} />
                             <Box sx={style.boxinfor_Stack_Line}></Box>
                             <TextFieldForEdit Icon={<ChromeReaderModeIcon />} Text={gpu} Title="GPU" onChange={handleValueChange} />
                             <Box sx={style.boxinfor_Stack_Line}></Box>
-                            <TextFieldForEdit Icon={<Battery3BarIcon />} Text={battery} Title="Battery (Whr)" onChange={handleValueChange} />
+                            <TextFieldForEdit Icon={<Battery3BarIcon />} Text={battery} Title="Pin (Whr)" onChange={handleValueChange} />
                             <Box sx={style.boxinfor_Stack_Line}></Box>
-                            <TextFieldForEdit Icon={<ScaleIcon />} Text={weight} Title="Weight (kg)" onChange={handleValueChange} />
+                            <TextFieldForEdit Icon={<ScaleIcon />} Text={weight} Title="Cân nặng (kg)" onChange={handleValueChange} />
                             <Box sx={style.boxinfor_Stack_Line}></Box>
-                            <TextFieldForEdit Icon={<GradientIcon />} Text={colorCoverage} Title="Color Coverage (RGBs)" onChange={handleValueChange} />
+                            <TextFieldForEdit Icon={<GradientIcon />} Text={colorCoverage} Title="Độ phủ màu (RGBs)" onChange={handleValueChange} />
                             <Box sx={style.boxinfor_Stack_Line}></Box>
-                            <TextFieldForEdit Icon={<PriceChangeIcon />} Text={price} Title="Price (USD)" onChange={handleValueChange} />
+                            <TextFieldForEdit Icon={<PriceChangeIcon />} Text={price} Title="Giá (VNĐ)" onChange={handleValueChange} />
                             <Box sx={style.boxinfor_Stack_Line}></Box>
-                            <TextFieldForEdit Icon={<PriceChangeIcon />} Text={year} Title="Year" onChange={handleValueChange} />
+                            <TextFieldForEdit Icon={<PriceChangeIcon />} Text={year} Title="Năm" onChange={handleValueChange} />
                             <Box sx={style.boxinfor_Stack_Line}></Box>
                         </Stack>
                     </Grid>
@@ -431,13 +431,13 @@ const EditProduct = () => {
                                 direction="row"
                                 spacing={1}>
                                 <DescriptionIcon />
-                                <Typography fontWeight='bold'>Description</Typography>
+                                <Typography fontWeight='bold'>Mô tả chi tiết</Typography>
                             </Stack>
                             <TextField
-                                label='Description'
+                                label='Mô tả chi tiết '
                                 multiline
-                                placeholder={product.description}
-                                defaultValue={product.description}
+                                placeholder={product?.description}
+                                defaultValue={product?.description}
                                 variant="standard"
                             />
                         </Stack>
@@ -447,8 +447,8 @@ const EditProduct = () => {
                     </Grid>
                 </Grid>
                 <Stack sx={{ width: '100%', justifyContent: 'center' }} direction='row' spacing={3}>
-                    <Button sx={style.BackButton} variant="contained" onClick={() => navigate('/product')}>Back</Button>
-                    <Button sx={style.SaveButton} variant="contained" onClick={SaveChange}>Save</Button>
+                    <Button sx={style.BackButton} variant="contained" onClick={() => navigate('/product')}>Hủy</Button>
+                    <Button sx={style.SaveButton} variant="contained" onClick={SaveChange}>Lưu</Button>
                 </Stack>
             </Box>
 

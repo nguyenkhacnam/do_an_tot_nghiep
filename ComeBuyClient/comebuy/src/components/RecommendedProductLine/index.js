@@ -58,8 +58,10 @@ const RecommendedProductLine = (props) => {
             })
             
             const response = await aiApi.recommendedSystem({ name: _currentUser.name, data: newData })
+            console.log("🚀 ~ file: index.js:61 ~ useEffect ~ response:", response)
             if (!cancel && response.status == 200) {
                 let recommendedList = response.data.filter(ite => ite != props.productID)
+                console.log("🚀 ~ file: index.js:63 ~ useEffect ~ recommendedList:", recommendedList)
                 if (recommendedList.length == 1) {
                     recommendedList.push(_productList[_productList.length - 1].productID)
                     recommendedList.push(_productList[_productList.length - 2].productID)
@@ -84,7 +86,7 @@ const RecommendedProductLine = (props) => {
         <Grid container item xs={12} sx={style.boxShopInfo}>
             <Stack direction={'row'} spacing={2} sx={{ alignItems: 'center', pl: 2, pr: 2, pb: 2 }}>
                 <RecommendIcon />
-                <Typography variant='h5' fontWeight={'bold'}>Recommend Product</Typography>
+                <Typography variant='h5' fontWeight={'bold'}>Những sản phẩm liên quan</Typography>
             </Stack>
             <Grid container item xs={12}>
                 <Swiper slidesPerView={3} loop spacing={1}>

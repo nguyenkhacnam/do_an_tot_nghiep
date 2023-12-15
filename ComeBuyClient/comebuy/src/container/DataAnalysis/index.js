@@ -97,9 +97,11 @@ const DataAnalysis = () => {
         }
     }
     const AnalysisNewData = async () => {
-
+        console.log('first')
         const response = await aiApi.dataAnalysis(prepareData(_productList, selectedMonth))
-        if (response.status == 200) {
+        console.log('first11111111111')
+
+        if (response?.status === 200) {
 
             let tempData = []
             await (JSON.parse(response.data.result)).map((ite, i) => {
@@ -129,7 +131,7 @@ const DataAnalysis = () => {
                 .unwrap()
                 .then(async (originalPromiseResult) => {
                     const response = await aiApi.dataAnalysis(prepareData(originalPromiseResult, selectedMonth))
-                    if (response.status == 200) {
+                    if (response?.status == 200) {
                         if (cancel) return;
                         let tempData = []
                         await (JSON.parse(response.data.result)).map((ite, i) => {
@@ -158,7 +160,7 @@ const DataAnalysis = () => {
         }
         else {
             const response = await aiApi.dataAnalysis(prepareData(_productList, selectedMonth))
-            if (response.status == 200) {
+            if (response?.status == 200) {
                 if (cancel) return;
                 let tempData = []
                 await (JSON.parse(response.data.result)).map((ite, i) => {
