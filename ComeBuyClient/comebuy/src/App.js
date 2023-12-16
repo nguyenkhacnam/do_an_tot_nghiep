@@ -48,6 +48,9 @@ useEffect(() => {
   loadUserData();
 }, [role]);
 
+// useEffect(() => {
+//   window.scrollTo(0, 0); // Đặt vị trí cuộn trang về đầu trang khi component được mount
+// }, []);
 
   const renderRoutes = () => {
 

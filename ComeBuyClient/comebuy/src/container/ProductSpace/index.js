@@ -32,7 +32,8 @@ const ProductSpace = () => {
         memory: [],
         year: []
     })
-    const [selectedPrices, SetSelectedPrices] = useState([0, 10000000])
+    console.log("🚀 ~ file: index.js:35 ~ ProductSpace ~ filterOptions:", filterOptions)
+    const [selectedPrices, SetSelectedPrices] = useState([0, 100000000])
     const [currentFeature, setCurrentFeature] = useState([])
     const [total, SetTotal] = useState(0)
 
@@ -53,6 +54,7 @@ const ProductSpace = () => {
                 { demand: currentFeature },
                 { offset: offset })
         );
+        console.log("🚀 ~ file: index.js:56 ~ LoadRecords ~ response:", response)
 
         const products = await productAPI.getAll();
         console.log("🚀 ~ file: index.js:56 ~ LoadRecords ~ products:", products)
@@ -108,7 +110,7 @@ const ProductSpace = () => {
     return (
         <div style={{ width: '100%', height: '100%' }}>
             <Stack sx={{ width: '100%', height: '100%' }}>
-                <NavBar ></NavBar>
+                <NavBar productList={productList}></NavBar>
                 <Stack sx={{ pt: 2, pl: 2 }}>
                     <BreadCrumb />
                 </Stack>

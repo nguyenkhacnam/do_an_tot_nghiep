@@ -71,6 +71,7 @@ const FilterColumn = (props) => {
         const {
             target: { value },
         } = event;
+        console.log('target', event.target.value)
         setCurrentFeature(
             typeof value === 'string' ? value.split(',') : value,
         );

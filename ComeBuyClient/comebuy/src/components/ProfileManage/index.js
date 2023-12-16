@@ -1081,9 +1081,9 @@ const ProfileManage = () => {
                                             height: 255,
                                             display: 'flex',
                                             maxWidth: 255,
-                                            // overflow: 'hidden',
+                                            overflow: 'hidden',
                                             width: '100%',
-                                            // marginLeft: '17%'
+                                            marginLeft: '17%'
                                         }}
                                         src={step.imgPath}
                                         alt={step.label}
@@ -1144,7 +1144,7 @@ const ProfileManage = () => {
             {/* Snackbar updated successfully */}
             <Snackbar open={openSuccess} autoHideDuration={6000} onClose={handleCloseSuccess}>
                 <Alert onClose={handleCloseSuccess} severity="success" sx={{ width: '100%' }}>
-                    Updated successfully
+                    Cập nhật thành công
                 </Alert>
             </Snackbar>
 

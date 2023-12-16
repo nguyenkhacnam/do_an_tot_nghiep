@@ -309,11 +309,18 @@ exports.filter = catchAsync(async (req, res, next) => {
     demand,
     offset,
   } = req.body;
+    console.log("🚀 ~ file: product.controller.js:312 ~ exports.filter=catchAsync ~ year:", year)
+  console.log('req.body', req.body, brand)
   const result = await Product.findAll().then(async (rs) => {
-    let brands = rs.map((item) => item.brand);
+    // console.log("🚀 ~ file: product.controller.js:314 ~ result ~ rs:", rs)
+    let brands = rs.map((item) => {
+      console.log('itemmmm', item.brand)
+      return item.brand});
+      console.log('kekekeekekekekekek', brand.length)
     var brandOptions =
-      brand.length > 0 ? brand : brands.filter((v, i, a) => a.indexOf(v) === i);
+    brand.length > 0 ? brand : brands.filter((v, i, a) => a.indexOf(v) === i);
     // cpu
+    console.log("🚀 ~ file: product.controller.js:320 ~ result ~ brandOptions:", brandOptions)
     let cpus = rs.map((item) => item.cpu);
     var cpuOptions =
       cpu.length > cpu ? cpu : cpus.filter((v, i, a) => a.indexOf(v) === i);
@@ -348,25 +355,46 @@ exports.filter = catchAsync(async (req, res, next) => {
     var yearOptions =
       year.length > 0 ? year : years.filter((v, i, a) => a.indexOf(v) === i);
 
+    // let query = `select 
+    //         array_agg(DISTINCT a.productid) as records
+    //          from
+    //         (select t1.* , array_agg(DISTINCT t3.name) as listFeature
+    //         from product t1 full join product_feature t2 on t1.productid = t2.productid 
+    //         inner join feature t3 on t2.featureid = t3.featureid
+    //         where 
+    //         brand in (:brand) and 
+    //         cpu in (:cpu) and
+    //         gpu in (:gpu) and
+    //         screendimension in (:screendimension) and
+    //         weight in (:weight) and
+    //         memory in (:memory) and
+    //         year in (:year) and 
+    //         ram in (:ram) and
+    //         ispublished = true and
+    //         price between :minPrice and :maxPrice
+    //         group by t1.productid) a
+    //         where a.listFeature @>`;
+
     let query = `select 
-            array_agg(DISTINCT a.productid) as records
-             from
-            (select t1.* , array_agg(DISTINCT t3.name) as listFeature
-            from product t1 full join product_feature t2 on t1.productid = t2.productid 
-            inner join feature t3 on t2.featureid = t3.featureid
-            where 
-            brand in (:brand) and 
-            cpu in (:cpu) and
-            gpu in (:gpu) and
-            screendimension in (:screendimension) and
-            weight in (:weight) and
-            memory in (:memory) and
-            year in (:year) and 
-            ram in (:ram) and
-            ispublished = true and
-            price between :minPrice and :maxPrice
-            group by t1.productid) a
-            where a.listFeature @>`;
+      array_agg(DISTINCT a.productid) as records
+      from
+      (select t1.* , array_agg(DISTINCT t3.name) as listFeature
+      from product t1 full join product_feature t2 on t1.productid = t2.productid 
+      inner join feature t3 on t2.featureid = t3.featureid
+      where 
+      brand in (:brand) or 
+      cpu in (:cpu) or
+      gpu in (:gpu) or
+      screendimension in (:screendimension) or
+      weight in (:weight) or
+      memory in (:memory) or
+      year in (:year) or 
+      ram in (:ram) or
+      ispublished in (true, false) or
+      price between :minPrice and :maxPrice
+      group by t1.productid) a
+      where a.listFeature @>`
+      ;
     let query2 = "";
     demand.map((item) => (query2 = query2 + item + ","));
     query2 = query2.slice(0, query2.length - 1);
@@ -398,6 +426,8 @@ exports.filter = catchAsync(async (req, res, next) => {
     weightOptions,
     SDOptions,
     )
+    console.log("🚀 ~ file: product.controller.js:391 ~ result ~ response:11111111111111111111111111111", response
+    )
 
     let response_2 = [];
     console.log(response[0].records);
@@ -428,6 +458,7 @@ exports.filter = catchAsync(async (req, res, next) => {
         ],
       });
     }
+    console.log('response_2', response_2)
     SendResponse(
       {
         total: response[0].records != null ? response[0].records.length : 0,

@@ -54,7 +54,7 @@ const FilterAccordion = (props) => {
         { featureName: 'Màn hình', option: screenDimensionOptions },
         { featureName: 'Cân nặng', option: weightOptions },
         { featureName: 'Ổ cứng', option: memoryOptions },
-        { featureName: 'Năm', option: yearOptions }
+        { featureName: 'Năm111', option: yearOptions }
     ])
     useEffect(async () => {
         const response = await productAPI.getProductFilterOptions()
@@ -83,7 +83,7 @@ const FilterAccordion = (props) => {
             { featureName: 'Màn hình', option: screenDimensionOptions },
             { featureName: 'Cân nặng', option: weightOptions },
             { featureName: 'Ổ cứng', option: memoryOptions },
-            { featureName: 'Năm', option: yearOptions }
+            { featureName: 'Năm111', option: yearOptions }
         ])
     }, [brandOptions, 
         ramOptions, 

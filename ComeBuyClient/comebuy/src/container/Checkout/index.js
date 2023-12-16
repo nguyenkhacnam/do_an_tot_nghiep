@@ -297,13 +297,14 @@ export const CheckoutPage = () => {
     }, [])
 
     function handleChangeProvince(event) {
+        console.log('skdfjsldkfjaslkfjaslf',event.target.value )
         setProvince(event.target.value)
     }
     //get district
     useEffect(() => {
         const getDistrict = async () => {
             // const resDistrict = await fetch(`https://sheltered-anchorage-60344.herokuapp.com/district/?idProvince=${province.idProvince}`)
-            const resDistrict = await axios.get(`https://vapi.vnappmob.com/api/province/district/01`)
+            const resDistrict = await axios.get(`https://vapi.vnappmob.com/api/province/district/${province?.province_id}`)
             setDistrictList(resDistrict.data.results)
             console.log("🚀 ~ file: index.js:307 ~ getDistrict ~ resDistrict:", resDistrict)
             // const resDis = resDistrict.json()
@@ -319,7 +320,7 @@ export const CheckoutPage = () => {
     //get commune
     useEffect(() => {
         const getCommune = async () => {
-            const reCommune = await axios.get(`https://vapi.vnappmob.com/api/province/ward/273`)
+            const reCommune = await axios.get(`https://vapi.vnappmob.com/api/province/ward/${district?.district_id}`)
             // const resCom = reCommune.json()
             setCommuneList(reCommune.data.results)
             console.log("🚀 ~ file: index.js:319 ~ getCommune ~ reCommune:", reCommune)

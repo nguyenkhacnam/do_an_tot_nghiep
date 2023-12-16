@@ -40,7 +40,7 @@ const BreadCrumb = () => {
                     color="secondary"
                 >
                     <GrainIcon sx={{ mr: 0.5 }} fontSize="inherit" />
-                    Danh sách sản phẩm
+                    Chi tiết sản phẩm
                 </Typography>
             </Breadcrumbs>
         </div>

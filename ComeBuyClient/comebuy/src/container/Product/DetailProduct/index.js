@@ -118,7 +118,7 @@ const DetailProduct = () => {
         }
     }
     const handleAddToFavorite = async () => {
-        setOpenBackdrop(true)
+        // setOpenBackdrop(true)
         let temp = {
             productID: product.productID,
             userID: _currentUser.userID
@@ -126,7 +126,7 @@ const DetailProduct = () => {
         try {
             const resultAction = await dispatch(addFavorite(temp))
             const originalPromiseResult = unwrapResult(resultAction)
-            setOpenBackdrop(false)
+            // setOpenBackdrop(false)
             setOpenSnackbar(true)
             console.log(originalPromiseResult)
         } catch (rejectedValueOrSerializedError) {
@@ -399,7 +399,7 @@ const DetailProduct = () => {
                                         Thêm vào giỏ hàng
                                     </CustomButton>
                                     {
-                                        localStorage.getItem('idUser') != "" &&
+                                        localStorage.getItem('idUser') !== "" &&
                                         <CustomButton onClick={handleAddToFavorite} variant="filled" sx={{ color: 'white', backgroundColor: '#8C030E', p: 1, mt: 2 }} startIcon={<FavoriteIcon />}>
                                             Thêm vào yêu thích
                                         </CustomButton>
