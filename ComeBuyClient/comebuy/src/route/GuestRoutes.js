@@ -5,6 +5,7 @@ import DetailProduct from '../container/Product/DetailProduct';
 import { ForgotPassword } from '../components';
 import GuestCart from '../container/GuestCart';
 import { CheckoutPage } from '../container/Checkout';
+import SearchProduct from '../container/SearchProduct/SearchProduct';
 
 const guestRoutes = [
   {
@@ -21,6 +22,11 @@ const guestRoutes = [
     name: 'Home',
     path: '/',
     page: <HomePage />,
+  },
+  {
+    name: 'Search',
+    path: '/searchsdgsdgsdgsdgsd',
+    page: <SearchProduct />,
   },
   {
     name: 'ForgotPassword',

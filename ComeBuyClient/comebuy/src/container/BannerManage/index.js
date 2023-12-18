@@ -10,8 +10,11 @@ const BannerManage = () => {
     const [openModal, SetOpenModal] = useState(false)
     const [type, SetType] = useState(1)
     const [loading, SetLoading] = useState(false)
-    useEffect(async () => {
-        await LoadNewData()
+    useEffect( () => {
+        const fetchData = async () => {
+            await LoadNewData()
+        }
+        fetchData()
     }, [])
 
     const LoadNewData = async () => {

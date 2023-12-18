@@ -35,12 +35,12 @@ const FeatureSelect = (props) => {
     return (
         <Stack item="true" sx={{ marginLeft: 2}}>
             <FormControl sx={{ m: 1 }}>
-                <InputLabel >Thương hiệu</InputLabel>
+                <InputLabel >Tính năng</InputLabel>
                 <Select
                     multiple
                     value={props.currentFeature}
                     onChange={props.handleFeatureChange}
-                    input={<OutlinedInput label="Thương hiệu" />}
+                    input={<OutlinedInput label="Tính năng" />}
                     renderValue={(selected) => (
                         <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
                             {selected.map((value) => (

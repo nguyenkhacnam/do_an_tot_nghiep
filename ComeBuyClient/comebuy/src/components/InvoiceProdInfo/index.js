@@ -16,18 +16,22 @@ const ProdInfo = (props) => {
 
     const dispatch = useDispatch()
 
-    React.useEffect(async () => {
-        if (product.length === 0) {
-            try {
-                const resultAction = await dispatch(getProductWithID(productID))
-                const originalPromiseResult = unwrapResult(resultAction)
-                // handle result here
-                setProduct([...product, originalPromiseResult])
-            } catch (rejectedValueOrSerializedError) {
-                // handle error here
-                console.log(rejectedValueOrSerializedError.message);
+    React.useEffect(() => {
+        const fetchData = async () => {
+            if (product.length === 0) {
+                try {
+                    const resultAction = await dispatch(getProductWithID(productID))
+                    const originalPromiseResult = unwrapResult(resultAction)
+                    // handle result here
+                    setProduct([...product, originalPromiseResult])
+                } catch (rejectedValueOrSerializedError) {
+                    // handle error here
+                    console.log(rejectedValueOrSerializedError.message);
+                }
             }
         }
+
+        fetchData()
         return () => {
             setProduct({});
         };

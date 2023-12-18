@@ -1,16 +1,17 @@
-import { Badge, Button, Card } from 'antd'
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
-import CardProductLarge, { Text } from '../../CardProductLarge/CardProductLarge';
-import { CheckOutlined, HeartTwoTone, ShoppingCartOutlined } from '@ant-design/icons';
 import { useDispatch, useSelector } from 'react-redux';
+import { cartListSelector, currentUser } from '../../../redux/selectors';
+import { addFavorite } from '../../../redux/slices/favoriteSlice';
 import { unwrapResult } from '@reduxjs/toolkit';
-import { Alert, Backdrop, CircularProgress, Snackbar } from '@mui/material';
-import { addFavorite } from '../../../redux/slices/favoriteSlice.js';
-import { cartListSelector, currentUser } from '../../../redux/selectors.js';
-import { addCart, cartSlice, updateCart } from '../../../redux/slices/cartSlice.js';
+import { addCart, cartSlice, updateCart } from '../../../redux/slices/cartSlice';
+import { Div } from '../../HotDealToday/HotDealToday';
+import { Badge, Button, Card } from 'antd';
+import { Link } from 'react-router-dom';
+import { Text } from '../../CardProductLarge/CardProductLarge';
+import { CheckOutlined, HeartTwoTone, ShoppingCartOutlined } from '@ant-design/icons';
+import { Alert, Snackbar } from '@mui/material';
 const { Meta } = Card;
-const ProductHot = ({ products }) => {
+const ProductSameBrandItem = ({products}) => {
     const [openSnackbar, setOpenSnackbar] = useState(false);
     const [openBackdrop, setOpenBackdrop] = useState(false)
     const [product, setProduct] = useState({})
@@ -18,9 +19,6 @@ const ProductHot = ({ products }) => {
     const dispatch = useDispatch()
     const _currentUser = useSelector(currentUser)
     const _cart = useSelector(cartListSelector)
-
-    const hotAndNewProduct = products.find(product => product.category === 'hotandnew');
-    const hotProducts = products.filter(product => product.category === 'hot');
     const handleAddToFavorite = async () => {
         setOpenBackdrop(true)
         let temp = {
@@ -62,7 +60,7 @@ const ProductHot = ({ products }) => {
         }
     }
 
-    const handleAddToCart = async (product) => {
+    const handleAddToCart = async () => {
         if (localStorage.getItem('role') === 'customer') {
             setOpenBackdrop(true)
             let isExisted = false;
@@ -134,37 +132,45 @@ const ProductHot = ({ products }) => {
         setOpenSnackbar(false);
     };
     return (
-        <div style={{
-            display: 'flex',
-            justifyContent: 'flex-start',
-            alignItems: 'center',
-            gap: '50px'
-        }}>
-            <CardProductLarge product={hotAndNewProduct} />
-            <div
+        <Div>
+            {/* <div
                 style={{
-                    flex: '1',
                     display: 'flex',
                     justifyContent: 'space-between',
-                    alignItems: 'center',
-                    flexWrap: 'wrap',
-                    gap: '50px'
+                    alignItems: 'center'
                 }}
             >
+                <h2>{title}</h2>
+                <p
+                    style={{
+                        color: 'red',
+                        fontWeight: 'bold',
+                        display: 'none'
+                    }}
+                >Đang diễn ra</p>
+            </div> */}
+            <div style={{
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                flexWrap: 'wrap',
+                gap: '25px',
+                marginTop: '30px'
+            }}>
                 {
-                    hotProducts?.slice(0, 8)?.map((product, index) => {
-                        const discountedPrice = product.price + (product.price * (parseFloat(product.promotion) / 100))
+                    products?.slice(0, 12)?.map(product => {
+                        const discountedPrice = product.price - (product.price * (parseFloat(product.promotion) / 100))
                         return (
-                            <Badge count={product?.promotion} key={index}>
+                            <Badge count={product?.promotion}>
                                 <Card
-
                                     hoverable
                                     style={{
                                         width: 240,
                                     }}
                                     cover={<img alt="Ảnh laptop" src={product.productimage[0]?.imageURL} />}
                                 >
-                                    <Link to={`/productSpace/` + product.productID} >
+
+                                    <Link to={`/productSpace/` + product.productID}>
                                         <Meta title={product.name} />
                                     </Link>
                                     <div
@@ -180,12 +186,12 @@ const ProductHot = ({ products }) => {
                                             style={{
                                                 color: 'red'
                                             }}
-                                            title={product.price.toLocaleString('en-US') + '₫'} />
+                                            title={discountedPrice.toLocaleString('en-US') + '₫'} />
                                         <Meta
                                             style={{
                                                 textDecorationLine: 'line-through'
                                             }}
-                                            description={discountedPrice.toLocaleString('en-US') + '₫'} />
+                                            description={product.price.toLocaleString('en-US') + '₫'} />
                                     </div>
                                     <div style={{
                                         display: 'flex',
@@ -209,17 +215,21 @@ const ProductHot = ({ products }) => {
                                                 ></Button>
                                             )}
                                             <Button size='large' icon={<ShoppingCartOutlined twoToneColor="#B360E6" style={{ fontSize: '21px', color: '#B360E6' }} />}
-                                                onClick={() => handleAddToCart(product)}
+                                                onClick={() => {
+                                                    setProduct(product)
+                                                    handleAddToCart()
+                                                }}
                                             ></Button>
                                         </div>
                                     </div>
                                 </Card>
-                                <Backdrop
+                                {/* <Backdrop
                                     sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
                                     open={openBackdrop}
                                 >
                                     <CircularProgress color="inherit" />
-                                </Backdrop>
+                                </Backdrop> */}
+
                                 <Snackbar open={openSnackbar} autoHideDuration={6000} onClose={handleCloseSnackbar}>
                                     <Alert onClose={handleCloseSnackbar} severity="success" sx={{ width: '100%' }}>
                                         Thêm thành công
@@ -230,8 +240,8 @@ const ProductHot = ({ products }) => {
                     })
                 }
             </div>
-        </div>
+        </Div>
     )
 }
 
-export default ProductHot
+export default ProductSameBrandItem

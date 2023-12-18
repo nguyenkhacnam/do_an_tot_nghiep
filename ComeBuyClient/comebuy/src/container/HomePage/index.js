@@ -21,8 +21,10 @@ import { Box, Stack, Typography } from "@mui/material";
 import bannerApi from "../../api/bannerAPI";
 import { WS_URL, DEPLOYED_WS } from "../../constant";
 import io from "socket.io-client";
+import "./index.css";
 import {
   AppstoreOutlined,
+  LaptopOutlined,
   MailOutlined,
   SettingOutlined,
 } from "@ant-design/icons";
@@ -34,36 +36,45 @@ const HomePage = () => {
   //     transports: ["websocket"]
   // });
   const _productList = useSelector(productListSelector);
+  console.log(
+    "🚀 ~ file: index.js:37 ~ HomePage ~ _productList:",
+    _productList
+  );
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [liveBanner, SetLiveBanner] = useState([]);
 
-  useEffect(async () => {
-    if (localStorage.getItem("idUser") != "") {
-      try {
-        const resultAction = await dispatch(
-          getAccountWithID(localStorage.getItem("idUser"))
-        );
-        const originalPromiseResult = unwrapResult(resultAction);
-        dispatch(cartSlice.actions.cartListChange(originalPromiseResult.cart));
-        // handle result here
-      } catch (rejectedValueOrSerializedError) {
-        if (rejectedValueOrSerializedError != null) {
-          console.log("Load User Failed");
+  useEffect(() => {
+    const fetchData = async () => {
+      if (localStorage.getItem("idUser") !== "") {
+        try {
+          const resultAction = await dispatch(
+            getAccountWithID(localStorage.getItem("idUser"))
+          );
+          const originalPromiseResult = unwrapResult(resultAction);
+          dispatch(
+            cartSlice.actions.cartListChange(originalPromiseResult.cart)
+          );
+          // handle result here
+        } catch (rejectedValueOrSerializedError) {
+          if (rejectedValueOrSerializedError != null) {
+            console.log("Load User Failed");
+          }
         }
+      } else {
+        const value = JSON.parse(localStorage.getItem("cart"));
+        dispatch(cartSlice.actions.cartListChange(value));
       }
-    } else {
-      const value = JSON.parse(localStorage.getItem("cart"));
-      dispatch(cartSlice.actions.cartListChange(value));
-    }
-    handleSocket();
-    await dispatch(getAllProduct())
-      .unwrap()
-      .then(originalPromiseResult => {})
-      .catch(rejectedValueOrSerializedError => {
-        console.log("Error load product");
-      });
-    await LoadBanner();
+      handleSocket();
+      await dispatch(getAllProduct())
+        .unwrap()
+        .then(originalPromiseResult => {})
+        .catch(rejectedValueOrSerializedError => {
+          console.log("Error load product");
+        });
+      await LoadBanner();
+    };
+    fetchData();
     return () => {};
   }, []);
 
@@ -158,183 +169,78 @@ const HomePage = () => {
     background: "#364d79",
   };
 
+  const navigation = [
+    { name: "Laptop Asus", url: "", icon: <LaptopOutlined /> },
+    { name: "Laptop HP", url: "", icon: <LaptopOutlined /> },
+    { name: "Laptop Lenovo", url: "", icon: <LaptopOutlined /> },
+    { name: "Laptop Dell", url: "", icon: <LaptopOutlined /> },
+    { name: "Laptop Acer", url: "", icon: <LaptopOutlined /> },
+    { name: "Laptop MSI", url: "", icon: <LaptopOutlined /> },
+    { name: "Laptop Gigabyte", url: "", icon: <LaptopOutlined /> },
+    { name: "Laptop LG", url: "", icon: <LaptopOutlined /> },
+    { name: "Laptop Huawei", url: "", icon: <LaptopOutlined /> },
+    { name: "Laptop Fujitsu", url: "", icon: <LaptopOutlined /> },
+    { name: "Laptop GPD", url: "", icon: <LaptopOutlined /> },
+    { name: "Microsoft Surface", url: "", icon: <LaptopOutlined /> },
+  ];
   return (
     <Stack>
-      <NavBar></NavBar>
+      <NavBar products={_productList}></NavBar>
       <Box
         sx={{ height: 2, m: 2, mt: 10, width: "95%", backgroundColor: "black" }}
       ></Box>
       <BrandNavBar brandLine={brandList}></BrandNavBar>
       <div
         style={{
-            padding: '0 30px'
+          padding: "0 30px",
         }}
       >
+        <div
+          style={{
+            width: "97%",
+            display: "flex",
+            justifyContent: "space-between",
+            //   gap: "50px",
+            alignItems: "center",
+          }}
+        >
           <div
             style={{
-              width: "97%",
-              display: "flex",
-              justifyContent: "space-between",
-              //   gap: "50px",
-              alignItems: "center",
+              alignSelf: "flex-start",
+              width: "350px",
+              height: "700px",
+              marginTop: "30px",
+              background: "#f1f1f1",
+              // borderRadius: "10px",
             }}
           >
-            <div
+            {navigation?.map((item, index) => (
+              <div
+                key={index}
+                className="custom-navigation"
                 style={{
-                    alignSelf: 'flex-start',
-                    width: '350px',
-                    height: '700px',
-                    marginTop: '30px',
-                    background: '#f1f1f1',
-                    borderRadius: '10px'
+                  width: "100%",
+                  height: "58.3px",
+                  display: "flex",
+                  justifyContent: "flex-start",
+                  alignItems: "center",
+                  // borderBottom: "1px solid",
                 }}
-            >
-                <div
-                    style={{
-                        height: '50px',
-                        display: 'flex',
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                        borderBottom: '1px solid #B360E6'
-                    }}
+              >
+                <Link
+                  to={item.url}
+                  style={{
+                    textDecoration: "none",
+                    color: "black",
+                    textAlign: "left",
+                    paddingLeft: "85px",
+                  }}
                 >
-                    <Link to='/productSpace' 
-                        style={{
-                            textDecoration: 'none',
-                            color: 'black'
-                        }}
-                    >Laptop HP</Link>
-                </div>
-                <div
-                    style={{
-                        height: '50px',
-                        display: 'flex',
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                        borderBottom: '1px solid #B360E6'
-                    }}
-                >
-                    <Link to='/productSpace' 
-                        style={{
-                            textDecoration: 'none',
-                            color: 'black'
-                        }}
-                    >Laptop Acer</Link>
-
-                </div>
-                <div
-                    style={{
-                        height: '50px',
-                        display: 'flex',
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                        borderBottom: '1px solid #B360E6'
-                    }}
-                >
-                    <Link to='/productSpace' 
-                        style={{
-                            textDecoration: 'none',
-                            color: 'black'
-                        }}
-                    >Laptop Apple</Link>
-                </div>
-                <div
-                    style={{
-                        height: '50px',
-                        display: 'flex',
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                        borderBottom: '1px solid #B360E6'
-                    }}
-                >
-                    <Link to='/productSpace' 
-                        style={{
-                            textDecoration: 'none',
-                            color: 'black'
-                        }}
-                    >Laptop Asus </Link>
-                </div>
-                <div
-                    style={{
-                        height: '50px',
-                        display: 'flex',
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                        borderBottom: '1px solid #B360E6'
-                    }}
-                >
-                    <Link to='/productSpace' 
-                        style={{
-                            textDecoration: 'none',
-                            color: 'black'
-                        }}
-                    >Laptop Lenovo</Link>
-                </div>
-                <div
-                    style={{
-                        height: '50px',
-                        display: 'flex',
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                        borderBottom: '1px solid #B360E6'
-                    }}
-                >
-                    <Link to='/productSpace' 
-                        style={{
-                            textDecoration: 'none',
-                            color: 'black'
-                        }}
-                    >Laptop MSI</Link>
-                </div>
-                <div
-                    style={{
-                        height: '50px',
-                        display: 'flex',
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                        borderBottom: '1px solid #B360E6'
-                    }}
-                >
-                    <Link to='/productSpace' 
-                        style={{
-                            textDecoration: 'none',
-                            color: 'black'
-                        }}
-                    >Laptop LG </Link>
-                </div>
-                <div
-                    style={{
-                        height: '50px',
-                        display: 'flex',
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                        borderBottom: '1px solid #B360E6'
-                    }}
-                >
-                    <Link to='/productSpace' 
-                        style={{
-                            textDecoration: 'none',
-                            color: 'black'
-                        }}
-                    >Laptop HP</Link>
-                </div>
-                <div
-                    style={{
-                        height: '50px',
-                        display: 'flex',
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                        borderBottom: '1px solid #B360E6'
-                    }}
-                >
-                    <Link to='/productSpace' 
-                        style={{
-                            textDecoration: 'none',
-                            color: 'black'
-                        }}
-                    >Laptop HP</Link>
-                </div>
-              {/* <Menu
+                  {item.icon} {item.name}
+                </Link>
+              </div>
+            ))}
+            {/* <Menu
                 // onClick={onClick}
                 style={{
                   width: 256,
@@ -343,96 +249,94 @@ const HomePage = () => {
                 mode="vertical"
                 items={items}
               /> */}
-            </div>
-            <div></div>
+          </div>
+          <div></div>
+          <div
+            style={{
+              width: "906px",
+              margin: "30px",
+              // display: 'flex',
+              // justifyContent: 'flex-start',
+              // gap: '50px'
+            }}
+          >
+            <Carousel
+              style={{
+                width: "100%",
+              }}
+              autoplay
+              afterChange={onChange}
+            >
+              <div>
+                <h3 style={contentStyle}>
+                  <img src="https://phucanhcdn.com/media/banner/13_Decb6ec3d9ee22b9e5ad80d1992d4104653.jpg" />
+                </h3>
+              </div>
+              <div>
+                <h3 style={contentStyle}>
+                  <img src="https://phucanhcdn.com/media/banner/11_Jul1e10cf66f78fe27e8434e65e856433b7.jpg" />
+                </h3>
+              </div>
+              <div>
+                <h3 style={contentStyle}>
+                  <img src="https://phucanhcdn.com/media/banner/05_Dec0125dabd65c267007f89c30c4d10953a.jpg" />
+                </h3>
+              </div>
+              <div>
+                <h3 style={contentStyle}>
+                  <img src="https://phucanhcdn.com/media/banner/14_Decd1454cdd128dd1cdd91b11a6d761d9c0.jpg" />
+                </h3>
+              </div>
+            </Carousel>
+          </div>
+          <div>
             <div
               style={{
-                width: "906px",
-                margin: "30px",
-                // display: 'flex',
-                // justifyContent: 'flex-start',
-                // gap: '50px'
+                width: "424px",
+                height: "236px",
               }}
             >
-              <Carousel
+              <img
                 style={{
-                  width: "100%",
+                  width: "424px",
+                  height: "236px",
                 }}
-                autoplay
-                afterChange={onChange}
-              >
-                <div>
-                  <h3 style={contentStyle}>
-                    <img src="https://phucanhcdn.com/media/banner/13_Decb6ec3d9ee22b9e5ad80d1992d4104653.jpg" />
-                  </h3>
-                </div>
-                <div>
-                  <h3 style={contentStyle}>
-                    <img src="https://phucanhcdn.com/media/banner/11_Jul1e10cf66f78fe27e8434e65e856433b7.jpg" />
-                  </h3>
-                </div>
-                <div>
-                  <h3 style={contentStyle}>
-                    <img src="https://phucanhcdn.com/media/banner/05_Dec0125dabd65c267007f89c30c4d10953a.jpg" />
-                  </h3>
-                </div>
-                <div>
-                  <h3 style={contentStyle}>
-                    <img src="https://phucanhcdn.com/media/banner/14_Decd1454cdd128dd1cdd91b11a6d761d9c0.jpg" />
-                  </h3>
-                </div>
-              </Carousel>
+                src="https://laptop88.vn/media/banner/07_Dec75b5794974345a8f53a043a86bac420c.jpg"
+              />
             </div>
-            <div>
-              <div
+            <div
+              style={{
+                width: "424px",
+                height: "236px",
+              }}
+            >
+              <img
                 style={{
                   width: "424px",
                   height: "236px",
                 }}
-              >
-                <img
-                  style={{
-                    width: "424px",
-                    height: "236px",
-                  }}
-                  src="https://phucanh.vn/media/banner/12_Oct579702eb66a569ac47e496cba555e382.jpg"
-                />
-              </div>
-              <div
+                src="https://anphat.com.vn/media/banner/01_Dece95505cb83e4468aec1038adc74da39b.png"
+              />
+            </div>
+            <div
+              style={{
+                width: "424px",
+                height: "236px",
+              }}
+            >
+              <img
                 style={{
                   width: "424px",
                   height: "236px",
                 }}
-              >
-                <img
-                  style={{
-                    width: "424px",
-                    height: "236px",
-                  }}
-                  src="https://phucanh.vn/media/banner/12_Oct579702eb66a569ac47e496cba555e382.jpg"
-                />
-              </div>
-              <div
-                style={{
-                  width: "424px",
-                  height: "236px",
-                }}
-              >
-                <img
-                  style={{
-                    width: "424px",
-                    height: "236px",
-                  }}
-                  src="https://phucanh.vn/media/banner/12_Oct579702eb66a569ac47e496cba555e382.jpg"
-                />
-              </div>
+                src="https://laptop88.vn/media/banner/12_Sep9d26d6ec35eb0e1f84fecb42b9314a32.jpg"
+              />
             </div>
           </div>
+        </div>
       </div>
 
-      <HotDealToday 
-        productList={_productList}
-      />
+      <HotDealToday productList={_productList} />
       <Stack sx={{ p: 2 }} spacing={5}>
         {/* <LiveBanner
                         onNavigate={() => navigate('/productSpace')}
@@ -441,12 +345,12 @@ const HomePage = () => {
                     ></LiveBanner> */}
         {_productList.length > 0 && <NewProductLine />}
         <FeatureBar></FeatureBar>
-        <BrandLineImage
+        {/* <BrandLineImage
           urlImage="https://images.unsplash.com/photo-1615750173609-2fbf12fd1d2d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80"
           BigText="CHỌN VÀ NHẬN CÔNG VIỆC CỦA BẠN MỘT CÁCH HIỆU QUẢ"
           SmallText="ComeBuy Store. The best way to buy the products you love."
-        ></BrandLineImage>
-        <Typography
+        ></BrandLineImage> */}
+        {/* <Typography
           variant="h4"
           fontWeight={"bold"}
           sx={{ alignSelf: "center" }}
@@ -459,7 +363,7 @@ const HomePage = () => {
           >
             Cách tốt nhất để mua các sản phẩm bạn yêu thích.
           </Typography>
-        </Typography>
+        </Typography> */}
         <div>
           {_productList.length > 0 &&
             brandList.map((item, i) => {
@@ -474,7 +378,7 @@ const HomePage = () => {
               );
             })}
         </div>
-        <Typography
+        {/* <Typography
           variant="h4"
           fontWeight={"bold"}
           sx={{ alignSelf: "center" }}
@@ -487,7 +391,7 @@ const HomePage = () => {
           >
             Đây là nơi niềm vui bắt đầu.
           </Typography>
-        </Typography>
+        </Typography> */}
         <LaptopImageLine></LaptopImageLine>
       </Stack>
       <BigFooter />

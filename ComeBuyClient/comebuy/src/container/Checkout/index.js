@@ -288,7 +288,6 @@ export const CheckoutPage = () => {
         const getProvinceList = async () => {
             // const resProvince = await fetch('https://sheltered-anchorage-60344.herokuapp.com/province')
             const resProvince = await axios.get('https://vapi.vnappmob.com/api/province')
-            console.log("🚀 ~ file: index.js:290 ~ getProvinceList ~ resProvince:", resProvince)
             setProvinceList(resProvince.data.results)
             // const resProv = resProvince.json()
             // setProvinceList(await resProv)
@@ -456,10 +455,13 @@ export const CheckoutPage = () => {
 
     }
 
-    useEffect(async () => {
-        if (invoiceId != ' ') {
-            _addInvoiceItem(invoiceId)
+    useEffect(() => {
+        const fetchData = async () => {
+            if (invoiceId != ' ') {
+                _addInvoiceItem(invoiceId)
+            }
         }
+        fetchData()
     }, [invoiceId])
 
     const _addInvoiceItem = async (_invoiceId) => {

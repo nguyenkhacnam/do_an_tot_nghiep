@@ -1,0 +1,11 @@
+.custom-space .ant-space-item {
+    position: relative;
+}
+
+.ant-btn-primary {
+    background-color: #B360E6 !important;
+}
+
+.ant-input-affix-wrapper:focus-within, .ant-input-affix-wrapper:hover {
+    border-color: #B360E6 !important;
+}

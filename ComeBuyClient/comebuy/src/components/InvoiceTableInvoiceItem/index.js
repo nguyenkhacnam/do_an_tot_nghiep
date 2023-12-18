@@ -31,10 +31,13 @@ export default function TableInvoiceItem({ list, total }) {
         setReady(true)
     }
     const [ready, setReady] = useState(false)
-    useEffect(async () => {
-        if (ready === false) {
-            fetchListProduct()
+    useEffect( () => {
+        const fetchData = async () => {
+            if (ready === false) {
+                fetchListProduct()
+            }
         }
+        fetchData()
     }, [ready])
 
     return (

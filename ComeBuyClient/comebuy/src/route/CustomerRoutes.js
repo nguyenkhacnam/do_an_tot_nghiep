@@ -9,6 +9,7 @@ import CustomerCart from '../container/CustomerCart';
 import { CheckoutPage } from '../container/Checkout';
 import FavoritePlace from './../container/Favourite/index';
 import { CustomerOrderSpace } from '../container/CustomerOrder';
+import SearchProduct from '../container/SearchProduct/SearchProduct';
 
 const customerRoutes = [
   {
@@ -30,6 +31,11 @@ const customerRoutes = [
     name: 'Home',
     path: '/',
     page: <HomePage />,
+  },
+  {
+    name: 'Search',
+    path: '/searchsdgsdgsdgsdgsd',
+    page: <SearchProduct />,
   },
   {
     name: 'ForgotPassword',

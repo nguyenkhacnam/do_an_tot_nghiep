@@ -1,0 +1,7 @@
+.card-comment .ant-card-actions {
+    display: none !important;
+}
+
+.card-comment.ant-card {
+    margin-bottom: 5px !important;
+}

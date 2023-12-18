@@ -8,6 +8,9 @@ import { Dropdown } from "antd";
 import { MenuOutlined } from '@ant-design/icons';
 import { Link } from "react-router-dom";
 import './index.css'
+import HomeSearchProduct from "../HomeSearchProduct/HomeSearchProduct";
+import { useSelector } from "react-redux";
+import { productListSelector } from "../../redux/selectors";
 
 const Title = styled(Typography)(({ theme }) => ({
   position: "relative",
@@ -37,6 +40,7 @@ const NavigateBrandLine = value => {
 };
 function BrandNavBar(props) {
   const brandLine = props.brandLine;
+  const _productList = useSelector(productListSelector);
   console.log(
     "🚀 ~ file: BrandNavBar.js:37 ~ BrandNavBar ~ brandLine:",
     brandLine
@@ -143,6 +147,9 @@ function BrandNavBar(props) {
                   <p>  Bảo hành nơi sử dụng</p>
                   <p> 100% chính hãng</p>
               </div>
+              {/* <HomeSearchProduct 
+                products={_productList}
+              /> */}
           </div>
           <Box
             sx={{

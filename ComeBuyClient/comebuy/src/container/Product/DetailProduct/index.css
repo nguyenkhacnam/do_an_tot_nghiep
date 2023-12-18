@@ -1,0 +1,29 @@
+.custom-button.ant-btn {
+  height: 56px;
+  background-color: #ce0707 !important;
+  border-color: "#ce0707";
+}
+
+.custom-btn-1.ant-btn {
+  height: 56px;
+  background-color: white !important;
+  border-color: #b360e6 !important;
+  color: #b360e6 !important;
+}
+
+:where(.css-dev-only-do-not-override-p7e5j5).ant-carousel
+  .slick-dots
+  li.slick-active
+  button {
+  background: #9c27b0 !important;
+  opacity: 1;
+}
+
+:where(.css-dev-only-do-not-override-p7e5j5).ant-carousel .slick-dots li button {
+    background: #9c27b0 !important;
+}
+
+.card-product-custom.ant-card .ant-card-head {
+    background-color: #9c27b0 !important;
+    color: white !important;
+}

@@ -63,7 +63,6 @@ export default function Paypal({ _discount, _lastTotal, cartList, purchases, pro
     // const [listOrderDataItem, setListOrderDataItem] = useState([])
 
     const [listItem, setListItem] = useState([])
-    console.log("🚀 ~ file: index.js:66 ~ Paypal ~ listItem:", listItem)
 
     const _addInvoiceItem = async (_invoiceId) => {
         let t = []
@@ -104,7 +103,6 @@ export default function Paypal({ _discount, _lastTotal, cartList, purchases, pro
                     "-------------------------------------------------------- \n" +
                     "Any wondered things. Please contact with our shop with contact below site: ComeBuy.com"
             }).then(data => {
-                console.log("🚀 ~ file: index.js:107 ~ const_addInvoiceItem= ~ data:", data, t)
                 setListItem(t)
                 setStartAddInvoiceItem(true)
             })
@@ -146,8 +144,7 @@ export default function Paypal({ _discount, _lastTotal, cartList, purchases, pro
 
     useEffect(() => {
         const addItem = async () => {
-            for (let i = 0; i < listItem.length; i++) {
-                console.log("🚀 ~ file: index.js:150 ~ addItem ~ listItem:", listItem) 
+            for (let i = 0; i < listItem.length; i++) { 
                 try {
                     const resultAction = await dispatch(addInvoiceItem(listItem[i]))
                     const originalPromiseResult = unwrapResult(resultAction)
@@ -204,25 +201,30 @@ export default function Paypal({ _discount, _lastTotal, cartList, purchases, pro
 
     const [invoiceId, setInvoiceId] = useState(' ')
 
-    useEffect(async () => {
-        if (invoiceId != ' ') {
-            _addInvoiceItem(invoiceId)
-        }
-    }, [invoiceId])
-
-    useEffect(async () => {
-        if (startAddInvoice === true) {
-            try {
-                console.log('orderData', orderData)
-                const resultAction = await dispatch(addInvoice(orderData))
-                const originalPromiseResult = unwrapResult(resultAction)
-                console.log("🚀 ~ file: index.js:219 ~ useEffect ~ originalPromiseResult:", originalPromiseResult)
-                setInvoiceId(originalPromiseResult?.data?.data?.invoiceID)
-            } catch (rejectedValueOrSerializedError) {
-                alert(rejectedValueOrSerializedError)
-                setStartAddInvoice(false)
+    useEffect(() => {
+        const fetchData = async () => {
+            if (invoiceId !== ' ') {
+                _addInvoiceItem(invoiceId)
             }
         }
+        fetchData()
+    }, [invoiceId])
+
+    useEffect(() => {
+        const fetchData = async () => {
+            if (startAddInvoice === true) {
+                try {
+                    console.log('orderData', orderData)
+                    const resultAction = await dispatch(addInvoice(orderData))
+                    const originalPromiseResult = unwrapResult(resultAction)
+                    setInvoiceId(originalPromiseResult?.data?.data?.invoiceID)
+                } catch (rejectedValueOrSerializedError) {
+                    alert(rejectedValueOrSerializedError)
+                    setStartAddInvoice(false)
+                }
+            }
+        }
+        fetchData()
     }, [startAddInvoice])
 
     useEffect(() => {

@@ -31,8 +31,8 @@ import ColorSwitch from "./child";
 
 
 const ProductTable = styled(DataGrid)(({ theme }) => ({
-    height: 700,
-    width: 1200,
+    height: 750,
+    width: 1350,
     backgroundColor: 'white',
     alignSelf: 'center'
 
@@ -123,9 +123,9 @@ const Product = () => {
         () => [
             { field: 'id', hide: true },
             { field: 'brand', headerName: 'Chi nhánh', width: 100 },
-            { field: 'name', headerName: 'Tên', width: 180 },
+            { field: 'name', headerName: 'Tên', width: 220 },
             { field: 'memory', headerName: 'Memory', width: 70 },
-            { field: 'gpu', headerName: 'GPU', width: 150 },
+            { field: 'gpu', headerName: 'GPU', width: 200 },
             { field: 'cpu', headerName: 'CPU', width: 200 },
             { field: 'weight', headerName: 'Cân nặng', width: 100 },
             {

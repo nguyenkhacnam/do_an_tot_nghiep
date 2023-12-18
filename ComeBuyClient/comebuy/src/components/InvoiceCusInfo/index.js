@@ -15,18 +15,21 @@ const CusInfo = (props) => {
 
     const dispatch = useDispatch()
 
-    React.useEffect(async () => {
-        if (customer.length === 0) {
-            try {
-                const resultAction = await dispatch(getAccountWithID(userID))
-                const originalPromiseResult = unwrapResult(resultAction)
-                // handle result here
-                setCustomer([...customer, originalPromiseResult])
-            } catch (rejectedValueOrSerializedError) {
-                // handle error here
-                console.log(rejectedValueOrSerializedError.message);
+    React.useEffect( () => {
+        const fetchData = async () => {
+            if (customer.length === 0) {
+                try {
+                    const resultAction = await dispatch(getAccountWithID(userID))
+                    const originalPromiseResult = unwrapResult(resultAction)
+                    // handle result here
+                    setCustomer([...customer, originalPromiseResult])
+                } catch (rejectedValueOrSerializedError) {
+                    // handle error here
+                    console.log(rejectedValueOrSerializedError.message);
+                }
             }
         }
+        fetchData()
         return () => {
             setCustomer({});
         };

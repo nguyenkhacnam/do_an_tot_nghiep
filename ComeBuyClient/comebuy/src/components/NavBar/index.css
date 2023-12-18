@@ -1,0 +1,13 @@
+.ant-select {
+    width: 400px !important;
+    margin-left: 400px !important;
+}
+
+.ant-space.custom-space {
+    width: 600px !important;
+    margin-left: 450px !important;
+}
+
+.ant-space-gap-row-small {
+    row-gap: 0 !important;
+}

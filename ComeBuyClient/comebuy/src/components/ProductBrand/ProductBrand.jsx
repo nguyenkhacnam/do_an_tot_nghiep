@@ -3,7 +3,7 @@ import { Div } from '../HotDealToday/HotDealToday';
 import { Badge, Button, Card } from 'antd';
 import { Link } from 'react-router-dom';
 import { Text } from '../CardProductLarge/CardProductLarge';
-import { HeartTwoTone, ShoppingCartOutlined } from '@ant-design/icons';
+import { CheckCircleOutlined, CheckOutlined, HeartTwoTone, ShoppingCartOutlined } from '@ant-design/icons';
 import { useDispatch, useSelector } from 'react-redux';
 import { cartListSelector, currentUser } from '../../redux/selectors';
 import { addFavorite } from '../../redux/slices/favoriteSlice';
@@ -157,10 +157,10 @@ const ProductBrand = ({ productList, title }) => {
         gap: '25px'
       }}>
         {
-          productList?.slice(0, 12)?.map(product => {
-            const discountedPrice = product.price - (product.price * (parseFloat(product.promotion) / 100))
+          productList?.slice(0, 12)?.map((product, index) => {
+            const discountedPrice = product.price + (product.price * (parseFloat(product.promotion) / 100))
             return (
-              <Badge count={product?.promotion}>
+              <Badge count={product?.promotion} key={index}>
                 <Card
                   hoverable
                   style={{
@@ -185,20 +185,23 @@ const ProductBrand = ({ productList, title }) => {
                       style={{
                         color: 'red'
                       }}
-                      title={discountedPrice.toLocaleString('en-US') + '₫'} />
+                      title={product.price.toLocaleString('en-US') + '₫'} />
                     <Meta
                       style={{
                         textDecorationLine: 'line-through'
                       }}
-                      description={product.price.toLocaleString('en-US') + '₫'} />
+                      description={discountedPrice.toLocaleString('en-US') + '₫'} />
                   </div>
                   <div style={{
                     display: 'flex',
                     justifyContent: 'space-between',
                     // alignItems: 'center',
-                    marginTop: '15px'
+                    marginTop: '8px'
                   }}>
-                    <Text>Đã bán: </Text>
+                    <div>
+                      <Text>Đã bán: </Text>
+                      <Text style={{ color: '#52c41a'}}><CheckOutlined  twoToneColor="#52c41a" /> Có hàng</Text>
+                    </div>
                     <div
                       style={{
                         display: 'flex',
@@ -225,7 +228,7 @@ const ProductBrand = ({ productList, title }) => {
                 >
                   <CircularProgress color="inherit" />
                 </Backdrop>
-                
+
                 <Snackbar open={openSnackbar} autoHideDuration={6000} onClose={handleCloseSnackbar}>
                   <Alert onClose={handleCloseSnackbar} severity="success" sx={{ width: '100%' }}>
                     Thêm thành công

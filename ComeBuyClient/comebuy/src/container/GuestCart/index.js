@@ -82,8 +82,9 @@ const GuestCart = () => {
         }
     }
 
-    useEffect(async () => {
-        dispatch(getAllProduct())
+    useEffect(() => {
+        const fetchData = async () => {
+            dispatch(getAllProduct())
             .unwrap()
             .then(async (originalPromiseResult) => {
                 setProductList(originalPromiseResult)
@@ -93,6 +94,8 @@ const GuestCart = () => {
             .catch((rejectedValueOrSerializedError) => {
                 console.log(rejectedValueOrSerializedError)
             })
+        }
+        fetchData()
         return () => {
             setProductList({})
         }

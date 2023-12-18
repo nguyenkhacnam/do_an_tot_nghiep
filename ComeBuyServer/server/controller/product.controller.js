@@ -382,15 +382,15 @@ exports.filter = catchAsync(async (req, res, next) => {
       from product t1 full join product_feature t2 on t1.productid = t2.productid 
       inner join feature t3 on t2.featureid = t3.featureid
       where 
-      brand in (:brand) or 
-      cpu in (:cpu) or
-      gpu in (:gpu) or
-      screendimension in (:screendimension) or
-      weight in (:weight) or
-      memory in (:memory) or
-      year in (:year) or 
-      ram in (:ram) or
-      ispublished in (true, false) or
+      brand in (:brand) and 
+      cpu in (:cpu) and
+      gpu in (:gpu) and
+      screendimension in (:screendimension) and
+      weight in (:weight) and
+      memory in (:memory) and
+      year in (:year) and 
+      ram in (:ram) and
+      ispublished in (true, false) and
       price between :minPrice and :maxPrice
       group by t1.productid) a
       where a.listFeature @>`

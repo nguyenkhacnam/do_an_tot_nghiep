@@ -1,0 +1,16 @@
+.custom-card-product-item.ant-card {
+    width: 310px !important;
+    height: 530px !important;
+}
+
+.custom-card-product-item .ant-card-cover {
+    height: 260px !important;
+}
+
+.custom-card-product-item .ant-card-meta .ant-card-meta-title, .custom-card-product-item .ant-card-meta .ant-card-meta-description {
+    font-size: 20px;
+}
+
+.custom-card-product-item .ant-card-meta.meta-custom .ant-card-meta-title {
+    font-size: 24px;
+}

@@ -83,7 +83,11 @@ module.exports = (sequelize, Sequelize) => {
             type: Sequelize.BOOLEAN,
             field: 'ispublished',
             default: false
-        }
+        },
+        category: {
+            type: Sequelize.STRING,
+            field: 'category',
+        },
     },
         {
             freezeTableName: true,

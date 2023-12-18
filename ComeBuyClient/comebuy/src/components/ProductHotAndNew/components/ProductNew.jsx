@@ -2,7 +2,7 @@ import { Badge, Button, Card } from 'antd'
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import CardProductLarge, { Text } from '../../CardProductLarge/CardProductLarge';
-import { HeartTwoTone, ShoppingCartOutlined } from '@ant-design/icons';
+import { CheckOutlined, HeartTwoTone, ShoppingCartOutlined } from '@ant-design/icons';
 import { useDispatch, useSelector } from 'react-redux';
 import { unwrapResult } from '@reduxjs/toolkit';
 import { Alert, Snackbar } from '@mui/material';
@@ -150,7 +150,7 @@ const ProductNew = ({ products }) => {
             >
                 {
                     products?.slice(1, 9)?.map(product => {
-                        const discountedPrice = product.price - (product.price * (parseFloat(product.promotion) / 100))
+                        const discountedPrice = product.price + (product.price * (parseFloat(product.promotion) / 100))
                         return (
                             <Badge count={product?.promotion}>
                                 <Card
@@ -177,20 +177,23 @@ const ProductNew = ({ products }) => {
                                             style={{
                                                 color: 'red'
                                             }}
-                                            title={discountedPrice.toLocaleString('en-US') + '₫'} />
+                                            title={product.price.toLocaleString('en-US') + '₫'} />
                                         <Meta
                                             style={{
                                                 textDecorationLine: 'line-through'
                                             }}
-                                            description={product.price.toLocaleString('en-US') + '₫'} />
+                                            description={discountedPrice.toLocaleString('en-US') + '₫'} />
                                     </div>
                                     <div style={{
                                         display: 'flex',
                                         justifyContent: 'space-between',
                                         // alignItems: 'center',
-                                        marginTop: '15px'
+                                        marginTop: '8px'
                                     }}>
-                                        <Text>Đã bán: </Text>
+                                        <div>
+                                            <Text>Đã bán: </Text>
+                                            <Text style={{ color: '#52c41a' }}><CheckOutlined twoToneColor="#52c41a" /> Có hàng</Text>
+                                        </div>
                                         <div
                                             style={{
                                                 display: 'flex',
@@ -203,10 +206,7 @@ const ProductNew = ({ products }) => {
                                                 ></Button>
                                             )}
                                             <Button size='large' icon={<ShoppingCartOutlined twoToneColor="#B360E6" style={{ fontSize: '21px', color: '#B360E6' }} />}
-                                                onClick={() => {
-                                                    setProduct(product)
-                                                    handleAddToCart()
-                                                }}
+                                                onClick={() => handleAddToCart(product)}
                                             ></Button>
                                         </div>
                                     </div>

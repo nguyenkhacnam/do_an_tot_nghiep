@@ -21,6 +21,7 @@ import {
   cartListSelector,
   currentUser,
   isSignedIn_user,
+  productListSelector,
 } from "./../../redux/selectors";
 import { accountSlice } from "./../../redux/slices/accountSlice";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
@@ -37,8 +38,11 @@ import {
 } from "@ant-design/icons";
 import { Badge } from "antd";
 import SearchBar from "../SearchBar";
-import SendIcon from '@mui/icons-material/Send';
-import FilterAltIcon from '@mui/icons-material/FilterAlt';
+import SendIcon from "@mui/icons-material/Send";
+import FilterAltIcon from "@mui/icons-material/FilterAlt";
+import HomeSearchProduct from "../HomeSearchProduct/HomeSearchProduct";
+import "./index.css";
+import ButtonCommon from "../ButtonComom/ButtonComom";
 
 const CartButton = styled(Button)(({ theme }) => ({
   borderRadius: 20,
@@ -52,7 +56,7 @@ const CartButton = styled(Button)(({ theme }) => ({
 export default function NavBar(props) {
   // const _isSignedIn = useSelector(isSignedIn_user)
   const currentPath = window.location.pathname;
-
+  const _productList = useSelector(productListSelector);
   const _currentUser = useSelector(currentUser);
   let isSignedIn = localStorage.getItem("role") !== "" ? true : false;
   const _cart = useSelector(cartListSelector);
@@ -96,7 +100,7 @@ export default function NavBar(props) {
 
   useEffect(() => {
     setNumberCart(_cart.length);
-  });
+  }, [_cart.length]);
 
   const handleLogin = () => {
     navigate("/login");
@@ -278,16 +282,27 @@ export default function NavBar(props) {
           ></img>
           <div
             style={{
+              // width: '500px',
               display: "flex",
               color: "red",
             }}
+            className="custom-"
           >
             {/* <SearchBar productList={props.productList} /> */}
           </div>
-          <Link to={'/productSpace'}>
-              <Button variant="contained" endIcon={<FilterAltIcon />}>
-                Tìm kiếm nâng cao
-              </Button>
+          <div style={{
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            marginRight: '15px'
+          }}><HomeSearchProduct products={_productList} /></div>
+          <Link
+            to={"/productSpace"}
+            style={{
+              // display: "none",
+            }}
+          >
+            <ButtonCommon />
           </Link>
           <Box sx={{ flexGrow: 1 }} />
           {(localStorage.getItem("role") === "customer" ||

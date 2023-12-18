@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import { Link } from 'react-router-dom';
 import './index.css'
 import styled from 'styled-components';
-import { HeartTwoTone, ShoppingCartOutlined } from '@ant-design/icons'
+import { CheckOutlined, HeartTwoTone, ShoppingCartOutlined } from '@ant-design/icons'
 import { useDispatch, useSelector } from 'react-redux';
 import { addFavorite } from '../../redux/slices/favoriteSlice.js';
 import { unwrapResult } from '@reduxjs/toolkit';
@@ -15,7 +15,7 @@ const { Meta } = Card;
 const CardProductLarge = ({ product = null }) => {
     const [openSnackbar, setOpenSnackbar] = useState(false);
     const [openBackdrop, setOpenBackdrop] = useState(false)
-    const discountedPrice = product.price - (product.price * (parseFloat(product.promotion) / 100))
+    const discountedPrice = product.price + (product.price * (parseFloat(product.promotion) / 100))
     const dispatch = useDispatch()
     const _currentUser = useSelector(currentUser)
     const _cart = useSelector(cartListSelector)
@@ -60,7 +60,7 @@ const CardProductLarge = ({ product = null }) => {
         }
     }
 
-    const handleAddToCart = async () => {
+    const handleAddToCart = async (product) => {
         if (localStorage.getItem('role') === 'customer') {
             setOpenBackdrop(true)
             let isExisted = false;
@@ -160,17 +160,17 @@ const CardProductLarge = ({ product = null }) => {
                                 color: 'red',
                                 fontSize: '20px'
                             }}
-                            title={discountedPrice.toLocaleString('en-US') + '₫'} />
+                            title={product.price.toLocaleString('en-US') + '₫'} />
                         <Meta
                             style={{
                                 textDecorationLine: 'line-through',
                                 fontSize: '16px'
                             }}
-                            description={product.price.toLocaleString('en-US') + '₫'} />
+                            description={discountedPrice.toLocaleString('en-US') + '₫'} />
                     </div>
                     <div
                         style={{
-                            marginTop: '10px'
+                            marginTop: '5px'
                         }}
                     >
                         <Text>CPU: {product.cpu}</Text>
@@ -178,14 +178,17 @@ const CardProductLarge = ({ product = null }) => {
                         <Text>RAM: {product.ram}GB</Text>
                         <Text>Ổ cứng: {product.memory}GB SSD</Text>
                         <Text>Màn hình: {product.screenDimension} Inch</Text>
-                        <Text>Bảo hành: {product.warranty}</Text>
+                        {/* <Text>Bảo hành: {product.warranty}</Text> */}
                     </div>
                     <div style={{
                         display: 'flex',
                         justifyContent: 'space-between',
                         // alignItems: 'center'
                     }}>
-                        <Text>Đã bán: </Text>
+                        <div>
+                            <Text>Đã bán: </Text>
+                            <Text style={{ color: '#52c41a' }}><CheckOutlined twoToneColor="#52c41a" /> Có hàng</Text>
+                        </div>
                         <div
                             style={{
                                 display: 'flex',
@@ -198,7 +201,7 @@ const CardProductLarge = ({ product = null }) => {
                                 ></Button>
                             )}
                             <Button size='large' icon={<ShoppingCartOutlined twoToneColor="#B360E6" style={{ fontSize: '27px', color: '#B360E6' }} />}
-                                onClick={handleAddToCart}
+                                onClick={() => handleAddToCart(product)}
                             ></Button>
                         </div>
                     </div>
