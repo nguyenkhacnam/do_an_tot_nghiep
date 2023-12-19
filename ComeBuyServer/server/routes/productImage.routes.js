@@ -19,7 +19,9 @@ module.exports = app => {
   // Detele all product imagees
   router.delete("/byproductid/:productID", productImages.deleteImagesOfProduct);
   // Add many images in once times
-  router.post("/many", authenToken, productImages.AddManyImage);
+  router.post("/many", 
+  // authenToken, 
+  productImages.AddManyImage);
   // Delete all product images
   router.delete("/", authenToken, productImages.deleteAll);
   // Add feature for product image

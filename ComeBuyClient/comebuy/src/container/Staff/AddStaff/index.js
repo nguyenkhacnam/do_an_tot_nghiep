@@ -77,16 +77,16 @@ const AddStaff = () => {
 
     const handleValueChange = (event) => {
         switch (event.target.name) {
-            case 'Name':
+            case 'Tên nhân viên':
                 SetName(event.target.value)
                 break
             case 'Email':
                 SetEmail(event.target.value)
                 break
-            case 'Password':
+            case 'Mật khẩu':
                 SetPassword(event.target.value)
                 break
-            case 'Confirm Password':
+            case 'Nhập lại mật khẩu':
                 SetConfirmPassword(event.target.value)
                 break
             case 'Branch Address':

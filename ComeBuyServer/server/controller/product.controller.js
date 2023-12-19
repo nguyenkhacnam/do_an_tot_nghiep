@@ -261,6 +261,7 @@ exports.addFeature = catchAsync(async (req, res, next) => {
 });
 
 exports.deleteAndUpdateFeature = catchAsync(async (req, res, next) => {
+  console.log('check jwt')
   const productId = req.body.productID;
   const featureId = req.body.featureID;
   const prd = await Product.findByPk(productId).catch((err) => {
@@ -390,7 +391,6 @@ exports.filter = catchAsync(async (req, res, next) => {
       memory in (:memory) and
       year in (:year) and 
       ram in (:ram) and
-      ispublished in (true, false) and
       price between :minPrice and :maxPrice
       group by t1.productid) a
       where a.listFeature @>`

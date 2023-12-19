@@ -135,8 +135,8 @@ export default function NavBar(props) {
       localStorage.setItem("role", "");
       localStorage.setItem("idUser", "");
       localStorage.setItem("cart", JSON.stringify([]));
-      // navigate(0)
-      navigate("/login");
+      navigate(0)
+      // navigate("/login");
     } else if (e.target.innerText === "My place") {
       handleMyPlace();
     } else if (e.target.innerText === "Yêu thích") {

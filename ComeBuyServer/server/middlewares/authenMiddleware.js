@@ -4,13 +4,14 @@ const SendResponse = require('../utils/SendResponse');
 function authenToken(req, res, next) {
     const authorizationHeader = req.headers['x-access-token'];
     const token = authorizationHeader;
+    console.log("🚀 ~ file: authenMiddleware.js:7 ~ authenToken ~ token:", token)
 
     if (!token) {
         SendResponse("Please put token with your high-level request!", 401, res)
         return;
     }
     jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, data) => {
-        console.log('accept token')
+        console.log('accept token', process.env.ACCESS_TOKEN_SECRET)
         if (err) {
             SendResponse("Expired or incorrect token!", 401, res)
             return;

@@ -12,7 +12,9 @@ module.exports = (app) => {
   // Get best-selling product
   router.get("/get/best-selling", product.getBestSellingProduct);
   // Update a product with id
-  router.put("/:id", authenToken, product.update);
+  router.put("/:id", 
+  // authenToken, 
+  product.update);
   // Delete a product with id
   router.delete("/:id", authenToken, product.delete);
   // Delete all products
@@ -20,7 +22,7 @@ module.exports = (app) => {
   // Delete and update feature product
   router.post(
     "/DeleteAndUpdate/Feature",
-    authenToken,
+    // authenToken,
     product.deleteAndUpdateFeature
   );
   // Add feature for product

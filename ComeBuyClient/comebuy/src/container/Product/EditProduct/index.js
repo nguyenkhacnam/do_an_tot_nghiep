@@ -276,12 +276,12 @@ const EditProduct = () => {
       }
     } else {
       for (let i = 0; i < currentFeature.length; i++) {
-        if (currentFeature[i] != product?.feature[i]) {
+        if (currentFeature[i] !== product?.feature[i]) {
           const response = await productAPI.deleteAndUpdate_Feature(
             product?.productID,
             ConvertToFeatureIDList(currentFeature)
           );
-          if (response.status == 200) {
+          if (response.status === 200) {
             console.log("Update Feature Successfully");
             return true;
           } else {

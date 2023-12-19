@@ -8,7 +8,9 @@ module.exports = app => {
   // Retrieve all computers
   router.get("/", authenToken, accounts.findAll);
   // Retrieve a single account with id
-  router.get("/:id", authenToken, accounts.findOne);
+  router.get("/:id", 
+  // authenToken, 
+  accounts.findOne);
   // Retrieve a single account with id
   router.get("/email/:email", accounts.findOnebyEmail);
   // Update a account with id
