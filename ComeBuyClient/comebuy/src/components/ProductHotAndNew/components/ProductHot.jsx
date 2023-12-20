@@ -138,7 +138,8 @@ const ProductHot = ({ products }) => {
             display: 'flex',
             justifyContent: 'flex-start',
             alignItems: 'center',
-            gap: '50px'
+            gap: '50px',
+            marginLeft: '30px'
         }}>
             <CardProductLarge product={hotAndNewProduct} />
             <div
@@ -217,6 +218,9 @@ const ProductHot = ({ products }) => {
                                 <Backdrop
                                     sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
                                     open={openBackdrop}
+                                    style={{
+                                        backgroundColor: 'transparent'
+                                    }}
                                 >
                                     <CircularProgress color="inherit" />
                                 </Backdrop>

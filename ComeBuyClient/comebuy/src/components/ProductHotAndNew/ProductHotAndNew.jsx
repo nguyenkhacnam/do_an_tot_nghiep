@@ -20,7 +20,11 @@ const ProductHotAndNew = ({products}) => {
         },
     ];
     return (
-        <div>
+        <div
+            style={{
+                backgroundColor: '#f1f1f1'
+            }}
+        >
             <Tabs defaultActiveKey="1" items={items} onChange={onChange} />
         </div>
     )

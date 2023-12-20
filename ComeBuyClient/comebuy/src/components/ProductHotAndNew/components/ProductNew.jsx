@@ -5,7 +5,7 @@ import CardProductLarge, { Text } from '../../CardProductLarge/CardProductLarge'
 import { CheckOutlined, HeartTwoTone, ShoppingCartOutlined } from '@ant-design/icons';
 import { useDispatch, useSelector } from 'react-redux';
 import { unwrapResult } from '@reduxjs/toolkit';
-import { Alert, Snackbar } from '@mui/material';
+import { Alert, Backdrop, CircularProgress, Snackbar } from '@mui/material';
 import { addFavorite } from '../../../redux/slices/favoriteSlice.js';
 import { cartListSelector, currentUser } from '../../../redux/selectors.js';
 import { addCart, cartSlice, updateCart } from '../../../redux/slices/cartSlice.js';
@@ -19,7 +19,7 @@ const ProductNew = ({ products }) => {
     const _currentUser = useSelector(currentUser)
     const _cart = useSelector(cartListSelector)
     const handleAddToFavorite = async () => {
-        // setOpenBackdrop(true)
+        setOpenBackdrop(true)
         let temp = {
             productID: product.productID,
             userID: _currentUser.userID
@@ -27,7 +27,7 @@ const ProductNew = ({ products }) => {
         try {
             const resultAction = await dispatch(addFavorite(temp))
             const originalPromiseResult = unwrapResult(resultAction)
-            // setOpenBackdrop(false)
+            setOpenBackdrop(false)
             setOpenSnackbar(true)
             console.log(originalPromiseResult)
         } catch (rejectedValueOrSerializedError) {
@@ -135,7 +135,8 @@ const ProductNew = ({ products }) => {
             display: 'flex',
             justifyContent: 'flex-start',
             alignItems: 'center',
-            gap: '50px'
+            gap: '50px',
+            marginLeft: '30px'
         }}>
             <CardProductLarge product={products[0]} />
             <div
@@ -154,7 +155,7 @@ const ProductNew = ({ products }) => {
                         return (
                             <Badge count={product?.promotion}>
                                 <Card
-                                
+
                                     hoverable
                                     style={{
                                         width: 240,
@@ -211,6 +212,15 @@ const ProductNew = ({ products }) => {
                                         </div>
                                     </div>
                                 </Card>
+                                <Backdrop
+                                    sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+                                    open={openBackdrop}
+                                    style={{
+                                        backgroundColor: 'transparent'
+                                    }}
+                                >
+                                    <CircularProgress color="inherit" />
+                                </Backdrop>
 
                                 <Snackbar open={openSnackbar} autoHideDuration={6000} onClose={handleCloseSnackbar}>
                                     <Alert onClose={handleCloseSnackbar} severity="success" sx={{ width: '100%' }}>

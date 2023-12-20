@@ -148,7 +148,7 @@ const DetailProduct = () => {
     }
   };
   const handleAddToFavorite = async () => {
-    // setOpenBackdrop(true)
+    setOpenBackdrop(true)
     let temp = {
       productID: product.productID,
       userID: _currentUser.userID,
@@ -156,7 +156,7 @@ const DetailProduct = () => {
     try {
       const resultAction = await dispatch(addFavorite(temp));
       const originalPromiseResult = unwrapResult(resultAction);
-      // setOpenBackdrop(false)
+      setOpenBackdrop(false)
       setOpenSnackbar(true);
       console.log(originalPromiseResult);
     } catch (rejectedValueOrSerializedError) {
@@ -275,7 +275,7 @@ const DetailProduct = () => {
     "https://anphat.com.vn/media/lib/07-10-2023/nbas1264.jpg",
   ];
   const discountedPrice =
-    product?.price - product?.price * (parseFloat(product?.promotion) / 100);
+    product?.price + product?.price * (parseFloat(product?.promotion) / 100);
 
   const onChange = key => {
     console.log(key);
@@ -569,7 +569,7 @@ const DetailProduct = () => {
                         fontSize: "24px",
                       }}
                     >
-                      {product?.price.toLocaleString("en-US") + "₫"}
+                      {discountedPrice.toLocaleString("en-US") + "₫"}
                     </h4>
                   </div>
                   <div
@@ -595,7 +595,7 @@ const DetailProduct = () => {
                         fontSize: "28px",
                       }}
                     >
-                      {discountedPrice.toLocaleString("en-US") + "₫"}
+                      {product?.price.toLocaleString("en-US") + "₫"}
                     </h4>
                   </div>
                   <div

@@ -231,6 +231,9 @@ const HotDealToday = ({ productList }) => {
                                 <Backdrop
                                     sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
                                     open={openBackdrop}
+                                    style={{
+                                        backgroundColor: 'transparent'
+                                    }}
                                 >
                                     <CircularProgress color="inherit" />
                                 </Backdrop>

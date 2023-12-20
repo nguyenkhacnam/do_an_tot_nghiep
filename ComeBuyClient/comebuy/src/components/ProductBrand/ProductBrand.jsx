@@ -19,6 +19,22 @@ const ProductBrand = ({ productList, title }) => {
   const dispatch = useDispatch()
   const _currentUser = useSelector(currentUser)
   const _cart = useSelector(cartListSelector)
+
+  const styles = {
+    myElement: {
+      opacity: 0,
+      transition: 'opacity 195ms cubic-bezier(0.4, 0, 0.2, 1) 0ms',
+      visibility: 'hidden',
+    },
+    clicked: {
+      opacity: 1,
+      transition: 'opacity 225ms cubic-bezier(0.4, 0, 0.2, 1) 0ms',
+      visibility: 'visible',
+    },
+  };
+
+  const [clicked, setClicked] = useState(false);
+
   const handleAddToFavorite = async () => {
     setOpenBackdrop(true)
     let temp = {
@@ -200,7 +216,7 @@ const ProductBrand = ({ productList, title }) => {
                   }}>
                     <div>
                       <Text>Đã bán: </Text>
-                      <Text style={{ color: '#52c41a'}}><CheckOutlined  twoToneColor="#52c41a" /> Có hàng</Text>
+                      <Text style={{ color: '#52c41a' }}><CheckOutlined twoToneColor="#52c41a" /> Có hàng</Text>
                     </div>
                     <div
                       style={{
@@ -225,6 +241,9 @@ const ProductBrand = ({ productList, title }) => {
                 <Backdrop
                   sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
                   open={openBackdrop}
+                  style={{
+                    backgroundColor: 'transparent'
+                  }}
                 >
                   <CircularProgress color="inherit" />
                 </Backdrop>

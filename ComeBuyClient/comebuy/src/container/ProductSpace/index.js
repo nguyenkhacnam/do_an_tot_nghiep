@@ -150,7 +150,10 @@ const ProductSpace = () => {
               handleFilter={handleFilter}
             />
           </Grid>
-          <Grid item xs={9} sx={{ p: 2 }}>
+          <Grid item xs={9} sx={{ p: 2 }} style={{
+            backgroundColor: '#f1f1f1',
+            paddingTop: '-50px'
+          }}>
             <Stack>
               {/* {productList?.length > 0 && (
                 <Stack sx={{ width: "100%" }}>
@@ -175,6 +178,9 @@ const ProductSpace = () => {
                   m: 2,
                   justifyContent: "center",
                   alignItems: "center",
+                }}
+                style={{
+                  
                 }}
               >
                 <div

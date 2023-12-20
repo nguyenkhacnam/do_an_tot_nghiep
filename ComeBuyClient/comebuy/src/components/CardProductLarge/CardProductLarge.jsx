@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { addFavorite } from '../../redux/slices/favoriteSlice.js';
 import { unwrapResult } from '@reduxjs/toolkit';
 import { cartListSelector, currentUser } from '../../redux/selectors';
-import { Alert, Snackbar } from '@mui/material';
+import { Alert, Backdrop, CircularProgress, Snackbar } from '@mui/material';
 import { addCart, cartSlice, updateCart } from '../../redux/slices/cartSlice.js';
 
 const { Meta } = Card;
@@ -20,7 +20,7 @@ const CardProductLarge = ({ product = null }) => {
     const _currentUser = useSelector(currentUser)
     const _cart = useSelector(cartListSelector)
     const handleAddToFavorite = async () => {
-        // setOpenBackdrop(true)
+        setOpenBackdrop(true)
         let temp = {
             productID: product.productID,
             userID: _currentUser.userID
@@ -28,7 +28,7 @@ const CardProductLarge = ({ product = null }) => {
         try {
             const resultAction = await dispatch(addFavorite(temp))
             const originalPromiseResult = unwrapResult(resultAction)
-            // setOpenBackdrop(false)
+            setOpenBackdrop(false)
             setOpenSnackbar(true)
             console.log(originalPromiseResult)
         } catch (rejectedValueOrSerializedError) {
@@ -207,6 +207,15 @@ const CardProductLarge = ({ product = null }) => {
                     </div>
                 </Card>
             </Badge>
+            <Backdrop
+                sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+                open={openBackdrop}
+                style={{
+                    backgroundColor: 'transparent'
+                }}
+            >
+                <CircularProgress color="inherit" />
+            </Backdrop>
             <Snackbar open={openSnackbar} autoHideDuration={6000} onClose={handleCloseSnackbar}>
                 <Alert onClose={handleCloseSnackbar} severity="success" sx={{ width: '100%' }}>
                     Thêm thành công

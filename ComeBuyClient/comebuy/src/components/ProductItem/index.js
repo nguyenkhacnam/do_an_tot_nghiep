@@ -40,12 +40,12 @@ const ProductItem = ({ product }) => {
   const [openSnackbar, setOpenSnackbar] = useState(false);
   const [openBackdrop, setOpenBackdrop] = useState(false);
   const discountedPrice =
-    product.price - product.price * (parseFloat(product.promotion) / 100);
+    product.price + product.price * (parseFloat(product.promotion) / 100);
   const dispatch = useDispatch();
   const _currentUser = useSelector(currentUser);
   const _cart = useSelector(cartListSelector);
   const handleAddToFavorite = async () => {
-    // setOpenBackdrop(true)
+    setOpenBackdrop(true)
     let temp = {
       productID: product.productID,
       userID: _currentUser.userID,
@@ -53,7 +53,7 @@ const ProductItem = ({ product }) => {
     try {
       const resultAction = await dispatch(addFavorite(temp));
       const originalPromiseResult = unwrapResult(resultAction);
-      // setOpenBackdrop(false)
+      setOpenBackdrop(false)
       setOpenSnackbar(true);
       console.log(originalPromiseResult);
     } catch (rejectedValueOrSerializedError) {
@@ -194,14 +194,14 @@ const ProductItem = ({ product }) => {
                   color: "red",
                   fontSize: "20px",
                 }}
-                title={discountedPrice.toLocaleString("en-US") + "₫"}
+                title={product.price.toLocaleString("en-US") + "₫"}
               />
               <Meta
                 style={{
                   textDecorationLine: "line-through",
                   fontSize: "16px",
                 }}
-                description={product.price.toLocaleString("en-US") + "₫"}
+                description={discountedPrice.toLocaleString("en-US") + "₫"}
               />
             </div>
             <div
