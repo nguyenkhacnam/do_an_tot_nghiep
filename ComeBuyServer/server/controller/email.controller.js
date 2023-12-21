@@ -16,10 +16,10 @@ exports.sendVerify = (req, res) => {
         html:
             `<div style="width:100%">
                 <img style="border-radius: 15px; width:300px; background-size:cover; align-self:center" src="https://res.cloudinary.com/dol7hrjxn/image/upload/v1702195524/comebuy/logoremovebg_mewoul_wzakgr.png" alt="" style="width:100%; height:100%" />
-                <h4 style="align-self:center">VERIFY EMAIL FROM COMEBUY</h4>
-                <p style="font-size: 14px;align-self:center">Use code below to verify </p>
+                <h4 style="align-self:center">XÁC MINH EMAIL TỪ COMEBUY</h4>
+                <p style="font-size: 14px;align-self:center">Sử dụng mã bên dưới để xác minh </p>
                 <h2 style="align-self:center;font-weight: 800">${req.body.text}</h2>
-                <h4 style="align-self:center">Thanks for being ComeBuy's member</h4>
+                <h4 style="align-self:center">Cảm ơn vì đã là thành viên của ComeBuy</h4>
         </div>`
     };
     console.log(mailOptions)

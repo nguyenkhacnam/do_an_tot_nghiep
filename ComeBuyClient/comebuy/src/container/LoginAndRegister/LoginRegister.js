@@ -350,7 +350,7 @@ const LoginRegister = () => {
       emailApi
         .sendEmail({
           to: dataForReg.email,
-          subject: "VERIFY FROM COMEBUY ",
+          subject: "XÁC MINH TỪ COMEBUY ",
           text: verifyCode,
         })
         .then(data => {

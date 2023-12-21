@@ -150,7 +150,7 @@ const ForgotPassword = () => {
         if (verifyCode != '') {
             emailApi.sendEmail({
                 to: email,
-                subject: "Please use OTP code below to reset password ",
+                subject: "Vui lòng sử dụng mã OTP bên dưới để đặt lại mật khẩu ",
                 text: verifyCode
             }).then(data => {
                 handleOpenModalVerify();

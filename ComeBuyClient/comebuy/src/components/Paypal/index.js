@@ -84,24 +84,24 @@ export default function Paypal({ _discount, _lastTotal, cartList, purchases, pro
         if (localStorage.getItem('role') === "customer") {
             emailApi.sendOrder({
                 to: _currentUser.email,
-                subject: "Your order information in ComeBuy",
-                text: "Thank for placing order in ComeBuy site. \n" +
-                    "Your order: \n" +
-                    `Name: ${_currentUser.name} \n` +
-                    `Phone: ${_currentUser.phoneNumber} \n` +
-                    `COD Address: ${_bigAddress}` + "\n" +
+                subject: "Thông tin đơn hàng của bạn tại ComeBuy",
+                text: "Cảm ơn bạn đã đặt hàng trên trang ComeBuy. \n" +
+                    "Đơn hàng của bạn: \n" +
+                    `Tên người mua: ${_currentUser.name} \n` +
+                    `Số điện thoại: ${_currentUser.phoneNumber} \n` +
+                    `Địa chỉ nhận hàng: ${_bigAddress}` + "\n" +
                     "-------------------------------------------------------- \n" +
                     stringOrder + "\n" +
                     "-------------------------------------------------------- \n" +
-                    `Subtotal: ${_lastTotal} USD` + "\n" +
+                    `Tổng tiền: ${_lastTotal} VND` + "\n" +
                     "-------------------------------------------------------- \n" +
-                    `Discount: ${_discount} %` + "\n" +
+                    `Phiếu giảm giá: ${_discount} %` + "\n" +
                     "-------------------------------------------------------- \n" +
-                    `Shipping-fee: 2 USD` + "\n" +
+                    `Tiền vận chuyển: 0 VND` + "\n" +
                     "-------------------------------------------------------- \n" +
-                    `Total: ${_lastTotal + 2 - (_lastTotal * _discount / 100)} USD` + "\n" +
+                    `Tổng: ${_lastTotal + 0 - (_lastTotal * _discount / 100)} VND` + "\n" +
                     "-------------------------------------------------------- \n" +
-                    "Any wondered things. Please contact with our shop with contact below site: ComeBuy.com"
+                    "Có điều gì thắc mắc không? Vui lòng liên hệ với cửa hàng của chúng tôi theo địa chỉ liên hệ bên dưới: ComeBuy.com"
             }).then(data => {
                 setListItem(t)
                 setStartAddInvoiceItem(true)
@@ -110,22 +110,22 @@ export default function Paypal({ _discount, _lastTotal, cartList, purchases, pro
         } else {
             emailApi.sendOrder({
                 to: _guestEmail,
-                subject: "Your order information",
-                text: "Thank for placing order in ComeBuy site. \n" +
-                    "Your order: \n" +
-                    `Name: ${_guestName} \n` +
-                    `Phone: ${_guestPhoneNumber} \n` +
-                    `COD Address: ${_bigAddress}` + "\n" +
+                subject: "Thông tin đặt hàng của bạn",
+                text: "Cảm ơn bạn đã đặt hàng trên trang ComeBuy. \n" +
+                    "Đơn hàng của bạn: \n" +
+                    `Tên người mua: ${_guestName} \n` +
+                    `Số điện thoại: ${_guestPhoneNumber} \n` +
+                    `Địa chỉ nhận hàng: ${_bigAddress}` + "\n" +
                     "-------------------------------------------------------- \n" +
                     stringOrder + "\n" +
                     "-------------------------------------------------------- \n" +
-                    `Shipping-fee: 2 USD` + "\n" +
+                    `Tiền vận chuyển: 0 VND` + "\n" +
                     "-------------------------------------------------------- \n" +
-                    `Subtotal: ${_lastTotal} USD` + "\n" +
+                    `Tổng tiền sản phẩm: ${_lastTotal} VND` + "\n" +
                     "-------------------------------------------------------- \n" +
-                    `Total: ${_lastTotal + 2} USD` + "\n" +
+                    `Tổng: ${_lastTotal + 0} VND` + "\n" +
                     "-------------------------------------------------------- \n" +
-                    "Any wondered things. Please contact with our shop with contact below site: ComeBuy.com"
+                    "Có điều gì thắc mắc không? Vui lòng liên hệ với cửa hàng của chúng tôi theo địa chỉ liên hệ bên dưới: ComeBuy.com"
             }).then(data => {
                 setListItem(t)
                 setStartAddInvoiceItem(true)
