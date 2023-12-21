@@ -67,8 +67,17 @@ export const cartSlice = createSlice({
         },
         addCart: (state, action) => {
             state.cartList.push(action.payload)
+        },
+        removeCart: (state, action) => {
+            const localStoreCart = JSON.parse(localStorage.getItem('cart'));
+            const productIdToRemove = action.payload.product?.productid;
+            
+            if (localStoreCart) {
+                const updatedCart = localStoreCart.filter(item => item.productid !== productIdToRemove);
+                localStorage.setItem('cart', JSON.stringify(updatedCart));
+            }
         }
-
+        
     },
     extraReducers: {
         [getAllCart.pending]: (state) => {

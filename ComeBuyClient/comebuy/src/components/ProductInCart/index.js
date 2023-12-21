@@ -139,7 +139,7 @@ const ProductInCart = props => {
             sx={{ textAlign: "end", alignSelf: "center", minWidth: 100 }}
             color="#D94A56"
           >
-            {product.price * amount}₫
+            {(product.price * amount).toLocaleString("en-US")}₫
           </Typography>
           <Stack
             direction={"row"}

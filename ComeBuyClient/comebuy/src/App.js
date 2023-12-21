@@ -42,14 +42,13 @@ function App() {
 
   useEffect(() => {
     const loadUserData = async () => {
-      const role = localStorage.getItem("role"); // Lấy giá trị role từ localStorage trong useEffect
       await LoadCurrentUser();
-      // navigate("/");
+      navigate("/");
       // navigate(previousPath);
     };
 
     loadUserData();
-  }, []); // Không cần dependency
+  }, [role]);
 
   // useEffect(() => {
   //   console.log('abccccc')
@@ -62,9 +61,9 @@ function App() {
   //   loadUserData();
   // }, [role]);
 
-  // useEffect(() => {
-  //   window.scrollTo(0, 0); // Đặt vị trí cuộn trang về đầu trang khi component được mount
-  // }, []);
+  useEffect(() => {
+    window.scrollTo(0, 0); // Đặt vị trí cuộn trang về đầu trang khi component được mount
+  }, []);
 
   const renderRoutes = () => {
     const token = localStorage.getItem("accessToken");

@@ -444,7 +444,7 @@ const ProfileManage = () => {
     };
 
     const handleCloseModalMemberRule = () => setOpenModalMemberRule(false)
-
+    
 
 
     return (
@@ -453,7 +453,7 @@ const ProfileManage = () => {
             display: 'flex',
             height: '100%',
             width: '100%',
-            backgroundColor: '#F2EBDF'
+            backgroundColor: '#f1f1f1'
         }}>
             <NavBar></NavBar>
             <Stack direction="row"
@@ -478,7 +478,7 @@ const ProfileManage = () => {
             {/* name & Avatar */}
             <Stack direction="row" width='100%' spacing={2} style={{marginLeft: '280px'}}
                 sx={{
-                    backgroundColor: '#F2EBDF',
+                    backgroundColor: '#f1f1f1',
                     marginTop: '2%',
                     paddingBottom: '1%',
                 }}>
@@ -509,7 +509,7 @@ const ProfileManage = () => {
                         style={{
                             marginLeft: '-2%',
                             marginTop: '8%',
-                            backgroundColor: '#F2EBDF',
+                            backgroundColor: '#f1f1f1',
                             height: '30px',
                             width: '30px',
                             top: '75%'
@@ -521,7 +521,7 @@ const ProfileManage = () => {
                         style={{
                             marginLeft: '-2%',
                             marginTop: '8%',
-                            backgroundColor: '#F2EBDF',
+                            backgroundColor: '#f1f1f1',
                             height: '30px',
                             width: '30px',
                             top: '75%'
@@ -554,7 +554,7 @@ const ProfileManage = () => {
                     </Typography>
                 </Stack>
                 <IconButton onClick={handleOpenModalChangeName}
-                    style={{ marginLeft: '5%', backgroundColor: '#F2EBDF', height: 'auto' }}
+                    style={{ marginLeft: '5%', backgroundColor: '#f1f1f1', height: 'auto' }}
                 >
                     <EditTwoToneIcon sx={{ color: 'black' }} />
                 </IconButton>
@@ -564,14 +564,14 @@ const ProfileManage = () => {
             <Stack direction="column" spacing={3}
                 style={{
                     width: '100%',
-                    backgroundColor: '#F2EBDF',
+                    backgroundColor: '#f1f1f1',
                     marginTop: '0%',
                     paddingTop: '-1%'
                 }}
             >
                 {/* <Stack direction="row" spacing={0.5}>
                     <MemberShipStepper />
-                    <IconButton onClick={() => setOpenModalMemberRule(true)} style={{ marginLeft: '-2%', marginTop: '-2.5%', backgroundColor: '#F2EBDF' }}>
+                    <IconButton onClick={() => setOpenModalMemberRule(true)} style={{ marginLeft: '-2%', marginTop: '-2.5%', backgroundColor: '#f1f1f1' }}>
                         <MoreIcon />
                     </IconButton>
                 </Stack> */}
@@ -620,7 +620,7 @@ const ProfileManage = () => {
                     <IconButton onClick={handleOpenModalChangeContact}
                         style={{
                             marginTop: '-0.5%',
-                            backgroundColor: '#F2EBDF',
+                            backgroundColor: '#f1f1f1',
                             marginLeft: '7%'
                         }}>
                         <EditTwoToneIcon style={{ color: 'black' }} />
@@ -647,7 +647,7 @@ const ProfileManage = () => {
             <Stack direction="column" spacing={3}
                 style={{
                     width: '100%',
-                    backgroundColor: '#F2EBDF',
+                    backgroundColor: '#f1f1f1',
                     marginTop: '0%',
                     paddingTop: '-1%'
                 }}
@@ -697,7 +697,7 @@ const ProfileManage = () => {
                     <IconButton onClick={handleOpenModalChangeAddress}
                         style={{
                             marginTop: '-0.5%',
-                            backgroundColor: '#F2EBDF',
+                            backgroundColor: '#f1f1f1',
                             marginLeft: '7%'
                         }}>
                         <EditTwoToneIcon style={{ color: 'black' }} />
@@ -724,7 +724,7 @@ const ProfileManage = () => {
             <Stack direction="column" spacing={3}
                 style={{
                     width: '100%',
-                    backgroundColor: '#F2EBDF',
+                    backgroundColor: '#f1f1f1',
                     marginTop: '0%',
                     paddingTop: '-1%',
                     paddingBottom: '2%'
@@ -769,7 +769,7 @@ const ProfileManage = () => {
                             onChange={(newValue) => {
                                 setSelectedDate(newValue);
                             }}
-                            renderInput={(params) => <TextField style={{ height: '5%', backgroundColor: '#F2EBDF' }} {...params} />}
+                            renderInput={(params) => <TextField style={{ height: '5%', backgroundColor: '#f1f1f1' }} {...params} />}
                         />
                     </LocalizationProvider>
                     <Typography style={{ color: 'black', fontWeight: 'bold', marginTop: '1%', marginLeft: '3%' }}>Giới tính:</Typography>

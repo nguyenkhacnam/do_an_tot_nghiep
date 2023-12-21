@@ -296,7 +296,6 @@ export const CheckoutPage = () => {
     }, [])
 
     function handleChangeProvince(event) {
-        console.log('skdfjsldkfjaslkfjaslf',event.target.value )
         setProvince(event.target.value)
     }
     //get district
@@ -475,7 +474,7 @@ export const CheckoutPage = () => {
                         amount: listCart[i].amount,
                         total: Number(listCart[i].amount) * Number(listProd[j].price)
                     }
-                    stringOrder = stringOrder + "\n" + `${listProd[j].name} - Quantity: ${listCart[i].amount} - Sub-cost: $${item.total} `
+                    stringOrder = stringOrder + "\n" + `${listProd[j].name} - Số lượng: ${listCart[i].amount} - Giá tiền: ${item.total} VND `
                     // t.push(item)
                     try {
                         const resultAction = await dispatch(addInvoiceItem(item))
@@ -490,18 +489,18 @@ export const CheckoutPage = () => {
         if (localStorage.getItem('role') === "customer") {
             emailApi.sendOrder({
                 to: _currentUser.email,
-                subject: "Your order information in ComeBuy",
-                text: "Thank for placing order in ComeBuy site. \n" +
-                    "Your order: \n" +
-                    `Name: ${_currentUser.name} \n` +
-                    `Phone: ${_currentUser.phoneNumber} \n` +
-                    `COD Address: ${bigAddress}` + "\n" +
+                subject: "Thông tin đơn hàng của bạn tại ComeBuy",
+                text: "Cảm ơn bạn đã đặt hàng trên trang ComeBuy. \n" +
+                    "Đơn hàng của bạn: \n" +
+                    `Tên người mua: ${_currentUser.name} \n` +
+                    `Số điện thoại: ${_currentUser.phoneNumber} \n` +
+                    `Địa chỉ nhận hàng: ${bigAddress}` + "\n" +
                     "-------------------------------------------------------- \n" +
                     stringOrder + "\n" +
                     "-------------------------------------------------------- \n" +
-                    `Total: ${subTotal} USD` + "\n" +
+                    `Tổng tiền: ${subTotal} VND` + "\n" +
                     "-------------------------------------------------------- \n" +
-                    "Any wondered things ? Please contact with our shop with contact below site: ComeBuy.com"
+                    "Có điều gì thắc mắc không? Vui lòng liên hệ với cửa hàng của chúng tôi theo địa chỉ liên hệ bên dưới: ComeBuy.com"
             }).then(data => {
                 handleCloseBackdrop()
             })
@@ -509,18 +508,18 @@ export const CheckoutPage = () => {
         } else {
             emailApi.sendOrder({
                 to: email,
-                subject: "Your order information",
-                text: "Thank for placing order in ComeBuy site. \n" +
-                    "Your order: \n" +
-                    `Name: ${guestName} \n` +
-                    `Phone: ${guestPhoneNum} \n` +
-                    `COD Address: ${bigAddress}` + "\n" +
+                subject: "Thông tin đặt hàng của bạn",
+                text: "Cảm ơn bạn đã đặt hàng trên trang ComeBuy. \n" +
+                    "Đơn hàng của bạn: \n" +
+                    `Tên người mua: ${guestName} \n` +
+                    `Số điện thoại: ${guestPhoneNum} \n` +
+                    `Địa chỉ nhận hàng: ${bigAddress}` + "\n" +
                     "-------------------------------------------------------- \n" +
                     stringOrder + "\n" +
                     "-------------------------------------------------------- \n" +
-                    `Total: ${subTotal} USD` + "\n" +
+                    `Total: ${subTotal} VND` + "\n" +
                     "-------------------------------------------------------- \n" +
-                    "Any wondered things. Please contact with our shop with contact below site: ComeBuy.com"
+                    "Có điều gì thắc mắc không? Vui lòng liên hệ với cửa hàng của chúng tôi theo địa chỉ liên hệ bên dưới: ComeBuy.com"
             }).then(data => {
                 handleCloseBackdrop()
             })
@@ -1316,7 +1315,7 @@ export const CheckoutPage = () => {
                                 }}
                                 direction="row"
                                 width="100%">
-                                {listProd.map((prod) =>
+                                {listProd?.map((prod) =>
                                     prod.productID === cart.productid ? (
                                         <img style={{
                                             width: '7em',
@@ -1338,7 +1337,7 @@ export const CheckoutPage = () => {
                                 </Stack>
                                 {listProd.map((prod) =>
                                     prod.productID === cart.productid ? (
-                                        <Typography sx={{ alignSelf: 'flex-end', fontWeight: 600 }}> {Number(prod.price) * Number(cart.amount)}₫</Typography>
+                                        <Typography sx={{ alignSelf: 'flex-end', fontWeight: 600 }}> {(Number(prod.price) * Number(cart.amount)).toLocaleString("en-US")}₫</Typography>
                                     ) : (null)
                                 )}
                             </Stack>
@@ -1374,7 +1373,7 @@ export const CheckoutPage = () => {
                                 marginTop: '1.2em'
                             }}
                             >
-                                {subTotal - subTotal * discount / 100}₫
+                                {(subTotal - subTotal * discount / 100).toLocaleString("en-US")}₫
                             </Typography>
                         </Stack>
                         <Stack direction="row" width='100%' justifyContent="space-between">
@@ -1385,7 +1384,7 @@ export const CheckoutPage = () => {
                                 marginTop: '-0.5em'
                             }}
                             >
-                                35000₫
+                                35,000₫
                             </Typography>
                         </Stack>
                         <div style={{ height: '1px', width: '100%', backgroundColor: '#BFBFBF' }}></div>
@@ -1399,7 +1398,7 @@ export const CheckoutPage = () => {
                                 fontSize: '20px'
                             }}
                             >
-                                {Number(subTotal - subTotal * discount / 100) + Number(35000)}₫
+                                {(Number(subTotal - subTotal * discount / 100) + Number(35000)).toLocaleString("en-US")}₫
                             </Typography>
                         </Stack>
                     </Stack>

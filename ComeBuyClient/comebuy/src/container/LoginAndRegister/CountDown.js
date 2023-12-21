@@ -6,7 +6,7 @@ export default class CountDown extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            count: 3
+            count: 60
         }
     }
     componentDidMount() {

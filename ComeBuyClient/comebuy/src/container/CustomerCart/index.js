@@ -31,6 +31,7 @@ import {
   getAllCart,
   updateCart,
   deleteCartById,
+  cartSlice,
 } from "./../../redux/slices/cartSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { unwrapResult } from "@reduxjs/toolkit";
@@ -128,7 +129,7 @@ const CustomerCart = () => {
 
   const [isLoading, setIsLoading] = useState(true);
   const [cartList, setCartList] = useState([]);
-  console.log("🚀 ~ file: index.js:131 ~ CustomerCart ~ cartList:", cartList)
+  console.log("🚀 ~ file: index.js:131 ~ CustomerCart ~ cartList:", cartList);
   const [prodList, setProdList] = useState([]);
   const [subTotal, setSubTotal] = useState(0);
   const [openSnackbar, setOpenSnackbar] = useState(false);
@@ -160,7 +161,7 @@ const CustomerCart = () => {
       temp = originalPromiseResult;
       for (let i = 0; i < temp.length; i++) {
         if (temp[i].userid === _currentUser.userID) {
-          listCart.push(temp[i]);
+          listCart.unshift(temp[i]);
           const resultAction2 = await dispatch(
             getProductWithID(temp[i].productid)
           );
@@ -191,6 +192,7 @@ const CustomerCart = () => {
       let listProduct = [];
       let tempSubTotal = 0;
       fetchYourCart(listCart, listProduct);
+      console.log("🚀 ~ file: index.js:192 ~ useEffect ~ listCart:", listCart);
       setCartList(listCart);
       setmasterData(listCart);
       setProdList(listProduct);
@@ -205,24 +207,27 @@ const CustomerCart = () => {
 
   const [search, setSearch] = React.useState("");
   const [masterData, setmasterData] = React.useState([]);
-  console.log("🚀 ~ file: index.js:207 ~ CustomerCart ~ masterData:", masterData)
+  console.log(
+    "🚀 ~ file: index.js:207 ~ CustomerCart ~ masterData:",
+    masterData
+  );
 
   const searchFilter = text => {
     if (text) {
-    console.log("🚀 ~ file: index.js:211 ~ searchFilter ~ text:", text)
-    //   const filtered = props.products?.filter(product =>
-    //     product.name.toLowerCase().includes(e.target.value?.toLowerCase())
-    // );
-    // setFilteredProducts(filtered);
+      console.log("🚀 ~ file: index.js:211 ~ searchFilter ~ text:", text);
+      //   const filtered = props.products?.filter(product =>
+      //     product.name.toLowerCase().includes(e.target.value?.toLowerCase())
+      // );
+      // setFilteredProducts(filtered);
       const newData = masterData.filter(item => {
         // const itemData = item.product.name
         //   ? item.product.name.toUpperCase()
         //   : "".toUpperCase();
         // const textData = text.toUpperCase();
         // return itemData.indexOf(textData) > -1;
-        return item?.product?.name.toLowerCase().includes(text?.toLowerCase())
+        return item?.product?.name.toLowerCase().includes(text?.toLowerCase());
       });
-      console.log("🚀 ~ file: index.js:223 ~ newData ~ newData:", newData)
+      console.log("🚀 ~ file: index.js:223 ~ newData ~ newData:", newData);
       setCartList(newData);
       setSearch(text);
     } else {
@@ -258,6 +263,7 @@ const CustomerCart = () => {
           }
         }
       });
+      console.log("newListCart", newListCart);
       setCartList(newListCart);
       await CountTotal(newListCart, prodList);
     } else if (actionType === "decrease") {
@@ -290,6 +296,7 @@ const CustomerCart = () => {
             }
           }
         });
+        console.log("newListCart", newListCart);
         setCartList(newListCart);
         await CountTotal(newListCart, prodList);
       } else {
@@ -300,17 +307,28 @@ const CustomerCart = () => {
   console.log("re-render");
   //handle agree dis-cart
   const handleAgree = async item => {
-    /* console.log("🚀 ~ file: index.js:285 ~ handleAgree ~ item:", item) */
+    console.log("🚀 ~ file: index.js:285 ~ handleAgree ~ item:", item);
     setIsDeleteCart(true);
     try {
+      dispatch(cartSlice.actions.removeCart(item));
       const resultAction = await dispatch(deleteCartById(item));
+      console.log(
+        "🚀 ~ file: index.js:308 ~ handleAgree ~ resultAction:",
+        resultAction
+      );
       const originalPromiseResult = unwrapResult(resultAction);
       console.log(originalPromiseResult);
-      for (let i = 0; i < cartList.length; i++) {
-        if (cartList[i].cartID === item.cartID) {
-          cartList.splice(i, 1);
-        }
-      }
+      // for (let i = 0; i < cartList.length; i++) {
+      //   if (cartList[i].cartID === item.cartID) {
+      //     cartList.splice(i, 1);
+      //     console.log("🚀 ~ file: index.js:318 ~ handleAgree ~ cartList:", cartList)
+      //     // setCartList(cartList)
+      //   }
+      // }
+      const updatedCartList = cartList.filter(
+        cart => cart.cartID !== item.cartID
+      );
+      setCartList(updatedCartList);
       handleClose();
     } catch (rejectedValueOrSerializedError) {
       alert(rejectedValueOrSerializedError);
@@ -363,7 +381,8 @@ const CustomerCart = () => {
 
   const gotoProductScreen = () => navigate("/productSpace");
   const [num, setNum] = useState(2);
-
+  console.log("re-render", cartList);
+  console.log("re-render", cartList.reverse());
   return (
     <Container>
       <NavBar hiddenCartLabel={false} />
@@ -405,7 +424,7 @@ const CustomerCart = () => {
         </Top>
         <Bottom>
           <Stack sx={{ m: 2, p: 2 }}>
-            {cartList?.map((item, i) => (
+            {cartList && cartList?.map((item, i) => (
               <div key={i}>
                 <ProductInCart
                   productInCart={item}
@@ -436,7 +455,9 @@ const CustomerCart = () => {
             <SummaryTitle>THÔNG TIN ĐẶT HÀNG</SummaryTitle>
             <SummaryItem>
               <SummaryItemText>Tổng (chưa tính vận chuyển)</SummaryItemText>
-              <SummaryItemPrice>{subTotal}₫</SummaryItemPrice>
+              <SummaryItemPrice>
+                {subTotal.toLocaleString("en-US")}₫
+              </SummaryItemPrice>
             </SummaryItem>
             <SummaryItem>
               <SummaryItemText>Vận chuyển ước tính (Tạm thời)</SummaryItemText>
@@ -451,7 +472,9 @@ const CustomerCart = () => {
             ></div>
             <SummaryItem type="total">
               <SummaryItemText>Tổng: </SummaryItemText>
-              <SummaryItemPrice>{subTotal}₫</SummaryItemPrice>
+              <SummaryItemPrice>
+                {subTotal.toLocaleString("en-US")}₫
+              </SummaryItemPrice>
             </SummaryItem>
             <Button
               sx={{

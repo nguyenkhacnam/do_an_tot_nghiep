@@ -173,6 +173,7 @@ exports.findAllInvoice = async (req, res) => {
                 }
             ]
         }, { transaction: transaction.data });
+        console.log('allInvoice', allInvoice);
         if (!allInvoice) {
             await t.rollback(transaction.data);
             SendResponse({

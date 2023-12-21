@@ -14,6 +14,7 @@ const TextFieldForAdd = (props) => {
                 <Typography fontWeight='bold'>{props.Title}</Typography>
             </Stack>
             <TextField
+                // value={props.value}
                 type={props.inputConfig}
                 autoFocus
                 name={props.Title.split(' (')[0]}

@@ -7,6 +7,9 @@ import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import style from './style.js'
 import AddProductInStockModal from '../AddProductInStockModal'
 import UpdateAmountInStockModal from "../UpdateAmountInStockModel"
+import { useDispatch } from "react-redux"
+import { getAllInvoice } from "../../redux/slices/invoiceSlice.js"
+import { unwrapResult } from "@reduxjs/toolkit"
 
 const StockInBranch = (props) => {
     const { branch } = props
@@ -108,7 +111,40 @@ const StockInBranch = (props) => {
     useEffect(() => {
         LoadData()
     }, [])
+    const dispatch = useDispatch();
 
+    const [invoiceList, setInvoiceList] = useState([])
+
+    useEffect(() => {
+        async function fetchInvoice() {
+            let temp = []
+            if (invoiceList.length === 0) {
+                try {
+                    const resultAction = await dispatch(getAllInvoice())
+                    const originalPromiseResult = unwrapResult(resultAction)
+                    let tempList = []
+                    originalPromiseResult?.data?.map((invoice) => {
+                        let t = 0
+                        invoice.invoiceitem.map(i => {
+                            t = t + Number(i.total)
+                        })
+                        let obj = {
+                            ...invoice,
+                            total: t
+                        }
+                        tempList.push(obj)
+                    })
+                    setInvoiceList(tempList)
+                } catch (rejectedValueOrSerializedError) {
+                    console.log(rejectedValueOrSerializedError);
+                }
+            }
+        }
+        fetchInvoice()
+        return () => {
+            setInvoiceList({});
+        };
+    }, [])
 
     return (
         <Box sx={{ height: '30%', width: '100%' }}>

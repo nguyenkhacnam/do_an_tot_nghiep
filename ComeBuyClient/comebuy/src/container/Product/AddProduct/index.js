@@ -563,8 +563,8 @@ const AddProduct = () => {
         message={messageError}
       />
       <ConfirmDialog
-        body="Please check the product information again to make sure. This operation cannot be redo. If you are sure, please confirm!"
-        title="Confirm Action?"
+        body="Vui lòng kiểm tra lại thông tin sản phẩm"
+        title="Xác nhận thông tin?"
         open={openConfirmDialog}
         handleClose={handleClose}
         handleConfirm={handleAddProduct}

@@ -19,6 +19,7 @@ import { cartSlice } from '../../redux/slices/cartSlice';
 import { useNavigate } from 'react-router-dom';
 import CheckIcon from '@mui/icons-material/Check';
 import ClearIcon from '@mui/icons-material/Clear';
+import { message } from 'antd';
 
 const ProductImage = styled('img')({
     height: 300,
@@ -110,7 +111,12 @@ const GuestCart = () => {
     }, [_cart])
 
     const handleCheckout = () => {
-        navigate('/myplace/mycart/checkout')
+        // navigate('/myplace/mycart/checkout')
+        navigate('/login')
+        message.open({
+            type: 'warning',
+            content: 'Hãy đăng nhập để thực hiện chức năng này',
+          });
     }
 
     return (
@@ -162,26 +168,30 @@ const GuestCart = () => {
                                             sx={{ alignItems: 'center' }}>
                                             <AddShoppingCartIcon />
                                             <Typography variant='h6' fontWeight='bold'>
-                                                Order
+                                                Đặt hàng
                                             </Typography>
                                         </Stack>
                                         <Box sx={{ height: 3, width: '100%', backgroundColor: '#B360A0', mt: 2 }}></Box>
                                         <Stack direction="row" sx={{ justifyContent: 'space-between', p: 2 }}>
-                                            <Typography variant='body1' >Temporary Total:</Typography>
-                                            <Typography variant='body1' fontWeight={'bold'} color='error'>${total}</Typography>
+                                            <Typography variant='body1' >Tổng (chưa tính vận chuyển):</Typography>
+                                            <Typography variant='body1' fontWeight={'bold'} color='error'>{total} VND</Typography>
                                         </Stack>
                                         <Stack direction="row" sx={{ justifyContent: 'space-between', p: 2 }}>
-                                            <Typography variant='body1' >Promotion:</Typography>
-                                            <Typography variant='body1' fontWeight={'bold'} color='error'>$0</Typography>
+                                            <Typography variant='body1' >Khuyến mãi:</Typography>
+                                            <Typography variant='body1' fontWeight={'bold'} color='error'>0 VND</Typography>
                                         </Stack>
                                         <Box sx={{ height: 3, width: '100%', backgroundColor: '#B360A0' }}></Box>
                                         <Stack direction="row" sx={{ justifyContent: 'space-between', p: 2 }}>
-                                            <Typography variant='body1' >Total:</Typography>
-                                            <Typography variant='body1' fontWeight={'bold'} color='error'>${total}</Typography>
+                                            <Typography variant='body1' >Tổng:</Typography>
+                                            <Typography variant='body1' fontWeight={'bold'} color='error'>{total} VND</Typography>
                                         </Stack>
-                                        <Button variant='filled' sx={style.buttonCheckout} onClick={handleCheckout} endIcon={<PaymentsIcon />}>Checkout Now</Button>
                                         {
-                                            total >= 2000 ?
+                                            (localStorage.getItem('role') === '' || localStorage.getItem('idUser') === '') && (
+                                                <Button variant='filled' sx={style.buttonCheckout} onClick={handleCheckout} endIcon={<PaymentsIcon />}>Thanh toán</Button>
+                                            )
+                                        }
+                                        {
+                                            total >= 2000 && false ?
                                                 <Box sx={{
                                                     borderRadius: 5,
                                                     borderWidth: 2,
@@ -191,7 +201,8 @@ const GuestCart = () => {
                                                     color: 'green',
                                                     backgroundColor: '#C6FABC'
                                                 }}>
-                                                    <Stack direction={'row'} spacing={1}>
+                                                    <Stack direction={'row'} spacing={1} style={{
+                                                    }}>
                                                         <CheckIcon />
                                                         <Typography>Orders are eligible for free shipping upon prepayment.</Typography>
                                                     </Stack>
@@ -203,7 +214,8 @@ const GuestCart = () => {
                                                     p: 2,
                                                     m: 2,
                                                     color: 'white',
-                                                    backgroundColor: '#D97557'
+                                                    backgroundColor: '#D97557',
+                                                    display: 'none'
                                                 }}>
                                                     <Stack direction={'row'} spacing={1}>
                                                         <ClearIcon />

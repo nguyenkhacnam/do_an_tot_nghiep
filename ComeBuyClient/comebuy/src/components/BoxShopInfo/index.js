@@ -26,7 +26,9 @@ const CustomButton = styled(Button)({
 
 const BoxShopInfo = () => {
     return (
-        <Grid container item xs={10} sx={style.boxShopInfo}>
+        <Grid container item xs={10} sx={style.boxShopInfo} style={{
+            display: 'none'
+        }}>
             <Grid container item xs={8} >
                 <Stack>
                     <Typography variant='h5' fontWeight={'bold'}>Tự tin mua sắm với Comebuy</Typography>
