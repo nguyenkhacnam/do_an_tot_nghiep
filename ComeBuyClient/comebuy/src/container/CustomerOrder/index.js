@@ -14,7 +14,6 @@ import { currentUser } from '../../redux/selectors';
 
 export const CustomerOrderSpace = () => {
     const [invoiceList, setInvoiceList] = React.useState([])
-    console.log("🚀 ~ file: index.js:17 ~ CustomerOrderSpace ~ invoiceList:", invoiceList)
     const _currentUser = useSelector(currentUser)
 
     const dispatch = useDispatch();
@@ -36,9 +35,7 @@ export const CustomerOrderSpace = () => {
             if (invoiceList.length === 0) {
                 try {
                     const resultAction = await dispatch(getAllInvoice())
-                    console.log("🚀 ~ file: index.js:39 ~ fetchInvoice ~ resultAction:", resultAction)
                     const originalPromiseResult = unwrapResult(resultAction)
-                    console.log("🚀 ~ file: index.js:41 ~ fetchInvoice ~ originalPromiseResult:", originalPromiseResult)
                     originalPromiseResult?.data?.map((i) => {
                         if (i.userid === _currentUser.userID) {
                             temp.push(i)

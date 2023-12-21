@@ -52,7 +52,6 @@ const Product = () => {
     const _productList = useSelector(productListSelector)  // list get from store
     const dispatch = useDispatch()
     const [productList, setProductList] = useState(_productList)
-    console.log("🚀 ~ file: index.js:55 ~ Product ~ productList:", productList)
     const navigate = useNavigate()
     const initalValue = { index: 0, value: null }
     //For Alert

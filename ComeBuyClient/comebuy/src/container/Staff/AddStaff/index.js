@@ -46,8 +46,6 @@ const AddStaff = () => {
   const [branchAddress, SetBranchAddress] = useState("");
   const [existedBranch, setExistedBranch] = useState("");
   const [branchList, setBranchList] = useState([]);
-  console.log("🚀 ~ file: index.js:43 ~ AddStaff ~ name:", name,email)
-  console.log("🚀 ~ file: index.js:51 ~ AddStaff ~ branchList:", branchList);
 
   const handleBranchChange = event => {
     setExistedBranch(event.target.value);

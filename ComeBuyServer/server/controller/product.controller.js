@@ -173,7 +173,6 @@ exports.update = catchAsync(async (req, res, next) => {
 // Delete a Product with the specified id in the request
 exports.delete = catchAsync(async (req, res, next) => {
   const id = req.params.id;
-  console.log("🚀 ~ file: product.controller.js:175 ~ exports.delete ~ id:", id)
   try {
     await Stock.destroy({
       where: { productid: id }
@@ -181,7 +180,6 @@ exports.delete = catchAsync(async (req, res, next) => {
     const num = await Product.destroy({
       where: { productid: id },
     });
-    console.log("🚀 ~ file: product.controller.js:180 ~ exports.delete ~ num:", num)
     if (num && num == 1) {
       SendResponse({ message: "Product was deleted successfully!" }, 200, res);
     } else
@@ -310,10 +308,8 @@ exports.filter = catchAsync(async (req, res, next) => {
     demand,
     offset,
   } = req.body;
-    console.log("🚀 ~ file: product.controller.js:312 ~ exports.filter=catchAsync ~ year:", year)
   console.log('req.body', req.body, brand)
   const result = await Product.findAll().then(async (rs) => {
-    // console.log("🚀 ~ file: product.controller.js:314 ~ result ~ rs:", rs)
     let brands = rs.map((item) => {
       console.log('itemmmm', item.brand)
       return item.brand});
@@ -321,7 +317,6 @@ exports.filter = catchAsync(async (req, res, next) => {
     var brandOptions =
     brand.length > 0 ? brand : brands.filter((v, i, a) => a.indexOf(v) === i);
     // cpu
-    console.log("🚀 ~ file: product.controller.js:320 ~ result ~ brandOptions:", brandOptions)
     let cpus = rs.map((item) => item.cpu);
     var cpuOptions =
       cpu.length > cpu ? cpu : cpus.filter((v, i, a) => a.indexOf(v) === i);
@@ -401,7 +396,6 @@ exports.filter = catchAsync(async (req, res, next) => {
     query2 = `'{${query2}}' `;
     const index = (offset - 1) * 9;
     query = query + query2;
-    console.log("🚀 ~ file: product.controller.js:376 ~ result ~ query:", query)
     const response = await sequelize.query(query, {
       replacements: {
         brand: brandOptions,
@@ -417,17 +411,6 @@ exports.filter = catchAsync(async (req, res, next) => {
       },
       type: QueryTypes.SELECT,
     });
-    console.log("🚀 ~ file: product.controller.js:391 ~ result ~ response:", brandOptions,
-    cpuOptions,
-    gpuOptions,
-    ramOptions,
-    memoryOptions,
-    yearOptions,
-    weightOptions,
-    SDOptions,
-    )
-    console.log("🚀 ~ file: product.controller.js:391 ~ result ~ response:11111111111111111111111111111", response
-    )
 
     let response_2 = [];
     console.log(response[0].records);

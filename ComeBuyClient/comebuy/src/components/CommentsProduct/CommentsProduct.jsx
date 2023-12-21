@@ -16,7 +16,6 @@ const CommentsProduct = (props) => {
     const navigate = useNavigate()
     const _currentUser = useSelector(currentUser)
     const [comments, setComments] = useState([])
-    console.log("🚀 ~ file: CommentsProduct.jsx:15 ~ CommentsProduct ~ comments:", comments)
     const [loading, setLoading] = useState(true)
     const [open, setOpen] = useState(false);
     const handleOpen = () => setOpen(true);
@@ -56,7 +55,6 @@ const CommentsProduct = (props) => {
                 "postDate": Date.now().toString()
             }
             const response = await commentApi.postNewComment(newComment)
-            console.log("🚀 ~ file: CommentsProduct.jsx:56 ~ HandlePostNewComment ~ response:", response)
             if (response.status === 200) {
                 const updatedComments = [response.data, ...comments];
                 setComments(response.data.reverse())

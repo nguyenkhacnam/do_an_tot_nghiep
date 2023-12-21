@@ -4,7 +4,6 @@ const SendResponse = require('../utils/SendResponse');
 function authenToken(req, res, next) {
     const authorizationHeader = req.headers['x-access-token'];
     const token = authorizationHeader;
-    console.log("🚀 ~ file: authenMiddleware.js:7 ~ authenToken ~ token:", token)
 
     if (!token) {
         SendResponse("Please put token with your high-level request!", 401, res)

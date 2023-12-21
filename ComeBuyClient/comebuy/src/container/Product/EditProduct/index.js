@@ -42,7 +42,6 @@ import { ConstructionOutlined } from "@mui/icons-material";
 const EditProduct = () => {
   const location = useLocation();
   const product = location.state;
-  console.log("🚀 ~ file: index.js:45 ~ EditProduct ~ product:", product);
   const _featureList = useSelector(featureListSelector);
   const [openSuccessAlert, setOpenSuccessAlert] = useState(false);
   const [openErrorAlert, setOpenErrorAlert] = useState(false);

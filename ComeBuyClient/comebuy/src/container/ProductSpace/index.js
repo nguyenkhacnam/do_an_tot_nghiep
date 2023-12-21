@@ -63,7 +63,6 @@ const ProductSpace = () => {
   const [total, SetTotal] = useState(0);
 
   const handleFilter = value => {
-    console.log("🚀 ~ file: index.js:40 ~ handleFilter ~ value:", value);
     let newFilterOptions = Object.assign({}, filterOptions); // Shallow copy for the reference value as object
     newFilterOptions[value.name.toLowerCase()] = value.option;
     console.log(
@@ -83,7 +82,6 @@ const ProductSpace = () => {
         { offset: offset }
       )
     );
-    console.log("🚀 ~ file: index.js:86 ~ LoadRecords ~ response:", response)
 
     // const products = await productAPI.getAll();
     // setProductList(products)

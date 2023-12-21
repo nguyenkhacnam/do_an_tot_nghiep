@@ -129,7 +129,6 @@ const CustomerCart = () => {
 
   const [isLoading, setIsLoading] = useState(true);
   const [cartList, setCartList] = useState([]);
-  console.log("🚀 ~ file: index.js:131 ~ CustomerCart ~ cartList:", cartList);
   const [prodList, setProdList] = useState([]);
   const [subTotal, setSubTotal] = useState(0);
   const [openSnackbar, setOpenSnackbar] = useState(false);
@@ -192,7 +191,6 @@ const CustomerCart = () => {
       let listProduct = [];
       let tempSubTotal = 0;
       fetchYourCart(listCart, listProduct);
-      console.log("🚀 ~ file: index.js:192 ~ useEffect ~ listCart:", listCart);
       setCartList(listCart);
       setmasterData(listCart);
       setProdList(listProduct);
@@ -214,7 +212,6 @@ const CustomerCart = () => {
 
   const searchFilter = text => {
     if (text) {
-      console.log("🚀 ~ file: index.js:211 ~ searchFilter ~ text:", text);
       //   const filtered = props.products?.filter(product =>
       //     product.name.toLowerCase().includes(e.target.value?.toLowerCase())
       // );
@@ -227,7 +224,6 @@ const CustomerCart = () => {
         // return itemData.indexOf(textData) > -1;
         return item?.product?.name.toLowerCase().includes(text?.toLowerCase());
       });
-      console.log("🚀 ~ file: index.js:223 ~ newData ~ newData:", newData);
       setCartList(newData);
       setSearch(text);
     } else {
@@ -307,7 +303,6 @@ const CustomerCart = () => {
   console.log("re-render");
   //handle agree dis-cart
   const handleAgree = async item => {
-    console.log("🚀 ~ file: index.js:285 ~ handleAgree ~ item:", item);
     setIsDeleteCart(true);
     try {
       dispatch(cartSlice.actions.removeCart(item));
@@ -321,7 +316,6 @@ const CustomerCart = () => {
       // for (let i = 0; i < cartList.length; i++) {
       //   if (cartList[i].cartID === item.cartID) {
       //     cartList.splice(i, 1);
-      //     console.log("🚀 ~ file: index.js:318 ~ handleAgree ~ cartList:", cartList)
       //     // setCartList(cartList)
       //   }
       // }

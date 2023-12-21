@@ -71,7 +71,6 @@ const Invoice = () => {
                 try {
                     const resultAction = await dispatch(getAllInvoice())
                     const originalPromiseResult = unwrapResult(resultAction)
-                    console.log("🚀 ~ file: index.js:74 ~ fetchInvoice ~ originalPromiseResult:", originalPromiseResult)
                     let tempList = []
                     originalPromiseResult?.data?.map((invoice) => {
                         let t = 0

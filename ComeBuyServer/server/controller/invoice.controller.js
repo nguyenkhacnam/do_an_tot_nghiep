@@ -15,7 +15,6 @@ exports.createInvoice = async (req, res) => {
     let listProdId = [];
     let resultFilterRemain = [];
     let resultFilterNonRemain = [];
-    console.log("🚀 ~ file: invoice.controller.js:14 ~ exports.createInvoice= ~ req:", req.body)
     try {
         if (!req.body.branchID || !req.body.userID || !req.body.address || req.body?.listGoods?.length === 0) {
             console.log('undefined')
@@ -25,7 +24,6 @@ exports.createInvoice = async (req, res) => {
             return;
         }
         const listProds = req.body.listGoods;
-        console.log("🚀 ~ file: invoice.controller.js:28 ~ exports.createInvoice= ~ listProds:", listProds)
         listProds?.map(i => listProdId.push(i.productid));
         const invoice = {
             date: req.body.date,
@@ -37,7 +35,6 @@ exports.createInvoice = async (req, res) => {
             branchid: req.body.branchID,
             address: req.body.address
         };
-        console.log("🚀 ~ file: invoice.controller.js:39 ~ exports.createInvoice= ~ invoice:", invoice)
         if (!transaction.status && transaction.error) {
             throw transaction.error;
         }
@@ -52,7 +49,6 @@ exports.createInvoice = async (req, res) => {
                 attributes: ['name', 'price']
             }]
         });
-        console.log("🚀 ~ file: invoice.controller.js:55 ~ exports.createInvoice= ~ remain:", remain)
         listProds?.map(pro1 => {
             remain.map(pro2 => {
                 if (pro2.productid === pro1.productid && pro2.remaining < pro1.quantity) {

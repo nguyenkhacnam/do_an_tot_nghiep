@@ -43,7 +43,6 @@ const HomePage = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [liveBanner, SetLiveBanner] = useState([]);
-  console.log("🚀 ~ file: index.js:46 ~ HomePage ~ liveBanner:", liveBanner);
 
   useEffect(() => {
     const fetchData = async () => {

@@ -326,7 +326,6 @@ export const CheckoutPage = () => {
 
     async function handleChangeCommune(event) {
         setCommune(event.target.value)
-        console.log("🚀 ~ file: index.js:332 ~ handleChangeCommune ~ event.target.value:", event.target.value)
     }
 
     function handleClickToCart(event) {
