@@ -43,6 +43,7 @@ const HomePage = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [liveBanner, SetLiveBanner] = useState([]);
+  console.log("🚀 ~ file: index.js:46 ~ HomePage ~ liveBanner:", liveBanner);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -229,6 +230,7 @@ const HomePage = () => {
               >
                 <Link
                   to={item.url}
+                  className="custom-color"
                   style={{
                     textDecoration: "none",
                     color: "black",
@@ -267,6 +269,13 @@ const HomePage = () => {
               autoplay
               afterChange={onChange}
             >
+              {liveBanner?.map((banner, index) => (
+                <div key={index}>
+                  <h3 style={contentStyle}>
+                    <img src={banner.url} />
+                  </h3>
+                </div>
+              ))}
               <div>
                 <h3 style={contentStyle}>
                   <img src="https://phucanhcdn.com/media/banner/13_Decb6ec3d9ee22b9e5ad80d1992d4104653.jpg" />

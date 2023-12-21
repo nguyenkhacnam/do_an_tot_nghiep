@@ -1,3 +1,11 @@
 .custom-navigation:hover {
     background-color: #B360E6;
 }
+
+.custom-navigation:hover .custom-color {
+    color: 'white';
+}
+
+.MuiStack-root.css-nen11g-MuiStack-root {
+    margin: 0 12px
+}

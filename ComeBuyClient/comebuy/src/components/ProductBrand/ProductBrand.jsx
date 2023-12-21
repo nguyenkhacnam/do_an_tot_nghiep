@@ -148,7 +148,10 @@ const ProductBrand = ({ productList, title }) => {
     setOpenSnackbar(false);
   };
   return (
-    <Div>
+    <Div style={{
+      margin: '60px -60px 0',
+      padding: '0 60px 40px 60px',
+    }}>
       <div
         style={{
           display: 'flex',

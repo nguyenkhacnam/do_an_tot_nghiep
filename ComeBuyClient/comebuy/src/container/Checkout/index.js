@@ -98,7 +98,6 @@ export const CheckoutPage = () => {
                             listProd.push(originalPromiseResult2)
                         }
                     }
-                    console.log("🚀 ~ file: index.js:102 ~ fetchYourCart ~ listCart:", listCart)
                     await setListCart(listCart)
                     await setListProd(listProd)
                     await CountTotal(listCart, listProd)
@@ -304,7 +303,6 @@ export const CheckoutPage = () => {
             // const resDistrict = await fetch(`https://sheltered-anchorage-60344.herokuapp.com/district/?idProvince=${province.idProvince}`)
             const resDistrict = await axios.get(`https://vapi.vnappmob.com/api/province/district/${province?.province_id}`)
             setDistrictList(resDistrict.data.results)
-            console.log("🚀 ~ file: index.js:307 ~ getDistrict ~ resDistrict:", resDistrict)
             // const resDis = resDistrict.json()
             // setDistrictList(await resDis)
         }
@@ -321,7 +319,6 @@ export const CheckoutPage = () => {
             const reCommune = await axios.get(`https://vapi.vnappmob.com/api/province/ward/${district?.district_id}`)
             // const resCom = reCommune.json()
             setCommuneList(reCommune.data.results)
-            console.log("🚀 ~ file: index.js:319 ~ getCommune ~ reCommune:", reCommune)
             // setCommuneList(await resCom)
         }
         getCommune()
@@ -909,10 +906,11 @@ export const CheckoutPage = () => {
                                             marginBlockStart: '0.83em',
                                             marginBlockEnd: '0.83em',
                                             display: 'block',
-                                            fontFamily: 'sans-serif'
+                                            fontFamily: 'sans-serif',
+                                            margin: '40px 0'
                                         }}
                                     >
-                                        Thông tin giỏ hàng
+                                        Thông tin thanh toán sản phẩm
                                     </Typography>
                                 </Stack>
                                 <Stack direction="row" sx={{ width: '100%', position: 'relative' }} >
@@ -942,7 +940,8 @@ export const CheckoutPage = () => {
                                                 fontSize: '14px',
                                                 fontFamily: 'sans-serif',
                                                 lineHeight: '1.5em',
-                                                marginLeft: '1.2em'
+                                                marginLeft: '1.2em',
+                                                display: 'none'
                                             }}
                                         >
                                             Log out
@@ -1041,7 +1040,7 @@ export const CheckoutPage = () => {
                                         </FormControl>
                                     </Grid>
 
-                                    <Grid spacing={2} container sx={{ width: '100%', position: 'relative', marginTop: '2rem' }}>
+                                    <Grid spacing={2} container sx={{ width: '100%', position: 'relative', marginTop: '2rem', alignItems: 'center' }}>
                                         <Grid item xs={6}>
                                             <a onClick={() => navigate('/myplace/mycart')}
                                                 style={{
@@ -1056,10 +1055,12 @@ export const CheckoutPage = () => {
                                                     marginLeft: '1.2em'
                                                 }}
                                             >
-                                                Giỏ hàng
+                                                Quay lại giỏ hàng
                                             </a>
                                         </Grid>
-                                        <Grid item xs={6}>
+                                        <Grid item xs={6} style={{
+                                            marginRight: '-20px'
+                                        }}>
                                             <Button onClick={handleToPayment} variant="contained" sx={{ fontSize: '14px' }} size="large">
                                                 Tiếp tục Thanh toán sản phẩm
                                             </Button>

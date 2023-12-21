@@ -115,6 +115,15 @@ const StockInBranch = (props) => {
 
     const [invoiceList, setInvoiceList] = useState([])
 
+    const filteredInvoiceItems = invoiceList?.reduce((accumulator, currentInvoice) => {
+        if (currentInvoice.isChecked && branch.branchID === currentInvoice.branchid) {
+          const { invoiceitem } = currentInvoice;
+          accumulator.push(...invoiceitem);
+        }
+        return accumulator;
+      }, []);
+
+    
     useEffect(() => {
         async function fetchInvoice() {
             let temp = []
@@ -154,9 +163,11 @@ const StockInBranch = (props) => {
                     stockList !== undefined && stockList.length > 0 ?
                         <Stack>
                             {
-                                stockList.map((item) => (
+                                stockList.map((item) => {
+                                    return (
                                     <ProductCardInStock
                                         key={item.id}
+                                        filteredInvoiceItems={filteredInvoiceItems}
                                         stock={item}
                                         open={openUpdateModal}
                                         onClose={handleCloseModal}
@@ -165,7 +176,7 @@ const StockInBranch = (props) => {
                                             setOpenUpdateModal(true)
                                             setSelectedStock(item)
                                         }} />
-                                ))
+                                )})
                             }
                         </Stack>
                         :

@@ -532,6 +532,7 @@ const ProfileManage = () => {
                 )}
                 <Stack direction="column" width="auto" spacing={2}>
                     <Typography style={{
+                        width: '300px',
                         fontSize: '23px',
                         fontWeight: 'bold',
                         marginTop: '5%',
@@ -550,7 +551,7 @@ const ProfileManage = () => {
                         fontStyle: 'italic'
                     }}
                     >
-                        Chủ tài khoản
+                        {/* Chủ tài khoản */}
                     </Typography>
                 </Stack>
                 <IconButton onClick={handleOpenModalChangeName}
@@ -790,8 +791,8 @@ const ProfileManage = () => {
                         style={{
                             marginTop: '0%',
                             borderRadius: '20px',
-                            border: '1px solid #18608a',
-                            backgroundColor: '#127361',
+                            border: '1px solid',
+                            backgroundColor: '#B360E6',
                             color: 'white',
                             fontSize: '14px',
                             fontWeight: 'bold',
@@ -950,7 +951,7 @@ const ProfileManage = () => {
                             <Button onClick={handleCloseModalChangeAddress}>
                                 Hủy bỏ
                             </Button>
-                            <Button onClick={handleChangeAddress} style={{ marginLeft: '40%' }}>Save</Button>
+                            <Button onClick={handleChangeAddress} style={{ marginLeft: '40%' }}>Cập nhật</Button>
                         </Stack>
                     ) : (
                         <Button onClick={handleCloseModalChangeAddress}>
@@ -1005,7 +1006,7 @@ const ProfileManage = () => {
                                 letterSpacing: '1px',
                             }}
                         >
-                            Cancel
+                            Hủy
                         </Button>
                         <Button
                             onClick={handleChangeAvt}
@@ -1021,7 +1022,7 @@ const ProfileManage = () => {
                                 letterSpacing: '1px',
                             }}
                         >
-                            Save
+                            Cập nhật
                         </Button>
                     </Stack>
                     {/* Backdrop for updating */}

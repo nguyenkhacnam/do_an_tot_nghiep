@@ -135,7 +135,7 @@ export default function NavBar(props) {
       localStorage.setItem("role", "");
       localStorage.setItem("idUser", "");
       localStorage.setItem("cart", JSON.stringify([]));
-      navigate('/')
+      navigate("/");
       // navigate("/login");
     } else if (e.target.innerText === "My place") {
       handleMyPlace();
@@ -182,9 +182,30 @@ export default function NavBar(props) {
           >
             {selections_1.map(sel => (
               <MenuItem key={sel} onClick={handleMenuClose}>
-                {sel.icon}
-                {"  "}
-                {sel.name}
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    gap: "5px",
+                  }}
+                >
+                  <p
+                    style={{
+                      margin: 0,
+                    }}
+                  >
+                    {sel.icon}
+                  </p>
+                  {"  "}
+                  <p
+                    style={{
+                      margin: 0,
+                    }}
+                  >
+                    {sel.name}
+                  </p>
+                </div>
               </MenuItem>
             ))}
           </div>
@@ -196,9 +217,30 @@ export default function NavBar(props) {
           >
             {selections_2.map(sel => (
               <MenuItem key={sel.name} onClick={handleMenuClose}>
-                {sel.icon}
-                {"  "}
-                {sel.name}
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    gap: "5px",
+                  }}
+                >
+                  <p
+                    style={{
+                      margin: 0,
+                    }}
+                  >
+                    {sel.icon}
+                  </p>
+                  {"  "}
+                  <p
+                    style={{
+                      margin: 0,
+                    }}
+                  >
+                    {sel.name}
+                  </p>
+                </div>
               </MenuItem>
             ))}
           </div>
@@ -290,17 +332,23 @@ export default function NavBar(props) {
           >
             {/* <SearchBar productList={props.productList} /> */}
           </div>
-          <div style={{
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            marginRight: '15px'
-          }}><HomeSearchProduct products={_productList} /></div>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              marginRight: "15px",
+            }}
+          >
+            <HomeSearchProduct products={_productList} />
+          </div>
           <Link
             to={"/productSpace"}
-            style={{
-              // display: "none",
-            }}
+            style={
+              {
+                // display: "none",
+              }
+            }
           >
             <ButtonCommon />
           </Link>

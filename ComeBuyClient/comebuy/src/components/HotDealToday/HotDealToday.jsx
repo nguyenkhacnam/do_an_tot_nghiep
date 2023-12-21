@@ -11,17 +11,17 @@ import { cartListSelector, currentUser } from '../../redux/selectors';
 import { addFavorite } from '../../redux/slices/favoriteSlice';
 import { unwrapResult } from '@reduxjs/toolkit';
 import { addCart, cartSlice, updateCart } from '../../redux/slices/cartSlice';
+import { Statistic } from 'antd';
+const { Countdown } = Statistic;
 const { Meta } = Card;
 
 const HotDealToday = ({ productList }) => {
     const [openSnackbar, setOpenSnackbar] = useState(false);
     const [openBackdrop, setOpenBackdrop] = useState(false)
     const [product, setProduct] = useState({})
-    console.log("🚀 ~ file: HotDealToday.jsx:20 ~ HotDealToday ~ product:", product)
     // const discountedPrice = product.price - (product.price * (parseFloat(product.promotion) / 100))
     const dispatch = useDispatch()
     const _currentUser = useSelector(currentUser)
-    console.log("🚀 ~ file: HotDealToday.jsx:24 ~ HotDealToday ~ _currentUser:", _currentUser)
     const _cart = useSelector(cartListSelector)
 
     const filteredProducts = productList.filter(product => {
@@ -144,6 +144,8 @@ const HotDealToday = ({ productList }) => {
         }
         setOpenSnackbar(false);
     };
+
+    const deadline = Date.now() + 1000 * 60 * 60 * 2;
     return (
         <Div>
             <div
@@ -154,12 +156,23 @@ const HotDealToday = ({ productList }) => {
                 }}
             >
                 <h2>DEAL HOT HÔM NAY</h2>
-                <p
+                <div
                     style={{
-                        color: 'red',
-                        fontWeight: 'bold'
+                        display: 'flex',
+                        justifyContent: 'space-between',
+                        alignItems: 'center',
+                        gap: '10px'
                     }}
-                >Đang diễn ra</p>
+                >
+                    <p
+                        style={{
+                            color: 'red',
+                            fontWeight: 'bold',
+                            fontSize: '22px'
+                        }}
+                    >ĐANG DIỄN RA</p>
+                    <Countdown value={deadline} />
+                </div>
             </div>
             <div style={{
                 display: 'flex',

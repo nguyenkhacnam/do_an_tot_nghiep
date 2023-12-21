@@ -55,7 +55,7 @@ const HomeSearchProduct = (props) => {
                         itemLayout="horizontal"
                         dataSource={filteredProducts?.slice(0, 7)}
                         renderItem={(product, index) => {
-                            const discountedPrice = product.price - (product.price * (parseFloat(product.promotion) / 100))
+                            const discountedPrice = product.price + (product.price * (parseFloat(product.promotion) / 100))
                             return (
                                 <List.Item
                                     style={{
@@ -82,13 +82,13 @@ const HomeSearchProduct = (props) => {
                                                         fontSize: '15px',
                                                         margin: '0'
                                                     }}
-                                                >{discountedPrice.toLocaleString('en-US') + '₫'}</p>
+                                                >{product.price.toLocaleString('en-US') + '₫'}</p>
                                                 <p
                                                     style={{
                                                         textDecorationLine: 'line-through',
                                                         margin: '0'
                                                     }}
-                                                >{product.price.toLocaleString('en-US') + '₫'}</p>
+                                                >{discountedPrice.toLocaleString('en-US') + '₫'}</p>
                                             </div>
                                         }
                                     />

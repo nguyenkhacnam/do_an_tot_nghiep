@@ -52,7 +52,7 @@ const NewProductLine = () => {
           marginBottom: "-40px",
         }}
       >
-        <h2>SẢN PHẨM MỚI</h2>
+        <h2>SẢN PHẨM MỚI RA MẮT</h2>
       </div>
       <Stack direction={"row"} sx={{ width: "100%", p: 3 }} spacing={2}>
         {data &&
