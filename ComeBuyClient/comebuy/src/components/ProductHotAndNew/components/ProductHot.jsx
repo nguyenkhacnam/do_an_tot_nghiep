@@ -195,7 +195,7 @@ const ProductHot = ({ products }) => {
                                         marginTop: '8px'
                                     }}>
                                         <div>
-                                            <Text>Đã bán: </Text>
+                                            {/* <Text>Đã bán: </Text> */}
                                             <Text style={{ color: '#52c41a' }}><CheckOutlined twoToneColor="#52c41a" /> Có hàng</Text>
                                         </div>
                                         <div

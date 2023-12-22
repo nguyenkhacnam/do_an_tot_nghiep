@@ -719,7 +719,7 @@ const LoginRegister = () => {
                 open={openDialogRegSuccessfully}
                 onClose={handleCloseDialogRegSuccessfully}
               >
-                <DialogTitle>Registered successfully</DialogTitle>
+                <DialogTitle>Đăng ký thành công</DialogTitle>
                 <Button
                   onClick={handleCloseDialogRegSuccessfully}
                   style={{

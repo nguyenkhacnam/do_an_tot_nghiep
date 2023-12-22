@@ -22,7 +22,7 @@ import { login } from '../../redux/slices/accountSlice';
 import { useNavigate } from 'react-router';
 import ProfileManage from './../../components/ProfileManage/index';
 import { BigFooter } from '../../components';
-
+import './index.css'
 const BGImg = styled('img')({
     height: '100%',
     width: '100%',

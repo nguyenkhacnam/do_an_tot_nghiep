@@ -12,7 +12,7 @@ import StepLabel from '@mui/material/StepLabel';
 
 import { useDispatch } from 'react-redux';
 
-const steps = ['Checked', 'Delivered'];
+const steps = ['Đã xác nhận', 'Đã vận chuyển'];
 
 const OrderRow = (props) => {
     const { row } = props;

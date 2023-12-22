@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Badge, Button, Card } from 'antd';
 import styled from 'styled-components';
 import './index.css';
@@ -12,6 +12,7 @@ import { addFavorite } from '../../redux/slices/favoriteSlice';
 import { unwrapResult } from '@reduxjs/toolkit';
 import { addCart, cartSlice, updateCart } from '../../redux/slices/cartSlice';
 import { Statistic } from 'antd';
+import { getAllInvoice } from '../../redux/slices/invoiceSlice';
 const { Countdown } = Statistic;
 const { Meta } = Card;
 
@@ -144,7 +145,50 @@ const HotDealToday = ({ productList }) => {
         }
         setOpenSnackbar(false);
     };
+    
+    
+    // const [invoiceList, setInvoiceList] = useState([])
+    // console.log("🚀 ~ file: HotDealToday.jsx:151 ~ HotDealToday ~ invoiceList:", invoiceList)
 
+    // const filteredInvoiceItems = invoiceList?.reduce((accumulator, currentInvoice) => {
+    //     if (currentInvoice.isChecked) {
+    //       const { invoiceitem } = currentInvoice;
+    //       accumulator.push(...invoiceitem);
+    //     }
+    //     return accumulator;
+    //   }, []);
+    // console.log("🚀 ~ file: HotDealToday.jsx:160 ~ filteredInvoiceItems ~ filteredInvoiceItems:", filteredInvoiceItems)
+
+    // useEffect(() => {
+    //     async function fetchInvoice() {
+    //         let temp = []
+    //         if (invoiceList.length === 0) {
+    //             try {
+    //                 const resultAction = await dispatch(getAllInvoice())
+    //                 const originalPromiseResult = unwrapResult(resultAction)
+    //                 let tempList = []
+    //                 originalPromiseResult?.data?.map((invoice) => {
+    //                     let t = 0
+    //                     invoice.invoiceitem.map(i => {
+    //                         t = t + Number(i.total)
+    //                     })
+    //                     let obj = {
+    //                         ...invoice,
+    //                         total: t
+    //                     }
+    //                     tempList.push(obj)
+    //                 })
+    //                 setInvoiceList(tempList)
+    //             } catch (rejectedValueOrSerializedError) {
+    //                 console.log(rejectedValueOrSerializedError);
+    //             }
+    //         }
+    //     }
+    //     fetchInvoice()
+    //     return () => {
+    //         setInvoiceList({});
+    //     };
+    // }, [])
     const deadline = Date.now() + 1000 * 60 * 60 * 2;
     return (
         <Div>
@@ -181,6 +225,9 @@ const HotDealToday = ({ productList }) => {
             }}>
                 {
                     filteredProducts?.slice(0, 6)?.map((product, index) => {
+                        // console.log("🚀 ~ file: HotDealToday.jsx:184 ~ filteredProducts?.slice ~ product:", product)
+                        // const sold = filteredInvoiceItems?.filter(item => item?.productid === product.productID)
+                        // console.log("🚀 ~ file: HotDealToday.jsx:230 ~ filteredProducts?.slice ~ sold:", sold)
                         const discountedPrice = product.price + (product.price * (parseFloat(product.promotion) / 100))
                         return (
                             <Badge count={product?.promotion} key={index}>
@@ -221,7 +268,7 @@ const HotDealToday = ({ productList }) => {
                                         marginTop: '8px'
                                     }}>
                                         <div>
-                                            <Text>Đã bán: </Text>
+                                            {/* <Text>Đã bán: </Text> */}
                                             <Text style={{ color: '#52c41a' }}><CheckOutlined twoToneColor="#52c41a" /> Có hàng</Text>
                                         </div>
                                         <div

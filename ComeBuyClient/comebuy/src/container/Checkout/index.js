@@ -39,6 +39,7 @@ import emailApi from '../../api/emailAPI';
 
 import logo from '../../assets/img/logoremovebg.png'
 import axios from 'axios';
+import './index.css'
 
 const Alert = React.forwardRef(function Alert(props, ref) {
     return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
@@ -688,7 +689,8 @@ export const CheckoutPage = () => {
                                         marginBlockStart: '0.83em',
                                         marginBlockEnd: '0.83em',
                                         display: 'block',
-                                        fontFamily: 'sans-serif'
+                                        fontFamily: 'sans-serif',
+                                        margin: '40px 0'
                                     }}
                                 >
                                     Phương thức vận chuyển
@@ -715,7 +717,7 @@ export const CheckoutPage = () => {
                                     <Typography>Giao hàng khắp 64 tỉnh thành</Typography>
                                 </Stack>
                                 <Stack sx={{ marginTop: '0.55em' }}>
-                                    <Typography>35000₫</Typography>
+                                    <Typography>30,000₫</Typography>
                                 </Stack>
                             </Stack>
                             <Stack marginTop="2em">
@@ -830,7 +832,7 @@ export const CheckoutPage = () => {
                                 ) : (null)}
                             </Stack>
 
-                            <Grid spacing={2} container sx={{ width: '100%', position: 'relative', marginTop: '2rem' }}>
+                            <Grid spacing={2} container sx={{ width: '100%', position: 'relative', marginTop: '2rem' }} className='custom-payment-done'>
                                 <Grid item xs={6}>
                                     <a onClick={handleClosePaymentMethodScreen}
                                         style={{
@@ -845,12 +847,14 @@ export const CheckoutPage = () => {
                                             marginLeft: '1.2em'
                                         }}
                                     >
-                                       Trở lại thông tin giỏ hàng
+                                       Trở lại thông tin thanh toán
                                     </a>
                                 </Grid>
                                 <Grid item xs={6}>
-                                    <Button onClick={handleCompleteOrder} variant="contained" sx={{ backgroundColor: 'black', fontSize: '13px', display: `${isHideCompleteButton}` }} size="large">
-                                        Complete order
+                                    <Button onClick={handleCompleteOrder} variant="contained" sx={{ backgroundColor: 'black', fontSize: '13px', display: `${isHideCompleteButton}` }} size="large" style={{
+                                        // backgroundColor: '#b360e6'
+                                    }}>
+                                        Thanh toán khi giao hàng
                                     </Button>
                                 </Grid>
                             </Grid>
@@ -859,7 +863,7 @@ export const CheckoutPage = () => {
                 </Grid>
             ) : (
                 localStorage.getItem('role') === 'customer' ? (
-                    <Grid item xs={7} height="100%" >
+                    <Grid item xs={7} height="100%" className='custom-payment'>
                         <Stack direction="column" spacing={2} p="2rem" paddingLeft="12em">
                             <Stack direction="column"
                                 sx={{
@@ -1051,7 +1055,7 @@ export const CheckoutPage = () => {
                                                     fontSize: '14px',
                                                     fontFamily: 'sans-serif',
                                                     lineHeight: '1.5em',
-                                                    marginLeft: '1.2em'
+                                                    marginLeft: '-0.8em'
                                                 }}
                                             >
                                                 Quay lại giỏ hàng
@@ -1060,7 +1064,9 @@ export const CheckoutPage = () => {
                                         <Grid item xs={6} style={{
                                             marginRight: '-20px'
                                         }}>
-                                            <Button onClick={handleToPayment} variant="contained" sx={{ fontSize: '14px' }} size="large">
+                                            <Button onClick={handleToPayment} variant="contained" sx={{ fontSize: '14px' }} size="large" style={{
+                                                backgroundColor: '#1976d2'
+                                            }}>
                                                 Tiếp tục Thanh toán sản phẩm
                                             </Button>
                                         </Grid>
@@ -1358,7 +1364,7 @@ export const CheckoutPage = () => {
                                 />
                             </Grid>
                             <Grid item xs={3.5} sx={{ height: '100%' }}>
-                                <Button variant="contained" sx={{ fontSize: '14px', backgroundColor: 'gray', marginTop: '0.5em', width: '100%', height: '100%' }}>
+                                <Button variant="contained" sx={{ fontSize: '14px', marginTop: '0.5em', width: '100%', height: '100%' }}>
                                     Sử dụng
                                 </Button>
                             </Grid>
@@ -1377,20 +1383,31 @@ export const CheckoutPage = () => {
                             </Typography>
                         </Stack>
                         <Stack direction="row" width='100%' justifyContent="space-between">
-                            <Typography sx={{ color: 'gray', marginTop: '-0.5em' }}>Giá vận chuyển</Typography>
+                            <Typography sx={{ color: 'gray', marginTop: '-0.5em' }}>Vận chuyển ước tính (Tạm thời)</Typography>
                             <Typography sx={{
                                 color: '#333333',
                                 fontWeight: 800,
                                 marginTop: '-0.5em'
                             }}
                             >
-                                35,000₫
+                                30,000₫
+                            </Typography>
+                        </Stack>
+                        <Stack direction="row" width='100%' justifyContent="space-between">
+                            <Typography sx={{ color: 'gray', marginTop: '-0.5em' }}>Giảm giá vận chuyển</Typography>
+                            <Typography sx={{
+                                color: '#333333',
+                                fontWeight: 800,
+                                marginTop: '-0.5em'
+                            }}
+                            >
+                                -30,000₫
                             </Typography>
                         </Stack>
                         <div style={{ height: '1px', width: '100%', backgroundColor: '#BFBFBF' }}></div>
 
                         <Stack direction="row" width='100%' justifyContent="space-between">
-                            <Typography sx={{ color: 'gray', marginTop: '1.2em' }}>Total cost</Typography>
+                            <Typography sx={{ color: 'gray', marginTop: '1.2em' }}>Tổng</Typography>
                             <Typography sx={{
                                 color: '#333333',
                                 fontWeight: 600,
@@ -1398,7 +1415,7 @@ export const CheckoutPage = () => {
                                 fontSize: '20px'
                             }}
                             >
-                                {(Number(subTotal - subTotal * discount / 100) + Number(35000)).toLocaleString("en-US")}₫
+                                {(Number(subTotal - subTotal * discount / 100)).toLocaleString("en-US")}₫
                             </Typography>
                         </Stack>
                     </Stack>
@@ -1534,9 +1551,9 @@ export const CheckoutPage = () => {
                 <Alert onClose={handleCloseSnackbar} severity="error" sx={{ width: '100%' }}>
                     {
                         _currentUser != null ?
-                            ((name === '' || phoneNumber === '' || addressShip === '') ? "Please fill in completely" : "Please set your location")
+                            ((name === '' || phoneNumber === '' || addressShip === '') ? "Vui lòng điền đầy đủ" : "Vui lòng điền vị trí của bạn")
                             :
-                            ((guestName === '' || guestPhoneNum === '' || addressShip === '') ? "Please fill in completely" : "Please set your location")
+                            ((guestName === '' || guestPhoneNum === '' || addressShip === '') ? "Vui lòng điền đầy đủ" : "Vui lòng điền vị trí của bạn")
                     }
                 </Alert>
             </Snackbar>
@@ -1553,16 +1570,16 @@ export const CheckoutPage = () => {
                 keepMounted
                 aria-describedby="alert-dialog-slide-description"
             >
-                <DialogTitle>{"Please check these information below carefully before placing an order"}</DialogTitle>
+                <DialogTitle>{"Vui lòng kiểm tra kỹ những thông tin dưới đây trước khi đặt hàng"}</DialogTitle>
                 <DialogContent>
                     {localStorage.getItem('role') === "customer" ? (
                         <DialogContentText id="alert-dialog-slide-description">
-                            You are about using COD service. <br />
-                            Order's name: {name} <br />
-                            Order's phone number: {phoneNumber} <br />
-                            Order's address: {bigAddress} <br />
-                            An order will be sent to your email: {_currentUser.email} <br />
-                            Within 5 days your order will be delivered.
+                            Bạn đang sử dụng dịch vụ COD. <br />
+                            Tên người mua hàng: {name} <br />
+                            Số điện thoại : {phoneNumber} <br />
+                            Địa chỉ: {bigAddress} <br />
+                            Đơn hàng sẽ được gửi tới email của bạn: {_currentUser.email} <br />
+                            Trong vòng 5 ngày đơn hàng của bạn sẽ được giao.
                         </DialogContentText>
                     ) : (
                         <DialogContentText id="alert-dialog-slide-description">
@@ -1576,8 +1593,8 @@ export const CheckoutPage = () => {
                     )}
                 </DialogContent>
                 <DialogActions>
-                    <Button onClick={() => setOpenConfirm(false)}>Disagree</Button>
-                    <Button onClick={handleAgreeCOD}>Agree</Button>
+                    <Button onClick={() => setOpenConfirm(false)}>Hủy bỏ</Button>
+                    <Button onClick={handleAgreeCOD}>Xác nhận đặt hàng</Button>
                 </DialogActions>
                 <Backdrop
                     sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}

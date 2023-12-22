@@ -127,7 +127,7 @@ const ProductInFavorite = props => {
             }}
             color="#D94A56"
           >
-            {product.price}₫
+            {product.price.toLocaleString("en-US")}₫
           </Typography>
         </Stack>
       ) : (

@@ -45,7 +45,7 @@ import { updateAccount, getAccountWithID } from '../../redux/slices/accountSlice
 import cloudinaryApi from '../../api/cloudinaryAPI';
 import BigFooter from './../BigFooter/index';
 import MemberShipStepper from '../MemberShipStepper';
-
+import './index.css'
 const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
 
 const images = [
@@ -448,723 +448,726 @@ const ProfileManage = () => {
 
 
     return (
-        <Stack direction="column" style={{
-            flex: 1,
-            display: 'flex',
-            height: '100%',
-            width: '100%',
-            backgroundColor: '#f1f1f1'
-        }}>
-            <NavBar></NavBar>
-            <Stack direction="row"
-                spacing={3}
-                style={{ marginLeft: '15%', marginTop: '1%' }}
-            >
-                <Breadcrumbs separator="›" style={{ color: 'black' }} aria-label="breadcrumb">
-                    {breadcrumbs}
-                </Breadcrumbs>
-            </Stack>
-            <Typography style={{
-                marginLeft: '15%',
-                marginTop: '3%',
-                color: 'black',
-                fontSize: '24px',
-                fontWeight: 'bold',
+        <div className='custom-profile'>
+            <Stack direction="column" style={{
+                flex: 1,
+                display: 'flex',
+                height: '100%',
+                width: '100%',
+                backgroundColor: '#f1f1f1',
+                margin: '0'
             }}>
-                Thông tin của bạn
-            </Typography>
-            <div style={{ marginLeft: '15%', height: '1px', backgroundColor: 'black', width: '60%' }}></div>
-
-            {/* name & Avatar */}
-            <Stack direction="row" width='100%' spacing={2} style={{marginLeft: '280px'}}
-                sx={{
-                    backgroundColor: '#f1f1f1',
-                    marginTop: '2%',
-                    paddingBottom: '1%',
+                <NavBar></NavBar>
+                <Stack direction="row"
+                    spacing={3}
+                    style={{ marginLeft: '15%', marginTop: '1%' }}
+                >
+                    <Breadcrumbs separator="›" style={{ color: 'black' }} aria-label="breadcrumb">
+                        {breadcrumbs}
+                    </Breadcrumbs>
+                </Stack>
+                <Typography style={{
+                    marginLeft: '15%',
+                    marginTop: '3%',
+                    color: 'black',
+                    fontSize: '24px',
+                    fontWeight: 'bold',
                 }}>
-                {filesContent.length != 0 ? (
-                    filesContent.map((file, index) => (
-                        <Avatar alt={file.name} src={file.content}
-                            style={{
+                    Thông tin của bạn
+                </Typography>
+                <div style={{ marginLeft: '15%', height: '1px', backgroundColor: 'black', width: '60%' }}></div>
+    
+                {/* name & Avatar */}
+                <Stack direction="row" width='100%' spacing={2} style={{marginLeft: '280px', width: '1000px'}}
+                    sx={{
+                        backgroundColor: '#f1f1f1',
+                        marginTop: '2%',
+                        paddingBottom: '1%',
+                    }}>
+                    {filesContent.length != 0 ? (
+                        filesContent.map((file, index) => (
+                            <Avatar alt={file.name} src={file.content}
+                                style={{
+                                    width: '150px',
+                                    height: '150px',
+                                    marginLeft: '15%',
+                                    borderWidth: '1px',
+                                    borderColor: 'white'
+                                }} />
+                        ))
+                    ) : (
+                        <Avatar alt="" src={stateAvt === '' ? '' : stateAvt}
+                            sx={{
                                 width: '150px',
                                 height: '150px',
                                 marginLeft: '15%',
                                 borderWidth: '1px',
                                 borderColor: 'white'
-                            }} />
-                    ))
-                ) : (
-                    <Avatar alt="" src={stateAvt === '' ? '' : stateAvt}
-                        sx={{
-                            width: '150px',
-                            height: '150px',
-                            marginLeft: '15%',
-                            borderWidth: '1px',
-                            borderColor: 'white'
+                            }}
+                        />
+                    )}
+                    {filesContent.length != 0 ? (
+                        <IconButton onClick={handleChangeAvt}
+                            style={{
+                                marginLeft: '-2%',
+                                marginTop: '8%',
+                                backgroundColor: '#f1f1f1',
+                                height: '30px',
+                                width: '30px',
+                                top: '75%'
+                            }}>
+                            <CheckCircleIcon style={{ color: 'black' }} />
+                        </IconButton>
+                    ) : (
+                        <IconButton onClick={() => openFileSelector()}
+                            style={{
+                                marginLeft: '-2%',
+                                marginTop: '8%',
+                                backgroundColor: '#f1f1f1',
+                                height: '30px',
+                                width: '30px',
+                                top: '75%'
+                            }}
+                        >
+                            <AddPhotoAlternateTwoToneIcon style={{ color: 'black' }} />
+                        </IconButton>
+                    )}
+                    <Stack direction="column" width="auto" spacing={2}>
+                        <Typography style={{
+                            width: '300px',
+                            fontSize: '23px',
+                            fontWeight: 'bold',
+                            marginTop: '5%',
+                            marginLeft: '5%',
+                            color: 'black'
                         }}
-                    />
-                )}
-                {filesContent.length != 0 ? (
-                    <IconButton onClick={handleChangeAvt}
-                        style={{
-                            marginLeft: '-2%',
-                            marginTop: '8%',
-                            backgroundColor: '#f1f1f1',
-                            height: '30px',
-                            width: '30px',
-                            top: '75%'
-                        }}>
-                        <CheckCircleIcon style={{ color: 'black' }} />
-                    </IconButton>
-                ) : (
-                    <IconButton onClick={() => openFileSelector()}
-                        style={{
-                            marginLeft: '-2%',
-                            marginTop: '8%',
-                            backgroundColor: '#f1f1f1',
-                            height: '30px',
-                            width: '30px',
-                            top: '75%'
+                        >
+                            {name}
+                        </Typography>
+                        <Typography style={{
+                            color: '#8FA1A6',
+                            fontWeight: 'bold',
+                            fontSize: '14px',
+                            marginLeft: '5%',
+                            marginTop: '10%',
+                            fontStyle: 'italic'
                         }}
+                        >
+                            {/* Chủ tài khoản */}
+                        </Typography>
+                    </Stack>
+                    <IconButton onClick={handleOpenModalChangeName}
+                        style={{ marginLeft: '5%', backgroundColor: '#f1f1f1', height: 'auto' }}
                     >
-                        <AddPhotoAlternateTwoToneIcon style={{ color: 'black' }} />
+                        <EditTwoToneIcon sx={{ color: 'black' }} />
                     </IconButton>
-                )}
-                <Stack direction="column" width="auto" spacing={2}>
+                </Stack>
+    
+                {/* contact */}
+                <Stack direction="column" spacing={3}
+                    style={{
+                        width: '100%',
+                        backgroundColor: '#f1f1f1',
+                        marginTop: '0%',
+                        paddingTop: '-1%'
+                    }}
+                >
+                    {/* <Stack direction="row" spacing={0.5}>
+                        <MemberShipStepper />
+                        <IconButton onClick={() => setOpenModalMemberRule(true)} style={{ marginLeft: '-2%', marginTop: '-2.5%', backgroundColor: '#f1f1f1' }}>
+                            <MoreIcon />
+                        </IconButton>
+                    </Stack> */}
                     <Typography style={{
-                        width: '300px',
                         fontSize: '23px',
                         fontWeight: 'bold',
-                        marginTop: '5%',
-                        marginLeft: '5%',
+                        marginTop: '1%',
+                        marginLeft: '15%',
                         color: 'black'
                     }}
                     >
-                        {name}
+                        Số điện thoại
                     </Typography>
+                    <div style={{
+                        height: '1px',
+                        backgroundColor: 'black',
+                        width: '40%',
+                        marginTop: '0%',
+                        marginLeft: '15%'
+                    }}>
+                    </div>
                     <Typography style={{
                         color: '#8FA1A6',
                         fontWeight: 'bold',
                         fontSize: '14px',
-                        marginLeft: '5%',
-                        marginTop: '10%',
+                        marginLeft: '15%',
+                        marginTop: '0.5%',
                         fontStyle: 'italic'
                     }}
                     >
-                        {/* Chủ tài khoản */}
+                        {/* Receive important alerts for your profile here. */}
                     </Typography>
-                </Stack>
-                <IconButton onClick={handleOpenModalChangeName}
-                    style={{ marginLeft: '5%', backgroundColor: '#f1f1f1', height: 'auto' }}
-                >
-                    <EditTwoToneIcon sx={{ color: 'black' }} />
-                </IconButton>
-            </Stack>
-
-            {/* contact */}
-            <Stack direction="column" spacing={3}
-                style={{
-                    width: '100%',
-                    backgroundColor: '#f1f1f1',
-                    marginTop: '0%',
-                    paddingTop: '-1%'
-                }}
-            >
-                {/* <Stack direction="row" spacing={0.5}>
-                    <MemberShipStepper />
-                    <IconButton onClick={() => setOpenModalMemberRule(true)} style={{ marginLeft: '-2%', marginTop: '-2.5%', backgroundColor: '#f1f1f1' }}>
-                        <MoreIcon />
-                    </IconButton>
-                </Stack> */}
-                <Typography style={{
-                    fontSize: '23px',
-                    fontWeight: 'bold',
-                    marginTop: '1%',
-                    marginLeft: '15%',
-                    color: 'black'
-                }}
-                >
-                    Số điện thoại
-                </Typography>
-                <div style={{
-                    height: '1px',
-                    backgroundColor: 'black',
-                    width: '40%',
-                    marginTop: '0%',
-                    marginLeft: '15%'
-                }}>
-                </div>
-                <Typography style={{
-                    color: '#8FA1A6',
-                    fontWeight: 'bold',
-                    fontSize: '14px',
-                    marginLeft: '15%',
-                    marginTop: '0.5%',
-                    fontStyle: 'italic'
-                }}
-                >
-                    {/* Receive important alerts for your profile here. */}
-                </Typography>
-                <Stack direction="row" spacing={2}
-                    style={{ width: '100%' }}
-                >
-                    <Typography style={{
-                        color: 'black',
-                        fontWeight: 'bold',
-                        fontSize: '17px',
-                        marginLeft: '15%',
-                        marginTop: '0%',
-                    }}
+                    <Stack direction="row" spacing={2}
+                        style={{ width: '100%' }}
                     >
-                        {contact}
-                    </Typography>
-                    <IconButton onClick={handleOpenModalChangeContact}
-                        style={{
-                            marginTop: '-0.5%',
-                            backgroundColor: '#f1f1f1',
-                            marginLeft: '7%'
-                        }}>
-                        <EditTwoToneIcon style={{ color: 'black' }} />
-                    </IconButton>
-
-                    {havePhoneNumber ? (
-                        null
-                    ) : (
                         <Typography style={{
-                            color: '#8FA1A6',
-                            fontSize: '13px',
-                            marginLeft: '5%',
-                            fontStyle: 'italic',
-                            marginTop: '0.5%',
-                        }}
-                        >
-                            Not set
-                        </Typography>
-                    )}
-                </Stack>
-            </Stack>
-
-            {/* address */}
-            <Stack direction="column" spacing={3}
-                style={{
-                    width: '100%',
-                    backgroundColor: '#f1f1f1',
-                    marginTop: '0%',
-                    paddingTop: '-1%'
-                }}
-            >
-                <Typography style={{
-                    fontSize: '23px',
-                    fontWeight: 'bold',
-                    marginTop: '1%',
-                    marginLeft: '15%',
-                    color: 'black'
-                }}
-                >
-                    Địa chỉ
-                </Typography>
-                <div style={{
-                    height: '1px',
-                    backgroundColor: 'black',
-                    width: '40%',
-                    marginTop: '0%',
-                    marginLeft: '15%'
-                }}>
-                </div>
-                <Typography style={{
-                    color: '#8FA1A6',
-                    fontWeight: 'bold',
-                    fontSize: '14px',
-                    marginLeft: '15%',
-                    marginTop: '0.5%',
-                    fontStyle: 'italic'
-                }}
-                >
-                    {/* Where do your packages go ? */}
-                </Typography>
-                <Stack direction="row" spacing={2}
-                    style={{ width: '100%' }}
-                >
-                    <Typography style={{
-                        color: 'black',
-                        fontWeight: 'bold',
-                        fontSize: '17px',
-                        marginLeft: '15%',
-                        marginTop: '0%',
-                    }}
-                    >
-                        {address}
-                    </Typography>
-                    <IconButton onClick={handleOpenModalChangeAddress}
-                        style={{
-                            marginTop: '-0.5%',
-                            backgroundColor: '#f1f1f1',
-                            marginLeft: '7%'
-                        }}>
-                        <EditTwoToneIcon style={{ color: 'black' }} />
-                    </IconButton>
-
-                    {haveAddress ? (
-                        null
-                    ) : (
-                        <Typography style={{
-                            color: '#8FA1A6',
-                            fontSize: '13px',
-                            marginLeft: '5%',
-                            fontStyle: 'italic',
-                            marginTop: '0.5%',
-                        }}
-                        >
-                            Not set
-                        </Typography>
-                    )}
-                </Stack>
-            </Stack>
-
-            {/* Dob */}
-            <Stack direction="column" spacing={3}
-                style={{
-                    width: '100%',
-                    backgroundColor: '#f1f1f1',
-                    marginTop: '0%',
-                    paddingTop: '-1%',
-                    paddingBottom: '2%'
-                }}
-            >
-                <Typography style={{
-                    fontSize: '24px',
-                    fontWeight: 'bold',
-                    marginTop: '1%',
-                    color: 'black',
-                    marginLeft: '15%'
-                }}
-                >
-                    Ngày sinh & Giới tính
-                </Typography>
-                <div style={{
-                    height: '1px',
-                    marginLeft: '15%',
-                    backgroundColor: 'black',
-                    width: '40%',
-                    marginTop: '0%'
-                }}>
-                </div>
-                <Typography style={{
-                    color: '#8FA1A6',
-                    fontWeight: 'bold',
-                    fontSize: '14px',
-                    marginLeft: '15%',
-                    marginTop: '0.5%',
-                    fontStyle: 'italic'
-                }}
-                >
-                    {/* If you're a regular customer, we will have gift for your birthday */}
-                </Typography>
-                <Stack direction="row" spacing={2}
-                    style={{ width: '100%' }}
-                >
-                    <Typography style={{ color: 'black', fontWeight: 'bold', marginTop: '1%', marginLeft: '15%' }}>Ngày sinh:</Typography>
-                    <LocalizationProvider dateAdapter={AdapterDateFns}>
-                        <MobileDatePicker
-                            value={selectedDate}
-                            onChange={(newValue) => {
-                                setSelectedDate(newValue);
-                            }}
-                            renderInput={(params) => <TextField style={{ height: '5%', backgroundColor: '#f1f1f1' }} {...params} />}
-                        />
-                    </LocalizationProvider>
-                    <Typography style={{ color: 'black', fontWeight: 'bold', marginTop: '1%', marginLeft: '3%' }}>Giới tính:</Typography>
-                    <FormControl variant="standard" width="100" style={{ marginTop: '0.75%' }}>
-                        <Select
-                            labelId="demo-simple-select-standard-label"
-                            id="demo-simple-select-standard"
-                            style={{ color: 'black' }}
-                            value={gender === 'male' ? 'male' : 'female'}
-                            onChange={handleChangeGender}
-                        >
-                            <MenuItem value={"male"}>Nam</MenuItem>
-                            <MenuItem value={"female"}>Nữ</MenuItem>
-                        </Select>
-                    </FormControl>
-                    <Button
-                        onClick={handleChangeDobAndSex}
-                        style={{
-                            marginTop: '0%',
-                            borderRadius: '20px',
-                            border: '1px solid',
-                            backgroundColor: '#B360E6',
-                            color: 'white',
-                            fontSize: '14px',
+                            color: 'black',
                             fontWeight: 'bold',
-                            width: '5%',
-                            height: '3%',
-                            padding: '12px 45px',
-                            letterSpacing: '1px',
-                        }}>Lưu</Button>
+                            fontSize: '17px',
+                            marginLeft: '15%',
+                            marginTop: '0%',
+                        }}
+                        >
+                            {contact}
+                        </Typography>
+                        <IconButton onClick={handleOpenModalChangeContact}
+                            style={{
+                                marginTop: '-0.5%',
+                                backgroundColor: '#f1f1f1',
+                                marginLeft: '7%'
+                            }}>
+                            <EditTwoToneIcon style={{ color: 'black' }} />
+                        </IconButton>
+    
+                        {havePhoneNumber ? (
+                            null
+                        ) : (
+                            <Typography style={{
+                                color: '#8FA1A6',
+                                fontSize: '13px',
+                                marginLeft: '5%',
+                                fontStyle: 'italic',
+                                marginTop: '0.5%',
+                            }}
+                            >
+                                Not set
+                            </Typography>
+                        )}
+                    </Stack>
                 </Stack>
-            </Stack>
-            {/* change name modal */}
-            <Modal
-                open={openModalChangeName}
-                aria-labelledby="modal-modal-title"
-                aria-describedby="modal-modal-description"
-            >
-                <Box sx={{
-                    position: 'absolute',
-                    top: '55%',
-                    left: '50%',
-                    transform: 'translate(-50%, -50%)',
-                    width: '30%',
-                    height: '20%',
-                    bgcolor: 'background.paper',
-                    borderRadius: '15px',
-                    border: '2px solid #000',
-                    boxShadow: 24,
-                    p: 4,
-                }}>
-                    <Typography id="modal-modal-title" variant="h6" component="h2">
-                    Chỉnh sửa tên của bạn
-                    </Typography>
-                    <Typography id="modal-modal-description"
-                        sx={{ mt: 2, marginTop: '1%', fontSize: '13px' }}
+    
+                {/* address */}
+                <Stack direction="column" spacing={3}
+                    style={{
+                        width: '100%',
+                        backgroundColor: '#f1f1f1',
+                        marginTop: '0%',
+                        paddingTop: '-1%'
+                    }}
+                >
+                    <Typography style={{
+                        fontSize: '23px',
+                        fontWeight: 'bold',
+                        marginTop: '1%',
+                        marginLeft: '15%',
+                        color: 'black'
+                    }}
                     >
-                        {/* Những thay đổi được thực hiện đối với tên hồ sơ của bạn ở đây sẽ được hiển thị ở bất kỳ nơi nào hồ sơ của bạn được sử dụng. */}
+                        Địa chỉ
                     </Typography>
-                    <TextField
-                        style={{ width: '100%', marginTop: '2%' }}
-                        label={_currentUser.name}
-                        value={name}
-                        onFocus={handleToggleSaveButton}
-                        onChange={e => setName(e.target.value)}
-                    />
-                    {toggleSaveBtn ? (
-                        <Stack direction="row" spacing={3} style={{ justifyContent: 'space-between' }}>
-                            <Button onClick={handleCloseModalChangeName}>
-                                Hủy bỏ
-                            </Button>
-                            <Button onClick={handleChangeName} style={{ marginLeft: '40%' }}>Save</Button>
-                        </Stack>
-                    ) : (
-                        <Button onClick={handleCloseModalChangeName}>
-                            Hủy bỏ
-                        </Button>
-                    )}
-                    {/* Backdrop for updating */}
-                    <Backdrop
-                        sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
-                        open={openBackdrop}
+                    <div style={{
+                        height: '1px',
+                        backgroundColor: 'black',
+                        width: '40%',
+                        marginTop: '0%',
+                        marginLeft: '15%'
+                    }}>
+                    </div>
+                    <Typography style={{
+                        color: '#8FA1A6',
+                        fontWeight: 'bold',
+                        fontSize: '14px',
+                        marginLeft: '15%',
+                        marginTop: '0.5%',
+                        fontStyle: 'italic'
+                    }}
                     >
-                        <CircularProgress color="inherit" />
-                    </Backdrop>
-                </Box>
-            </Modal>
-
-            {/* change phone number modal */}
-            <Modal
-                open={openModalChangeContact}
-                aria-labelledby="modal-modal-title"
-                aria-describedby="modal-modal-description"
-            >
-                <Box sx={{
-                    position: 'absolute',
-                    top: '55%',
-                    left: '50%',
-                    transform: 'translate(-50%, -50%)',
-                    width: '30%',
-                    height: '20%',
-                    bgcolor: 'background.paper',
-                    borderRadius: '15px',
-                    border: '2px solid #000',
-                    boxShadow: 24,
-                    p: 4,
-                }}>
-                    <Typography id="modal-modal-title" variant="h6" component="h2">
-                        Cập nhật số điện thoại
+                        {/* Where do your packages go ? */}
                     </Typography>
-                    <Typography id="modal-modal-description"
-                        sx={{ mt: 2, marginTop: '1%', fontSize: '13px' }}>
-                        {/* Những thay đổi được thực hiện đối với địa chỉ liên hệ của bạn ở đây để chúng tôi biết cách liên hệ với bạn. */}
-                    </Typography>
-                    <TextField
-                        style={{ width: '100%', marginTop: '2%' }}
-                        label={_currentUser.contact}
-                        value={contact}
-                        onFocus={handleToggleSaveContactButton}
-                        onChange={e => setContact(e.target.value)}
-                    />
-                    {toggleSaveContactBtn ? (
-                        <Stack direction="row" style={{ justifyContent: 'space-between' }}>
-                            <Button onClick={handleCloseModalChangeContact}>
-                                Hủy bỏ
-                            </Button>
-                            <Button onClick={handleChangeContact} style={{ marginLeft: '40%' }}>Save</Button>
-                        </Stack>
-                    ) : (
-                        <Button onClick={handleCloseModalChangeContact}>
-                            Hủy bỏ
-                        </Button>
-                    )}
-                    {/* Backdrop for updating */}
-                    <Backdrop
-                        sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
-                        open={openBackdrop}
+                    <Stack direction="row" spacing={2}
+                        style={{ width: '100%' }}
                     >
-                        <CircularProgress color="inherit" />
-                    </Backdrop>
-                </Box>
-            </Modal>
-
-            {/* change address modal */}
-            <Modal
-                open={openModalChangeAddress}
-                aria-labelledby="modal-modal-title"
-                aria-describedby="modal-modal-description"
-            >
-                <Box sx={{
-                    position: 'absolute',
-                    top: '55%',
-                    left: '50%',
-                    transform: 'translate(-50%, -50%)',
-                    width: '30%',
-                    height: '20%',
-                    bgcolor: 'background.paper',
-                    borderRadius: '15px',
-                    border: '2px solid #000',
-                    boxShadow: 24,
-                    p: 4,
-                }}>
-                    <Typography id="modal-modal-title" variant="h6" component="h2">
-                        Cập nhật địa chỉ
-                    </Typography>
-                    <Typography id="modal-modal-description" sx={{ mt: 2, marginTop: '1%', fontSize: '13px' }}>
-                        {/* Changes made to your address here so we know where to send your packages or voucher gift */}
-                    </Typography>
-                    <TextField
-                        style={{ width: '100%', marginTop: '2%' }}
-                        label={_currentUser.address}
-                        value={address}
-                        onFocus={handleToggleSaveAddressButton}
-                        onChange={e => setAddress(e.target.value)}
-                    />
-                    {toggleSaveAddressBtn ? (
-                        <Stack direction="row" style={{ justifyContent: 'space-between' }}>
-                            <Button onClick={handleCloseModalChangeAddress}>
-                                Hủy bỏ
-                            </Button>
-                            <Button onClick={handleChangeAddress} style={{ marginLeft: '40%' }}>Cập nhật</Button>
-                        </Stack>
-                    ) : (
-                        <Button onClick={handleCloseModalChangeAddress}>
-                            Hủy bỏ
-                        </Button>
-                    )}
-                    {/* Backdrop for updating */}
-                    <Backdrop
-                        sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
-                        open={openBackdrop}
+                        <Typography style={{
+                            color: 'black',
+                            fontWeight: 'bold',
+                            fontSize: '17px',
+                            marginLeft: '15%',
+                            marginTop: '0%',
+                        }}
+                        >
+                            {address}
+                        </Typography>
+                        <IconButton onClick={handleOpenModalChangeAddress}
+                            style={{
+                                marginTop: '-0.5%',
+                                backgroundColor: '#f1f1f1',
+                                marginLeft: '7%'
+                            }}>
+                            <EditTwoToneIcon style={{ color: 'black' }} />
+                        </IconButton>
+    
+                        {haveAddress ? (
+                            null
+                        ) : (
+                            <Typography style={{
+                                color: '#8FA1A6',
+                                fontSize: '13px',
+                                marginLeft: '5%',
+                                fontStyle: 'italic',
+                                marginTop: '0.5%',
+                            }}
+                            >
+                                Not set
+                            </Typography>
+                        )}
+                    </Stack>
+                </Stack>
+    
+                {/* Dob */}
+                <Stack direction="column" spacing={3}
+                    style={{
+                        width: '100%',
+                        backgroundColor: '#f1f1f1',
+                        marginTop: '0%',
+                        paddingTop: '-1%',
+                        paddingBottom: '2%'
+                    }}
+                >
+                    <Typography style={{
+                        fontSize: '24px',
+                        fontWeight: 'bold',
+                        marginTop: '1%',
+                        color: 'black',
+                        marginLeft: '15%'
+                    }}
                     >
-                        <CircularProgress color="inherit" />
-                    </Backdrop>
-                </Box>
-            </Modal>
-
-            {/* modal preview avatar */}
-            <Modal
-                open={openPreview}
-            >
-                <Box
-                    sx={{
+                        Ngày sinh & Giới tính
+                    </Typography>
+                    <div style={{
+                        height: '1px',
+                        marginLeft: '15%',
+                        backgroundColor: 'black',
+                        width: '40%',
+                        marginTop: '0%'
+                    }}>
+                    </div>
+                    <Typography style={{
+                        color: '#8FA1A6',
+                        fontWeight: 'bold',
+                        fontSize: '14px',
+                        marginLeft: '15%',
+                        marginTop: '0.5%',
+                        fontStyle: 'italic'
+                    }}
+                    >
+                        {/* If you're a regular customer, we will have gift for your birthday */}
+                    </Typography>
+                    <Stack direction="row" spacing={2}
+                        style={{ width: '100%' }}
+                    >
+                        <Typography style={{ color: 'black', fontWeight: 'bold', marginTop: '1%', marginLeft: '15%' }}>Ngày sinh:</Typography>
+                        <LocalizationProvider dateAdapter={AdapterDateFns}>
+                            <MobileDatePicker
+                                value={selectedDate}
+                                onChange={(newValue) => {
+                                    setSelectedDate(newValue);
+                                }}
+                                renderInput={(params) => <TextField style={{ height: '5%', backgroundColor: '#f1f1f1' }} {...params} />}
+                            />
+                        </LocalizationProvider>
+                        <Typography style={{ color: 'black', fontWeight: 'bold', marginTop: '1%', marginLeft: '3%' }}>Giới tính:</Typography>
+                        <FormControl variant="standard" width="100" style={{ marginTop: '0.75%' }}>
+                            <Select
+                                labelId="demo-simple-select-standard-label"
+                                id="demo-simple-select-standard"
+                                style={{ color: 'black' }}
+                                value={gender === 'male' ? 'male' : 'female'}
+                                onChange={handleChangeGender}
+                            >
+                                <MenuItem value={"male"}>Nam</MenuItem>
+                                <MenuItem value={"female"}>Nữ</MenuItem>
+                            </Select>
+                        </FormControl>
+                        <Button
+                            onClick={handleChangeDobAndSex}
+                            style={{
+                                marginTop: '0%',
+                                borderRadius: '20px',
+                                border: '1px solid',
+                                backgroundColor: '#B360E6',
+                                color: 'white',
+                                fontSize: '14px',
+                                fontWeight: 'bold',
+                                width: '5%',
+                                height: '3%',
+                                padding: '12px 45px',
+                                letterSpacing: '1px',
+                            }}>Lưu</Button>
+                    </Stack>
+                </Stack>
+                {/* change name modal */}
+                <Modal
+                    open={openModalChangeName}
+                    aria-labelledby="modal-modal-title"
+                    aria-describedby="modal-modal-description"
+                >
+                    <Box sx={{
                         position: 'absolute',
                         top: '55%',
                         left: '50%',
                         transform: 'translate(-50%, -50%)',
-                        width: '400px',
-                        height: '400px',
+                        width: '30%',
+                        height: '20%',
                         bgcolor: 'background.paper',
                         borderRadius: '15px',
                         border: '2px solid #000',
                         boxShadow: 24,
                         p: 4,
-                    }}
+                    }}>
+                        <Typography id="modal-modal-title" variant="h6" component="h2">
+                        Chỉnh sửa tên của bạn
+                        </Typography>
+                        <Typography id="modal-modal-description"
+                            sx={{ mt: 2, marginTop: '1%', fontSize: '13px' }}
+                        >
+                            {/* Những thay đổi được thực hiện đối với tên hồ sơ của bạn ở đây sẽ được hiển thị ở bất kỳ nơi nào hồ sơ của bạn được sử dụng. */}
+                        </Typography>
+                        <TextField
+                            style={{ width: '100%', marginTop: '2%' }}
+                            label={_currentUser.name}
+                            value={name}
+                            onFocus={handleToggleSaveButton}
+                            onChange={e => setName(e.target.value)}
+                        />
+                        {toggleSaveBtn ? (
+                            <Stack direction="row" spacing={3} style={{ justifyContent: 'space-between' }}>
+                                <Button onClick={handleCloseModalChangeName}>
+                                    Hủy bỏ
+                                </Button>
+                                <Button onClick={handleChangeName} style={{ marginLeft: '40%' }}>Save</Button>
+                            </Stack>
+                        ) : (
+                            <Button onClick={handleCloseModalChangeName}>
+                                Hủy bỏ
+                            </Button>
+                        )}
+                        {/* Backdrop for updating */}
+                        <Backdrop
+                            sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+                            open={openBackdrop}
+                        >
+                            <CircularProgress color="inherit" />
+                        </Backdrop>
+                    </Box>
+                </Modal>
+    
+                {/* change phone number modal */}
+                <Modal
+                    open={openModalChangeContact}
+                    aria-labelledby="modal-modal-title"
+                    aria-describedby="modal-modal-description"
                 >
-                    {filesContent.map((file, index) => (
-                        <Avatar alt={file.name} src={file.content}
-                            sx={{ marginLeft: '5%', width: "90%", height: "90%" }} />
-                    ))}
-                    <Stack direction="row" spacing={2} style={{ justifyContent: 'space-between' }}>
-                        <Button
-                            onClick={handleCloseModalPreviewAvt}
-                            style={{
-                                borderRadius: '20px',
-                                border: '1px',
-                                backgroundColor: 'red',
-                                color: '#ffffff',
-                                fontSize: '10px',
-                                fontWeight: 'bold',
-                                width: '5%',
-                                height: '2%',
-                                letterSpacing: '1px',
-                            }}
+                    <Box sx={{
+                        position: 'absolute',
+                        top: '55%',
+                        left: '50%',
+                        transform: 'translate(-50%, -50%)',
+                        width: '30%',
+                        height: '20%',
+                        bgcolor: 'background.paper',
+                        borderRadius: '15px',
+                        border: '2px solid #000',
+                        boxShadow: 24,
+                        p: 4,
+                    }}>
+                        <Typography id="modal-modal-title" variant="h6" component="h2">
+                            Cập nhật số điện thoại
+                        </Typography>
+                        <Typography id="modal-modal-description"
+                            sx={{ mt: 2, marginTop: '1%', fontSize: '13px' }}>
+                            {/* Những thay đổi được thực hiện đối với địa chỉ liên hệ của bạn ở đây để chúng tôi biết cách liên hệ với bạn. */}
+                        </Typography>
+                        <TextField
+                            style={{ width: '100%', marginTop: '2%' }}
+                            label={_currentUser.contact}
+                            value={contact}
+                            onFocus={handleToggleSaveContactButton}
+                            onChange={e => setContact(e.target.value)}
+                        />
+                        {toggleSaveContactBtn ? (
+                            <Stack direction="row" style={{ justifyContent: 'space-between' }}>
+                                <Button onClick={handleCloseModalChangeContact}>
+                                    Hủy bỏ
+                                </Button>
+                                <Button onClick={handleChangeContact} style={{ marginLeft: '40%' }}>Save</Button>
+                            </Stack>
+                        ) : (
+                            <Button onClick={handleCloseModalChangeContact}>
+                                Hủy bỏ
+                            </Button>
+                        )}
+                        {/* Backdrop for updating */}
+                        <Backdrop
+                            sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+                            open={openBackdrop}
                         >
-                            Hủy
-                        </Button>
-                        <Button
-                            onClick={handleChangeAvt}
-                            style={{
-                                borderRadius: '20px',
-                                border: '1px solid #18608a',
-                                backgroundColor: 'black',
-                                color: '#ffffff',
-                                fontSize: '10px',
-                                fontWeight: 'bold',
-                                width: '5%',
-                                height: '2%',
-                                letterSpacing: '1px',
-                            }}
+                            <CircularProgress color="inherit" />
+                        </Backdrop>
+                    </Box>
+                </Modal>
+    
+                {/* change address modal */}
+                <Modal
+                    open={openModalChangeAddress}
+                    aria-labelledby="modal-modal-title"
+                    aria-describedby="modal-modal-description"
+                >
+                    <Box sx={{
+                        position: 'absolute',
+                        top: '55%',
+                        left: '50%',
+                        transform: 'translate(-50%, -50%)',
+                        width: '30%',
+                        height: '20%',
+                        bgcolor: 'background.paper',
+                        borderRadius: '15px',
+                        border: '2px solid #000',
+                        boxShadow: 24,
+                        p: 4,
+                    }}>
+                        <Typography id="modal-modal-title" variant="h6" component="h2">
+                            Cập nhật địa chỉ
+                        </Typography>
+                        <Typography id="modal-modal-description" sx={{ mt: 2, marginTop: '1%', fontSize: '13px' }}>
+                            {/* Changes made to your address here so we know where to send your packages or voucher gift */}
+                        </Typography>
+                        <TextField
+                            style={{ width: '100%', marginTop: '2%' }}
+                            label={_currentUser.address}
+                            value={address}
+                            onFocus={handleToggleSaveAddressButton}
+                            onChange={e => setAddress(e.target.value)}
+                        />
+                        {toggleSaveAddressBtn ? (
+                            <Stack direction="row" style={{ justifyContent: 'space-between' }}>
+                                <Button onClick={handleCloseModalChangeAddress}>
+                                    Hủy bỏ
+                                </Button>
+                                <Button onClick={handleChangeAddress} style={{ marginLeft: '40%' }}>Cập nhật</Button>
+                            </Stack>
+                        ) : (
+                            <Button onClick={handleCloseModalChangeAddress}>
+                                Hủy bỏ
+                            </Button>
+                        )}
+                        {/* Backdrop for updating */}
+                        <Backdrop
+                            sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+                            open={openBackdrop}
                         >
-                            Cập nhật
-                        </Button>
-                    </Stack>
-                    {/* Backdrop for updating */}
-                    <Backdrop
-                        sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
-                        open={openBackdrop}
-                    >
-                        <CircularProgress color="inherit" />
-                    </Backdrop>
-                </Box>
-            </Modal>
-
-
-            {/* Modal display membership rank rule and discount */}
-            <Modal
-                open={openModalMemberRule}
-                onClose={handleCloseModalMemberRule}
-                aria-labelledby="modal-modal-title"
-                aria-describedby="modal-modal-description"
-            >
-                <Box sx={{
-                    maxWidth: 400,
-                    flexGrow: 1,
-                    position: 'absolute',
-                    top: '50%',
-                    left: '50%',
-                    transform: 'translate(-50%, -50%)',
-                    bgcolor: 'background.paper',
-                    borderRadius: '15px',
-                    boxShadow: 24,
-                    p: 0.5
-                }}>
-                    <Paper
-                        square
-                        elevation={0}
+                            <CircularProgress color="inherit" />
+                        </Backdrop>
+                    </Box>
+                </Modal>
+    
+                {/* modal preview avatar */}
+                <Modal
+                    open={openPreview}
+                >
+                    <Box
                         sx={{
-                            display: 'flex',
-                            alignItems: 'center',
-                            height: 70,
-                            pl: 2,
-                            bgcolor: 'background.default'
+                            position: 'absolute',
+                            top: '55%',
+                            left: '50%',
+                            transform: 'translate(-50%, -50%)',
+                            width: '400px',
+                            height: '400px',
+                            bgcolor: 'background.paper',
+                            borderRadius: '15px',
+                            border: '2px solid #000',
+                            boxShadow: 24,
+                            p: 4,
                         }}
                     >
-                        <Typography sx={{ marginBottom: 15, marginTop: 15, padding: 3 }}>{images[activeStep].label}</Typography>
-                    </Paper>
-                    <AutoPlaySwipeableViews
-                        axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
-                        index={activeStep}
-                        onChangeIndex={handleStepChange}
-                        enableMouseEvents
-                    >
-                        {images.map((step, index) => (
-                            <div key={step.label}>
-                                {Math.abs(activeStep - index) <= 2 ? (
-                                    <Avatar
-                                        sx={{
-                                            height: 255,
-                                            display: 'flex',
-                                            maxWidth: 255,
-                                            overflow: 'hidden',
-                                            width: '100%',
-                                            marginLeft: '17%'
-                                        }}
-                                        src={step.imgPath}
-                                        alt={step.label}
-                                    />
-                                ) : null}
-                            </div>
+                        {filesContent.map((file, index) => (
+                            <Avatar alt={file.name} src={file.content}
+                                sx={{ marginLeft: '5%', width: "90%", height: "90%" }} />
                         ))}
-                    </AutoPlaySwipeableViews>
-                    <MobileStepper
-                        steps={maxSteps}
-                        position="static"
-                        activeStep={activeStep}
-                        nextButton={
+                        <Stack direction="row" spacing={2} style={{ justifyContent: 'space-between' }}>
                             <Button
-                                size="small"
-                                onClick={handleNext}
-                                disabled={activeStep === maxSteps - 1}
+                                onClick={handleCloseModalPreviewAvt}
+                                style={{
+                                    borderRadius: '20px',
+                                    border: '1px',
+                                    backgroundColor: 'red',
+                                    color: '#ffffff',
+                                    fontSize: '10px',
+                                    fontWeight: 'bold',
+                                    width: '5%',
+                                    height: '2%',
+                                    letterSpacing: '1px',
+                                }}
                             >
-                                Next
-                                {theme.direction === 'rtl' ? (
-                                    <KeyboardArrowLeft />
-                                ) : (
-                                    <KeyboardArrowRight />
-                                )}
+                                Hủy
                             </Button>
-                        }
-                        backButton={
-                            <Button size="small" onClick={handleBack} disabled={activeStep === 0}>
-                                {theme.direction === 'rtl' ? (
-                                    <KeyboardArrowRight />
-                                ) : (
-                                    <KeyboardArrowLeft />
-                                )}
-                                Back
+                            <Button
+                                onClick={handleChangeAvt}
+                                style={{
+                                    borderRadius: '20px',
+                                    border: '1px solid #18608a',
+                                    backgroundColor: 'black',
+                                    color: '#ffffff',
+                                    fontSize: '10px',
+                                    fontWeight: 'bold',
+                                    width: '5%',
+                                    height: '2%',
+                                    letterSpacing: '1px',
+                                }}
+                            >
+                                Cập nhật
                             </Button>
-                        }
-                    />
-                </Box>
-            </Modal>
-
-
-            {/*Snackbar*/}
-            {/* name wrong */}
-            <Snackbar open={openNameWrong} autoHideDuration={6000} onClose={handleCloseNameWrong}>
-                <Alert onClose={handleCloseNameWrong} severity="error" sx={{ width: '100%' }}>
-                    Username can't have length under 5 and can't have only space or any of these letter /^ *$.,;:@#""''-!`~%&\/(){ }[]/
-                </Alert>
-            </Snackbar>
-
-            {/* contact wrong */}
-            <Snackbar open={openContactWrong} autoHideDuration={6000} onClose={handleCloseContactWrong}>
-                <Alert onClose={handleCloseContactWrong} severity="error" sx={{ width: '100%' }}>
-                    Invalid phone number. Please check it and try again
-                </Alert>
-            </Snackbar>
-
-
-            {/* Snackbar updated successfully */}
-            <Snackbar open={openSuccess} autoHideDuration={6000} onClose={handleCloseSuccess}>
-                <Alert onClose={handleCloseSuccess} severity="success" sx={{ width: '100%' }}>
-                    Cập nhật thành công
-                </Alert>
-            </Snackbar>
-
-            {/* Snackbar updated failed */}
-            <Snackbar open={openFailed} autoHideDuration={6000} onClose={handleCloseFailed}>
-                <Alert onClose={handleCloseFailed} severity="error" sx={{ width: '100%' }}>
-                    Something went wrong. Please try again
-                </Alert>
-            </Snackbar>
-
-            {/* Backdrop for updating */}
-            <Backdrop
-                sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
-                open={openBackdrop}
-            >
-                <CircularProgress color="inherit" />
-            </Backdrop>
-            <BigFooter />
-        </Stack >
+                        </Stack>
+                        {/* Backdrop for updating */}
+                        <Backdrop
+                            sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+                            open={openBackdrop}
+                        >
+                            <CircularProgress color="inherit" />
+                        </Backdrop>
+                    </Box>
+                </Modal>
+    
+    
+                {/* Modal display membership rank rule and discount */}
+                <Modal
+                    open={openModalMemberRule}
+                    onClose={handleCloseModalMemberRule}
+                    aria-labelledby="modal-modal-title"
+                    aria-describedby="modal-modal-description"
+                >
+                    <Box sx={{
+                        maxWidth: 400,
+                        flexGrow: 1,
+                        position: 'absolute',
+                        top: '50%',
+                        left: '50%',
+                        transform: 'translate(-50%, -50%)',
+                        bgcolor: 'background.paper',
+                        borderRadius: '15px',
+                        boxShadow: 24,
+                        p: 0.5
+                    }}>
+                        <Paper
+                            square
+                            elevation={0}
+                            sx={{
+                                display: 'flex',
+                                alignItems: 'center',
+                                height: 70,
+                                pl: 2,
+                                bgcolor: 'background.default'
+                            }}
+                        >
+                            <Typography sx={{ marginBottom: 15, marginTop: 15, padding: 3 }}>{images[activeStep].label}</Typography>
+                        </Paper>
+                        <AutoPlaySwipeableViews
+                            axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
+                            index={activeStep}
+                            onChangeIndex={handleStepChange}
+                            enableMouseEvents
+                        >
+                            {images.map((step, index) => (
+                                <div key={step.label}>
+                                    {Math.abs(activeStep - index) <= 2 ? (
+                                        <Avatar
+                                            sx={{
+                                                height: 255,
+                                                display: 'flex',
+                                                maxWidth: 255,
+                                                overflow: 'hidden',
+                                                width: '100%',
+                                                marginLeft: '17%'
+                                            }}
+                                            src={step.imgPath}
+                                            alt={step.label}
+                                        />
+                                    ) : null}
+                                </div>
+                            ))}
+                        </AutoPlaySwipeableViews>
+                        <MobileStepper
+                            steps={maxSteps}
+                            position="static"
+                            activeStep={activeStep}
+                            nextButton={
+                                <Button
+                                    size="small"
+                                    onClick={handleNext}
+                                    disabled={activeStep === maxSteps - 1}
+                                >
+                                    Next
+                                    {theme.direction === 'rtl' ? (
+                                        <KeyboardArrowLeft />
+                                    ) : (
+                                        <KeyboardArrowRight />
+                                    )}
+                                </Button>
+                            }
+                            backButton={
+                                <Button size="small" onClick={handleBack} disabled={activeStep === 0}>
+                                    {theme.direction === 'rtl' ? (
+                                        <KeyboardArrowRight />
+                                    ) : (
+                                        <KeyboardArrowLeft />
+                                    )}
+                                    Back
+                                </Button>
+                            }
+                        />
+                    </Box>
+                </Modal>
+    
+    
+                {/*Snackbar*/}
+                {/* name wrong */}
+                <Snackbar open={openNameWrong} autoHideDuration={6000} onClose={handleCloseNameWrong}>
+                    <Alert onClose={handleCloseNameWrong} severity="error" sx={{ width: '100%' }}>
+                        Username can't have length under 5 and can't have only space or any of these letter /^ *$.,;:@#""''-!`~%&\/(){ }[]/
+                    </Alert>
+                </Snackbar>
+    
+                {/* contact wrong */}
+                <Snackbar open={openContactWrong} autoHideDuration={6000} onClose={handleCloseContactWrong}>
+                    <Alert onClose={handleCloseContactWrong} severity="error" sx={{ width: '100%' }}>
+                        Invalid phone number. Please check it and try again
+                    </Alert>
+                </Snackbar>
+    
+    
+                {/* Snackbar updated successfully */}
+                <Snackbar open={openSuccess} autoHideDuration={6000} onClose={handleCloseSuccess}>
+                    <Alert onClose={handleCloseSuccess} severity="success" sx={{ width: '100%' }}>
+                        Cập nhật thành công
+                    </Alert>
+                </Snackbar>
+    
+                {/* Snackbar updated failed */}
+                <Snackbar open={openFailed} autoHideDuration={6000} onClose={handleCloseFailed}>
+                    <Alert onClose={handleCloseFailed} severity="error" sx={{ width: '100%' }}>
+                        Something went wrong. Please try again
+                    </Alert>
+                </Snackbar>
+    
+                {/* Backdrop for updating */}
+                <Backdrop
+                    sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+                    open={openBackdrop}
+                >
+                    <CircularProgress color="inherit" />
+                </Backdrop>
+                <BigFooter />
+            </Stack >
+        </div>
     )
 }
 

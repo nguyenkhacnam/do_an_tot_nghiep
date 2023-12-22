@@ -170,18 +170,18 @@ const HomePage = () => {
   };
 
   const navigation = [
-    { name: "Laptop Asus", url: "", icon: <LaptopOutlined /> },
-    { name: "Laptop HP", url: "", icon: <LaptopOutlined /> },
-    { name: "Laptop Lenovo", url: "", icon: <LaptopOutlined /> },
-    { name: "Laptop Dell", url: "", icon: <LaptopOutlined /> },
-    { name: "Laptop Acer", url: "", icon: <LaptopOutlined /> },
-    { name: "Laptop MSI", url: "", icon: <LaptopOutlined /> },
-    { name: "Laptop Gigabyte", url: "", icon: <LaptopOutlined /> },
-    { name: "Laptop LG", url: "", icon: <LaptopOutlined /> },
-    { name: "Laptop Huawei", url: "", icon: <LaptopOutlined /> },
-    { name: "Laptop Fujitsu", url: "", icon: <LaptopOutlined /> },
-    { name: "Laptop GPD", url: "", icon: <LaptopOutlined /> },
-    { name: "Microsoft Surface", url: "", icon: <LaptopOutlined /> },
+    { name: "Laptop Asus", url: "/productSpace", icon: <LaptopOutlined /> },
+    { name: "Laptop HP", url: "/productSpace", icon: <LaptopOutlined /> },
+    { name: "Laptop Lenovo", url: "/productSpace", icon: <LaptopOutlined /> },
+    { name: "Laptop Dell", url: "/productSpace", icon: <LaptopOutlined /> },
+    { name: "Laptop Acer", url: "/productSpace", icon: <LaptopOutlined /> },
+    { name: "Laptop MSI", url: "/productSpace", icon: <LaptopOutlined /> },
+    { name: "Laptop Gigabyte", url: "/productSpace", icon: <LaptopOutlined /> },
+    { name: "Laptop LG", url: "/productSpace", icon: <LaptopOutlined /> },
+    { name: "Laptop Huawei", url: "/productSpace", icon: <LaptopOutlined /> },
+    { name: "Laptop Fujitsu", url: "/productSpace", icon: <LaptopOutlined /> },
+    { name: "Laptop GPD", url: "/productSpace", icon: <LaptopOutlined /> },
+    { name: "Microsoft Surface", url: "/productSpace", icon: <LaptopOutlined /> },
   ];
   return (
     <Stack>

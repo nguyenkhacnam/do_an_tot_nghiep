@@ -77,7 +77,7 @@ export default function Paypal({ _discount, _lastTotal, cartList, purchases, pro
                         total: Number(cartList[i].amount) * Number(prodList[j].price)
                     }
                     t.push(item)
-                    stringOrder = stringOrder + "\n" + `${prodList[j].name} - Quantity: ${cartList[i].amount} - Sub-cost: $${item.total} `
+                    stringOrder = stringOrder + "\n" + `${prodList[j].name} - Số lượng: ${cartList[i].amount} - Giá tiền: ${item.total.toLocaleString('en-US')} VND`
                 }
             }
         }
@@ -93,13 +93,13 @@ export default function Paypal({ _discount, _lastTotal, cartList, purchases, pro
                     "-------------------------------------------------------- \n" +
                     stringOrder + "\n" +
                     "-------------------------------------------------------- \n" +
-                    `Tổng tiền: ${_lastTotal} VND` + "\n" +
+                    `Tổng tiền: ${_lastTotal.toLocaleString('en-US')} VND` + "\n" +
                     "-------------------------------------------------------- \n" +
                     `Phiếu giảm giá: ${_discount} %` + "\n" +
                     "-------------------------------------------------------- \n" +
                     `Tiền vận chuyển: 0 VND` + "\n" +
                     "-------------------------------------------------------- \n" +
-                    `Tổng: ${_lastTotal + 0 - (_lastTotal * _discount / 100)} VND` + "\n" +
+                    `Tổng: ${(_lastTotal + 0 - (_lastTotal * _discount / 100)).toLocaleString('en-US')} VND` + "\n" +
                     "-------------------------------------------------------- \n" +
                     "Có điều gì thắc mắc không? Vui lòng liên hệ với cửa hàng của chúng tôi theo địa chỉ liên hệ bên dưới: ComeBuy.com"
             }).then(data => {
@@ -266,41 +266,42 @@ export default function Paypal({ _discount, _lastTotal, cartList, purchases, pro
                     },
                 })
                 .render(paypal.current);
-        } else {
-        window.paypal
-                .Buttons({
-                    createOrder: (data, actions, err) => {
-                        return actions.order.create({
-                            intent: "CAPTURE",
-                            purchase_units: [{
-                                amount: {
-                                    currency_code: "USD",
-                                    value: _lastTotal + 2,
-                                    breakdown: {
-                                        item_total: {
-                                            currency_code: "USD",
-                                            value: _lastTotal
-                                        },
-                                        shipping: {
-                                            currency_code: 'USD',
-                                            value: 2
-                                        }
-                                    }
-                                },
-                                items: purchases
-                            }],
-                        });
-                    },
-                    onApprove: async (data, actions) => {
-                        const order = await actions.order.capture();
-                        await MakeInvoice()
-                    },
-                    onError: (err) => {
-                        console.log(err);
-                    },
-                })
-                .render(paypal.current);
-        }
+        } 
+        // else {
+        // window.paypal
+        //         .Buttons({
+        //             createOrder: (data, actions, err) => {
+        //                 return actions.order.create({
+        //                     intent: "CAPTURE",
+        //                     purchase_units: [{
+        //                         amount: {
+        //                             currency_code: "USD",
+        //                             value: _lastTotal + 2,
+        //                             breakdown: {
+        //                                 item_total: {
+        //                                     currency_code: "USD",
+        //                                     value: _lastTotal
+        //                                 },
+        //                                 shipping: {
+        //                                     currency_code: 'USD',
+        //                                     value: 2
+        //                                 }
+        //                             }
+        //                         },
+        //                         items: purchases
+        //                     }],
+        //                 });
+        //             },
+        //             onApprove: async (data, actions) => {
+        //                 const order = await actions.order.capture();
+        //                 await MakeInvoice()
+        //             },
+        //             onError: (err) => {
+        //                 console.log(err);
+        //             },
+        //         })
+        //         .render(paypal.current);
+        // }
     }, []);
 
     return (
@@ -313,7 +314,7 @@ export default function Paypal({ _discount, _lastTotal, cartList, purchases, pro
             {console.log(_lastTotal)} */}
 
             <Dialog open={paidSuccessfully}>
-                <DialogTitle color='success'>Paid successfully. Thanks for involving</DialogTitle>
+                <DialogTitle color='success'>Đã thanh toán thành công</DialogTitle>
                 <Button
                     onClick={handleCloseDialog}
                     sx={{
@@ -330,7 +331,7 @@ export default function Paypal({ _discount, _lastTotal, cartList, purchases, pro
                         padding: '12px 45px',
                     }}
                 >
-                    OK
+                    Đóng 
                 </Button>
             </Dialog>
         </div>

@@ -148,7 +148,7 @@ const DetailProduct = () => {
     }
   };
   const handleAddToFavorite = async () => {
-    setOpenBackdrop(true)
+    setOpenBackdrop(true);
     let temp = {
       productID: product.productID,
       userID: _currentUser.userID,
@@ -156,7 +156,7 @@ const DetailProduct = () => {
     try {
       const resultAction = await dispatch(addFavorite(temp));
       const originalPromiseResult = unwrapResult(resultAction);
-      setOpenBackdrop(false)
+      setOpenBackdrop(false);
       setOpenSnackbar(true);
       console.log(originalPromiseResult);
     } catch (rejectedValueOrSerializedError) {
@@ -355,9 +355,9 @@ const DetailProduct = () => {
           </Col>
           <Col span={10}>
             <div
-                style={{
-                    padding: '0 15px'
-                }}
+              style={{
+                padding: "0 15px",
+              }}
             >
               <h2>{product?.name}</h2>
               <div
@@ -632,7 +632,7 @@ const DetailProduct = () => {
                       <div
                         style={{
                           display: "flex",
-                        //   justifyContent: "center",
+                          //   justifyContent: "center",
                           alignItems: "center",
                           gap: "5px",
                           height: "40px",
@@ -654,7 +654,7 @@ const DetailProduct = () => {
                       <div
                         style={{
                           display: "flex",
-                        //   justifyContent: "center",
+                          //   justifyContent: "center",
                           alignItems: "center",
                           gap: "5px",
                         }}
@@ -721,83 +721,86 @@ const DetailProduct = () => {
                 >
                   GỌI MUA HÀNG: 0329465355
                 </Button>
-                <Button
-                  type="primary"
-                  block
-                  size="large"
-                  style={{
-                    height: "56px",
-                    backgroundColor: "white !important",
-                    borderColor: "#ce0707",
-                  }}
-                  className="custom-btn-1"
-                  onClick={handleAddToFavorite}
-                >
-                  THÊM VÀO YÊU THÍCH
-                </Button>
+                {localStorage.getItem("idUser") !== "" &&
+                  localStorage.getItem("role") !== "" && (
+                    <Button
+                      type="primary"
+                      block
+                      size="large"
+                      style={{
+                        height: "56px",
+                        backgroundColor: "white !important",
+                        borderColor: "#ce0707",
+                      }}
+                      className="custom-btn-1"
+                      onClick={handleAddToFavorite}
+                    >
+                      THÊM VÀO YÊU THÍCH
+                    </Button>
+                  )}
               </div>
             </div>
           </Col>
           <Col span={6}>
             <div
-                style={{
-                    padding: '0 50px'
-                }}
+              style={{
+                padding: "0 50px",
+              }}
             >
-                <Space
-                  direction="vertical"
-                  size="middle"
+              <Space
+                direction="vertical"
+                size="middle"
+                style={{
+                  display: "flex",
+                }}
+              >
+                <Card
+                  className="card-product-custom"
+                  title="Trợ giúp"
+                  bordered={false}
                   style={{
-                    display: "flex",
+                    width: 360,
+                    height: 430,
                   }}
                 >
-                  <Card
-                    className="card-product-custom"
-                    title="Trợ giúp"
-                    bordered={false}
-                    style={{
-                      width: 360,
-                      height: 430,
-                    }}
-                  >
-                    {dataList?.map(data => (
-                      <div
-                        style={{
-                          //   flexDirection: "column",
-                          display: "flex",
-                          justifyContent: "flex-start",
-                          gap: "5px",
-                        }}
-                      >
-                        <p>{data.icon}</p>
-                        <p>{data.name}</p>
-                      </div>
-                    ))}
-                  </Card>
-                  <Card
-                    className="card-product-custom"
-                    title="MUA HÀNG NHANH CHÓNG, TIỆN LỢI"
-                    bordered={false}
-                    style={{
-                      width: 360,
-                      height: 230,
-                    }}
-                  >
-                    {dataListHelp?.map(data => (
-                      <div
-                        style={{
-                          //   flexDirection: "column",
-                          display: "flex",
-                          justifyContent: "flex-start",
-                          gap: "5px",
-                        }}
-                      >
-                        <p>{data.icon}</p>
-                        <p>{data.name}</p>
-                      </div>
-                    ))}
-                  </Card>
-                </Space>
+                  {dataList?.map(data => (
+                    <div
+                      style={{
+                        //   flexDirection: "column",
+                        display: "flex",
+                        justifyContent: "flex-start",
+                        gap: "5px",
+                      }}
+                    >
+                      <p>{data.icon}</p>
+                      <p>{data.name}</p>
+                    </div>
+                  ))}
+                </Card>
+                <Card
+                  className="card-product-custom"
+                  title="MUA HÀNG NHANH CHÓNG, TIỆN LỢI"
+                  bordered={false}
+                  style={{
+                    width: 360,
+                    height: 230,
+                  }}
+                >
+                  {dataListHelp?.map(data => (
+                    <div
+                      style={{
+                        //   flexDirection: "column",
+                        display: "flex",
+                        justifyContent: "flex-start",
+                        gap: "5px",
+                      }}
+                    >
+                      <p>{data.icon}</p>
+                      <p>{data.name}</p>
+                    </div>
+                  ))}
+                </Card>
+              </Space>
             </div>
           </Col>
           <Divider orientation="left">MÔ TẢ SẢN PHẨM</Divider>
@@ -811,19 +814,19 @@ const DetailProduct = () => {
           </Col>
           <Col span={8}>
             <div
-                style={{
-                    padding: '0 0 0 136px'
-                }}
+              style={{
+                padding: "0 0 0 136px",
+              }}
             >
-                <h3>
-                  <ThunderboltOutlined />
-                  KHUYẾN MẠI CỰC HOT ĐỪNG BỎ LỠ !!!
-                </h3>
-                <di sty>
-                  {listImage.map((image, index) => (
-                    <img src={image} key={index} width="500px" height="300px" />
-                  ))}
-                </di>
+              <h3>
+                <ThunderboltOutlined />
+                KHUYẾN MẠI CỰC HOT ĐỪNG BỎ LỠ !!!
+              </h3>
+              <di sty>
+                {listImage.map((image, index) => (
+                  <img src={image} key={index} width="500px" height="300px" />
+                ))}
+              </di>
             </div>
           </Col>
           <Divider orientation="left">BÌNH LUẬN VỀ SẢN PHẨM</Divider>

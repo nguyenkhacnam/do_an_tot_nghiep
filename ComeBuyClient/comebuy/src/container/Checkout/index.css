@@ -1,0 +1,28 @@
+.custom-payment .MuiStack-root.css-ty9o8t-MuiStack-root .css-pkfmbo-MuiButtonBase-root-MuiButton-root{
+    margin-left: 129px !important;
+}
+
+.custom-payment .css-11el27a-MuiGrid-root, .custom-payment .css-1gazuiw-MuiGrid-root, .custom-payment .css-1osj8n2-MuiGrid-root {
+    margin-left: 0 !important;
+}
+
+.custom-payment .css-gj1fbr-MuiGrid-root {
+    padding-left: 0 !important;
+}
+
+.custom-payment-done.css-qhejcd-MuiGrid-root{
+    margin-left: 0 !important;
+}
+
+.custom-payment-done .css-1osj8n2-MuiGrid-root{
+    padding-left: 0 !important;
+    /* margin-left: -15px !important; */
+}
+
+.custom-payment-done .css-1fhpogk-MuiButtonBase-root-MuiButton-root {
+    margin-left: 190px;
+}
+
+.css-1fhpogk-MuiButtonBase-root-MuiButton-root:hover {
+    background-color: #b360e6 !important;
+}

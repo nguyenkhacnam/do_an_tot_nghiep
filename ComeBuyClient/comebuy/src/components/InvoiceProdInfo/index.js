@@ -51,18 +51,18 @@ const ProdInfo = (props) => {
                     <img alt="" src={product[0].productimage[0]?.imageURL} style={{ width: 250, height: 250 }} />
                     <div style={{ display: 'flex', flexDirection: 'column', padding: '15px' }}>
                         <div style={{ display: 'flex', flexDirection: 'row' }}>
-                            <Typography style={{ fontWeight: 'bold' }}>Brand:</Typography>
+                            <Typography style={{ fontWeight: 'bold' }}>Nhà sản xuất:</Typography>
                             <Typography style={{ marginLeft: '5px' }}>{product[0].brand}</Typography>
                         </div>
 
                         <div style={{ display: 'flex', flexDirection: 'row' }}>
-                            <Typography style={{ fontWeight: 'bold' }}>Name:</Typography>
+                            <Typography style={{ fontWeight: 'bold' }}>Tên:</Typography>
                             <Typography style={{ marginLeft: '5px' }}>{product[0].name}</Typography>
                         </div>
 
                         <div style={{ display: 'flex', flexDirection: 'row' }}>
-                            <Typography style={{ fontWeight: 'bold' }}>Price:</Typography>
-                            <Typography style={{ marginLeft: '5px' }}>${product[0].price}</Typography>
+                            <Typography style={{ fontWeight: 'bold' }}>Giá:</Typography>
+                            <Typography style={{ marginLeft: '5px' }}>{product[0].price.toLocaleString("en-US")} VND</Typography>
                         </div>
 
                         <div style={{ display: 'flex', flexDirection: 'row' }}>
@@ -71,7 +71,7 @@ const ProdInfo = (props) => {
                         </div>
 
                         <div style={{ display: 'flex', flexDirection: 'row' }}>
-                            <Typography style={{ fontWeight: 'bold' }}>ROM/Weight/External IO Port:</Typography>
+                            <Typography style={{ fontWeight: 'bold' }}>Ổ cứng/Cân nặng/Cổng kết nối:</Typography>
                             <Typography style={{ marginLeft: '5px' }}>{`${product[0].memory} GB / ${product[0].weight} kg / ${product[0].externalIOPort}`}</Typography>
                         </div>
                     </div>
@@ -79,7 +79,7 @@ const ProdInfo = (props) => {
             ) : (
                 <Box sx={{ display: 'flex', flex: 1, flexDirection: 'row' }}>
                     <CircularProgress style={{ backgroundColor: 'transparent' }} />
-                    <Typography style={{ marginTop: '5px', marginLeft: '5px' }}>Getting info...</Typography>
+                    <Typography style={{ marginTop: '5px', marginLeft: '5px' }}>Đang lấy thông tin...</Typography>
                 </Box>
             )}
         </div>

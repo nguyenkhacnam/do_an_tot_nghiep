@@ -37,7 +37,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { unwrapResult } from "@reduxjs/toolkit";
 import { currentUser } from "../../redux/selectors";
 import { getProductWithID } from "../../redux/slices/productSlice";
-
+import './index.css'
 const Container = styled.div`
   background-color: white;
 `;
@@ -66,7 +66,7 @@ const TopButton = styled.button`
   cursor: pointer;
   border: ${props => props.type === "filled" && "none"};
   background-color: ${props =>
-    props.type === "filled" ? "#2C4001" : "transparent"};
+    props.type === "filled" ? "#b360e6" : "transparent"};
   color: ${props => props.type === "filled" && "white"};
 `;
 
@@ -129,6 +129,7 @@ const CustomerCart = () => {
 
   const [isLoading, setIsLoading] = useState(true);
   const [cartList, setCartList] = useState([]);
+  console.log("🚀 ~ file: index.js:132 ~ CustomerCart ~ cartList:", cartList)
   const [prodList, setProdList] = useState([]);
   const [subTotal, setSubTotal] = useState(0);
   const [openSnackbar, setOpenSnackbar] = useState(false);
@@ -184,6 +185,7 @@ const CustomerCart = () => {
     });
     setSubTotal(newTotal);
   };
+  const [open1, setOpen1] = useState(false);
 
   useEffect(() => {
     if (isLoading === true) {
@@ -194,6 +196,7 @@ const CustomerCart = () => {
       setCartList(listCart);
       setmasterData(listCart);
       setProdList(listProduct);
+      setOpen1(true)
     }
   }, []);
 
@@ -303,26 +306,31 @@ const CustomerCart = () => {
   console.log("re-render");
   //handle agree dis-cart
   const handleAgree = async item => {
+    console.log("🚀 ~ file: index.js:307 ~ handleAgree ~ item:", item)
     setIsDeleteCart(true);
     try {
-      dispatch(cartSlice.actions.removeCart(item));
+      // dispatch(cartSlice.actions.removeCart(item));
       const resultAction = await dispatch(deleteCartById(item));
       console.log(
         "🚀 ~ file: index.js:308 ~ handleAgree ~ resultAction:",
         resultAction
       );
       const originalPromiseResult = unwrapResult(resultAction);
-      console.log(originalPromiseResult);
+      console.log('originalPromiseResult', originalPromiseResult);
       // for (let i = 0; i < cartList.length; i++) {
       //   if (cartList[i].cartID === item.cartID) {
       //     cartList.splice(i, 1);
       //     // setCartList(cartList)
       //   }
       // }
-      const updatedCartList = cartList.filter(
+      // const updatedCartList = cartList.filter(
+      //   cart => cart.cartID !== item.cartID
+      // );
+      // console.log("🚀 ~ file: index.js:325 ~ handleAgree ~ updatedCartList:", updatedCartList)
+      setCartList(cartList.filter(
         cart => cart.cartID !== item.cartID
-      );
-      setCartList(updatedCartList);
+      ));
+      
       handleClose();
     } catch (rejectedValueOrSerializedError) {
       alert(rejectedValueOrSerializedError);
@@ -406,19 +414,22 @@ const CustomerCart = () => {
               alignItems: "center",
               width: 500,
             }}
+            className="custom-input-cart"
             placeholder="Tìm kiếm sản phẩm "
             variant="outlined"
             inputProps={{ "aria-label": "Tìm kiếm sản phẩm" }}
             value={search}
             onChange={text => searchFilter(text.target.value)}
           />
-          <TopButton onClick={handleCheckout} type="filled">
+          <TopButton onClick={handleCheckout} type="filled" style={{
+            background: '#1976d2'
+          }}>
             THANH TOÁN NGAY
           </TopButton>
         </Top>
         <Bottom>
           <Stack sx={{ m: 2, p: 2 }}>
-            {cartList && cartList?.map((item, i) => (
+            {open1 && cartList && cartList?.map((item, i) => (
               <div key={i}>
                 <ProductInCart
                   productInCart={item}
@@ -474,7 +485,7 @@ const CustomerCart = () => {
               sx={{
                 width: "100%",
                 padding: "10px",
-                backgroundColor: "black",
+                // backgroundColor: "#b360e6",
                 cursor: "pointer",
                 color: "white",
                 fontWeight: 600,
