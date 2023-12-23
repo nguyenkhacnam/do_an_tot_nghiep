@@ -448,10 +448,10 @@ const CustomerCart = () => {
                       Bạn có chắc chắn muốn loại bỏ sản phẩm này?
                     </DialogContentText>
                   </DialogContent>
-                  <DialogActions>
-                    <Button onClick={handleClose}>Hủy</Button>
-                    <Button onClick={() => handleAgree(item)}>Xác nhận</Button>
-                  </DialogActions>
+                    <DialogActions>
+                      <Button onClick={handleClose}>Hủy</Button>
+                      <Button onClick={() => handleAgree(item)}>Xác nhận</Button>
+                    </DialogActions>
                 </Dialog>
               </div>
             ))}

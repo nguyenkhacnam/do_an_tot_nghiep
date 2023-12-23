@@ -10,6 +10,11 @@ import {
   CardActionArea,
   Chip,
   CircularProgress,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
   Icon,
   IconButton,
   Stack,
@@ -47,7 +52,7 @@ const ProductInCart = props => {
       if (response.status === 200) setProduct(response.data);
       else console.log("Load product failed");
     };
-    fetchData()
+    fetchData();
   }, []);
 
   useEffect(() => {
@@ -56,6 +61,7 @@ const ProductInCart = props => {
       setAmount(0);
     };
   }, [props.productInCart.amount]);
+  const [isLoading1, setIsLoading1] = useState(false);
 
   return (
     <Card sx={{ p: 2, m: 1, boxShadow: 5 }}>
@@ -152,10 +158,36 @@ const ProductInCart = props => {
             }}
             spacing={1}
           >
+            <Dialog
+              open={isLoading1}
+              // TransitionComponent={Transition}
+              keepMounted
+              aria-describedby="alert-dialog-slide-description"
+            >
+              <DialogTitle>{"Discart"}</DialogTitle>
+              <DialogContent>
+                <DialogContentText id="alert-dialog-slide-description">
+                  Bạn có chắc chắn muốn loại bỏ sản phẩm này?
+                </DialogContentText>
+              </DialogContent>
+              <DialogActions>
+                <Button onClick={() => setIsLoading1(false)}>Hủy</Button>
+                <Button onClick={() => {
+                  props.onAgree(props.productInCart)}}>
+                  Xóa
+                </Button>
+              </DialogActions>
+            </Dialog>
+            {/* <DialogActions> */}
+              {/* <Button onClick={handleClose}>Hủy</Button> */}
+              <Button onClick={() => setIsLoading1(true)}>
+                Xóa
+              </Button>
+            {/* </DialogActions> */}
             <IconButton
               color="primary"
               aria-label="add to shopping cart"
-              onClick={() => props.onAgree(props.productInCart)}
+              onClick={() => setIsLoading1(true)}
             >
               <ClearIcon color="error" />
             </IconButton>

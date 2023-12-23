@@ -47,6 +47,7 @@ const RevenueChart = (props) => {
     }
   }
   const UpdateProductForData = async (data) => {
+    console.log("🚀 ~ file: index.js:50 ~ UpdateProductForData ~ data:", data)
     try {
       const response = await productAPI.getAll()
       if (response) {
