@@ -88,6 +88,10 @@ module.exports = (sequelize, Sequelize) => {
             type: Sequelize.STRING,
             field: 'category',
         },
+        originalPrice: {
+            type: Sequelize.INTEGER,
+            field: 'originalPrice',
+        }
     },
         {
             freezeTableName: true,

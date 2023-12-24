@@ -25,7 +25,7 @@ const HotDealToday = ({ productList }) => {
     const _currentUser = useSelector(currentUser)
     const _cart = useSelector(cartListSelector)
 
-    const filteredProducts = productList.filter(product => {
+    const filteredProducts = productList?.filter(product => {
         const promotionValue = parseInt(product.promotion.replace('%', ''));
         return promotionValue > 24; // Lọc các sản phẩm có promotion > 25
     });

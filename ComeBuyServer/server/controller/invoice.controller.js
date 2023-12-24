@@ -166,6 +166,13 @@ exports.findAllInvoice = async (req, res) => {
                     model: InvoiceItem,
                     as: "invoiceitem",
                     attributes: ["productid", "total", "amount"],
+                    include: [ // Include Product model through InvoiceItem
+                        {
+                            model: Product,
+                            as: "product",
+                            attributes: ["productid", "promotion", /* Other attributes */],
+                        },
+                    ],
                 }
             ]
         }, { transaction: transaction.data });

@@ -76,7 +76,7 @@ const ProductCardInStock = props => {
             color="#2e1534"
             component="div"
           >
-            {product != null ? product.price + "₫" : null}
+            {product != null ? "Giá bán: " + product.price.toLocaleString('en-US') + "VND" : null}
           </Typography>
           <Typography
             sx={{ margin: 1 }}
@@ -84,7 +84,7 @@ const ProductCardInStock = props => {
             color="teal"
             component="div"
           >
-            {props.stock != null ? "Tổng :" + props.stock.totalAmount : null}
+            {props.stock != null ? "Tổng đã thêm vào kho:" + props.stock.totalAmount : null}
           </Typography>
           {filterProduct?.amount ? (
             <Typography
@@ -95,7 +95,7 @@ const ProductCardInStock = props => {
             >
               {props.stock != null
                 ? props.stock.remaining - filterProduct?.amount >= 0
-                  ? "Còn lại: " +
+                  ? "Còn lại trong kho: " +
                     (props.stock.remaining - filterProduct?.amount)
                   : 0
                 : 0}
@@ -108,7 +108,7 @@ const ProductCardInStock = props => {
               component="div"
             >
               {props.stock != null
-                ? "Còn lại: " +
+                ? "Còn lại trong kho: " +
                   props.stock.remaining
                 : 0}
             </Typography>

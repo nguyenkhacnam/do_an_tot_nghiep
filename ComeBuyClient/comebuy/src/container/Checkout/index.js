@@ -1605,8 +1605,8 @@ export const CheckoutPage = () => {
             </Dialog>
 
             <Dialog open={placedOrderSuccessfully}>
-                <DialogTitle color='success'>Placed order successfully. <br />
-                    Please check your email see your order <br />
+                <DialogTitle color='success'>Đã đặt hàng thành công. <br />
+                Vui lòng kiểm tra email của bạn xem đơn hàng của bạn <br />
                 </DialogTitle>
                 <Button
                     onClick={handleClosePlacedOrderSuccessfully}

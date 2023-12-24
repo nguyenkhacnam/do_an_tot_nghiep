@@ -237,7 +237,7 @@ export default function Paypal({ _discount, _lastTotal, cartList, purchases, pro
                             purchase_units: [{
                                 amount: {
                                     currency_code: "USD",
-                                    value: _lastTotal + 2 - (_lastTotal * _discount / 100),
+                                    value: _lastTotal + 0 - (_lastTotal * _discount / 100),
                                     breakdown: {
                                         item_total: {
                                             currency_code: "USD",
@@ -249,7 +249,7 @@ export default function Paypal({ _discount, _lastTotal, cartList, purchases, pro
                                         },
                                         shipping: {
                                             currency_code: 'USD',
-                                            value: 2
+                                            value: 0.00
                                         }
                                     }
                                 },
