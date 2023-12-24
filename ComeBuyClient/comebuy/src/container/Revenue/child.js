@@ -5,12 +5,13 @@ import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
 import PropTypes from 'prop-types';
 import StoreIcon from '@mui/icons-material/Store';
-
+import './index.css'
 function TabPanel(props) {
     const { children, value, index, ...other } = props;
 
     return (
         <div
+            className='revenue-css'
             role="tabpanel"
             hidden={value !== index}
             id={`simple-tabpanel-${index}`}

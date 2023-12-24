@@ -51,7 +51,7 @@ export default function Stock() {
 
     return (
         <Box sx={{ width: '100%' }}>
-            <Box sx={{ bgcolor: '#2e1534', width: '100%' }}>
+            <Box sx={{ bgcolor: '#2e1534', width: '100%', display: 'none' }}>
                 <StyledTabs
                     value={value}
                     onChange={handleChange}

@@ -60,7 +60,7 @@ export default function Revenue() {
     return (
         <>
             <Box sx={{ width: '100%', height: '100%' }}>
-                <Box sx={{ bgcolor: '#2e1534' }}>
+                <Box sx={{ bgcolor: '#2e1534', display: 'none' }}>
                     <StyledTabs
                         value={value}
                         onChange={handleChange}

@@ -79,7 +79,7 @@ const RevenueChart = props => {
       console.log(err);
     }
   }
-  
+
   const UpdateProductForData = async data => {
     try {
       const response = await productAPI.getAll();
@@ -102,139 +102,240 @@ const RevenueChart = props => {
 
   const dispatch = useDispatch();
   const [invoiceList, setInvoiceList] = useState([]);
+  const [invoiceListYear, setInvoiceListYear] = useState([]);
+  const [invoiceListMonth, setInvoiceListMonth] = useState([]);
+
+  const [selectedYear, setSelectedYear] = useState("");
+  const [selectedMonth, setSelelectedMonth] = useState("");
+  console.log("🚀 ~ file: index.js:110 ~ RevenueChart ~ selectedMonth:", selectedMonth)
+  const [selectedWeek, setSelectedWeek] = useState("");
   const [selectedDate, setSelectedDate] = useState("");
+
+  const onChangeYear = (date, dateString) => {
+    // const formattedDate = moment(dateString).format("DD/MM/YYYY");
+    setSelectedYear(dateString);
+  };
+
+  const onChangeMonth = (date, dateString) => {
+    const formattedDate = moment(dateString).format("MM/YYYY");
+    setSelelectedMonth(formattedDate);
+  };
+
+  const onChangeWeek = (date, dateString) => {
+    const formattedDate = moment(dateString).format("DD/MM/YYYY");
+    setSelectedWeek(formattedDate);
+  };
 
   const onChange = (date, dateString) => {
     const formattedDate = moment(dateString).format("DD/MM/YYYY");
     setSelectedDate(formattedDate);
   };
 
-  const handleFetchInvoice = useCallback(async () => {
+  const handleFetchInvoiceYear = useCallback(async () => {
     let temp = [];
-    if (!invoiceList.length) {
-      try {
-        const resultAction = await dispatch(getAllInvoice());
-        const originalPromiseResult = unwrapResult(resultAction);
+    try {
+      const resultAction = await dispatch(getAllInvoice());
+      const originalPromiseResult = unwrapResult(resultAction);
 
-        // Tạo một đối tượng để theo dõi tổng của từng ngày
-        const dailyTotals = {};
+      // Tạo một đối tượng để theo dõi tổng của từng ngày
+      const dailyTotals = {};
 
-        let tempList = originalPromiseResult?.data?.map(invoice => {
-          if (invoice.isChecked) {
-            let t = 0;
-            invoice.invoiceitem.map(i => {
-              t = t + Number(i.total);
-            });
+      let tempList = originalPromiseResult?.data?.map(invoice => {
+        if (invoice.isChecked) {
+          let t = 0;
+          invoice.invoiceitem.map(i => {
+            t = t + Number(i.total);
+          });
 
-            const invoiceDate = invoice.date.split(" ")[0]; // Tách ngày từ chuỗi "date"
-
-            if (dailyTotals[invoiceDate]) {
-              dailyTotals[invoiceDate].total += t;
-              dailyTotals[invoiceDate].amount +=
-                invoice.invoiceitem[0]?.amount || 0;
-            } else {
-              dailyTotals[invoiceDate] = {
-                total: t,
-                amount: invoice.invoiceitem[0]?.amount || 0,
-              };
-            }
-
-            return {
-              date: invoiceDate,
-              "Lợi nhuận (VND)": t,
-              "Số lượng": invoice.invoiceitem[0]?.amount || 0,
+          const invoiceDate = invoice.date.split(" ")[0]; // Tách ngày từ chuỗi "date"
+          // const year = new Date(invoiceDate).getFullYear().toString();
+          const [day, month, year] = invoiceDate.split("/");
+          // const formattedDate = `${year}-${month}-${day}`;
+          // const parsedDate = new Date(formattedDate);
+          // let yearAsString
+          // if (!isNaN(parsedDate.getFullYear())) {
+          //   yearAsString = parsedDate.getFullYear().toString();
+          //   console.log(yearAsString); // Kết quả sẽ là "2023"
+          // }
+          // console.log(
+          //   "🚀 ~ file: index.js:153 ~ tempList ~ year:",
+          //   yearAsString
+          // );
+          if (dailyTotals[year]) {
+            dailyTotals[year].total += t;
+            dailyTotals[year].amount += invoice.invoiceitem[0]?.amount || 0;
+          } else {
+            dailyTotals[year] = {
+              total: t,
+              amount: invoice.invoiceitem[0]?.amount || 0,
             };
           }
-          return null; // Trả về null cho các phần tử không thỏa mãn điều kiện
-        });
 
-        // Lọc các đối tượng null để loại bỏ các đối tượng không phù hợp
-        tempList = tempList.filter(item => item !== null);
-
-        let finalList = [];
-
-        if (selectedDate && dailyTotals[selectedDate]) {
-          finalList.push({
-            date: selectedDate,
-            "Lợi nhuận (VND)": dailyTotals[selectedDate].total,
-            "Số lượng": dailyTotals[selectedDate].amount,
-          });
-        } else {
-          console.log("dailyTotals", dailyTotals);
-          finalList = Object.keys(dailyTotals).map(date => ({
-            date,
-            "Lợi nhuận (VND)": dailyTotals[date].total,
-            "Số lượng": dailyTotals[date].amount,
-          }));
+          return {
+            date: year,
+            "Lợi nhuận (VND)": t,
+            "Số lượng": invoice.invoiceitem[0]?.amount || 0,
+          };
         }
+        return null; // Trả về null cho các phần tử không thỏa mãn điều kiện
+      });
 
-        setInvoiceList(finalList);
-      } catch (rejectedValueOrSerializedError) {
-        console.log(rejectedValueOrSerializedError);
+      // Lọc các đối tượng null để loại bỏ các đối tượng không phù hợp
+      tempList = tempList.filter(item => item !== null);
+      console.log("tempList", dailyTotals);
+      let finalList = [];
+
+      if (selectedYear && dailyTotals[selectedYear]) {
+        console.log("first");
+        finalList.push({
+          date: selectedYear,
+          "Lợi nhuận (VND)": dailyTotals[selectedYear].total,
+          "Số lượng": dailyTotals[selectedYear].amount,
+        });
+      } else {
+        console.log("dailyTotals", dailyTotals);
+        finalList = Object.keys(dailyTotals).map(date => ({
+          date,
+          "Lợi nhuận (VND)": dailyTotals[date].total,
+          "Số lượng": dailyTotals[date].amount,
+        }));
       }
-    } else {
-      if (selectedDate) {
-        try {
-          const resultAction = await dispatch(getAllInvoice());
-          const originalPromiseResult = unwrapResult(resultAction);
 
-          // Tạo một đối tượng để theo dõi tổng của từng ngày
-          const dailyTotals = {};
+      setInvoiceListYear(finalList);
+    } catch (rejectedValueOrSerializedError) {
+      console.log(rejectedValueOrSerializedError);
+    }
+  }, [selectedYear]);
 
-          let tempList = originalPromiseResult?.data?.map(invoice => {
-            if (invoice.isChecked) {
-              let t = 0;
-              invoice.invoiceitem.map(i => {
-                t = t + Number(i.total);
-              });
+  const handleFetchInvoiceMonth = useCallback(async () => {
+    try {
+      const resultAction = await dispatch(getAllInvoice());
+      const originalPromiseResult = unwrapResult(resultAction);
 
-              const invoiceDate = invoice.date.split(" ")[0]; // Tách ngày từ chuỗi "date"
+      // Tạo một đối tượng để theo dõi tổng của từng ngày
+      const dailyTotals = {};
 
-              if (dailyTotals[invoiceDate]) {
-                dailyTotals[invoiceDate].total += t;
-                dailyTotals[invoiceDate].amount +=
-                  invoice.invoiceitem[0]?.amount || 0;
-              } else {
-                dailyTotals[invoiceDate] = {
-                  total: t,
-                  amount: invoice.invoiceitem[0]?.amount || 0,
-                };
-              }
-
-              return {
-                date: invoiceDate,
-                "Lợi nhuận (VND)": t,
-                "Số lượng": invoice.invoiceitem[0]?.amount || 0,
-              };
-            }
-            return null; // Trả về null cho các phần tử không thỏa mãn điều kiện
+      let tempList = originalPromiseResult?.data?.map(invoice => {
+        if (invoice.isChecked) {
+          let t = 0;
+          invoice.invoiceitem.map(i => {
+            t = t + Number(i.total);
           });
 
-          // Lọc các đối tượng null để loại bỏ các đối tượng không phù hợp
-          tempList = tempList.filter(item => item !== null);
-
-          let finalList = [];
-
-          if (selectedDate && dailyTotals[selectedDate]) {
-            finalList.push({
-              date: selectedDate,
-              "Lợi nhuận (VND)": dailyTotals[selectedDate].total,
-              "Số lượng": dailyTotals[selectedDate].amount,
-            });
+          const invoiceDate = invoice.date.split(" ")[0]; // Tách ngày từ chuỗi "date"
+          // const year = new Date(invoiceDate).getFullYear().toString();
+          const [day, month, year] = invoiceDate.split("/");
+          const monthYearString = `${month}/${year}`;
+          console.log(
+            "🚀 ~ file: index.js:153 ~ tempList ~ year:",
+            invoiceDate, monthYearString
+          );
+          if (dailyTotals[monthYearString]) {
+            dailyTotals[monthYearString].total += t;
+            dailyTotals[monthYearString].amount += invoice.invoiceitem[0]?.amount || 0;
           } else {
-            console.log("dailyTotals", dailyTotals);
-            finalList = Object.keys(dailyTotals).map(date => ({
-              date,
-              "Lợi nhuận (VND)": dailyTotals[date].total,
-              "Số lượng": dailyTotals[date].amount,
-            }));
+            dailyTotals[monthYearString] = {
+              total: t,
+              amount: invoice.invoiceitem[0]?.amount || 0,
+            };
           }
 
-          setInvoiceList(finalList);
-        } catch (rejectedValueOrSerializedError) {
-          console.log(rejectedValueOrSerializedError);
+          return {
+            date: monthYearString,
+            "Lợi nhuận (VND)": t,
+            "Số lượng": invoice.invoiceitem[0]?.amount || 0,
+          };
         }
+        return null; // Trả về null cho các phần tử không thỏa mãn điều kiện
+      });
+
+      // Lọc các đối tượng null để loại bỏ các đối tượng không phù hợp
+      tempList = tempList.filter(item => item !== null);
+      console.log("tempList", dailyTotals);
+      let finalList = [];
+
+      if (selectedMonth && dailyTotals[selectedMonth]) {
+        console.log("first");
+        finalList.push({
+          date: selectedMonth,
+          "Lợi nhuận (VND)": dailyTotals[selectedMonth].total,
+          "Số lượng": dailyTotals[selectedMonth].amount,
+        });
+      } else {
+        console.log("dailyTotals", dailyTotals);
+        finalList = Object.keys(dailyTotals).map(date => ({
+          date,
+          "Lợi nhuận (VND)": dailyTotals[date].total,
+          "Số lượng": dailyTotals[date].amount,
+        }));
       }
+
+      setInvoiceListMonth(finalList);
+    } catch (rejectedValueOrSerializedError) {
+      console.log(rejectedValueOrSerializedError);
+    }
+  }, [selectedMonth]);
+
+  const handleFetchInvoice = useCallback(async () => {
+    let temp = [];
+    try {
+      const resultAction = await dispatch(getAllInvoice());
+      const originalPromiseResult = unwrapResult(resultAction);
+
+      // Tạo một đối tượng để theo dõi tổng của từng ngày
+      const dailyTotals = {};
+
+      let tempList = originalPromiseResult?.data?.map(invoice => {
+        if (invoice.isChecked) {
+          let t = 0;
+          invoice.invoiceitem.map(i => {
+            t = t + Number(i.total);
+          });
+
+          const invoiceDate = invoice.date.split(" ")[0]; // Tách ngày từ chuỗi "date"
+          if (dailyTotals[invoiceDate]) {
+            dailyTotals[invoiceDate].total += t;
+            dailyTotals[invoiceDate].amount +=
+              invoice.invoiceitem[0]?.amount || 0;
+          } else {
+            dailyTotals[invoiceDate] = {
+              total: t,
+              amount: invoice.invoiceitem[0]?.amount || 0,
+            };
+          }
+
+          return {
+            date: invoiceDate,
+            "Lợi nhuận (VND)": t,
+            "Số lượng": invoice.invoiceitem[0]?.amount || 0,
+          };
+        }
+        return null; // Trả về null cho các phần tử không thỏa mãn điều kiện
+      });
+
+      // Lọc các đối tượng null để loại bỏ các đối tượng không phù hợp
+      tempList = tempList.filter(item => item !== null);
+
+      let finalList = [];
+      let finalListYear = [];
+
+      if (selectedDate && dailyTotals[selectedDate]) {
+        finalList.push({
+          date: selectedDate,
+          "Lợi nhuận (VND)": dailyTotals[selectedDate].total,
+          "Số lượng": dailyTotals[selectedDate].amount,
+        });
+        setInvoiceList(finalList);
+      } else {
+        finalList = Object.keys(dailyTotals).map(date => ({
+          date,
+          "Lợi nhuận (VND)": dailyTotals[date].total,
+          "Số lượng": dailyTotals[date].amount,
+        }));
+        setInvoiceList(finalList);
+      }
+    } catch (rejectedValueOrSerializedError) {
+      console.log(rejectedValueOrSerializedError);
     }
   }, [selectedDate]);
 
@@ -246,6 +347,20 @@ const RevenueChart = props => {
   }, [handleFetchInvoice]);
 
   useEffect(() => {
+    handleFetchInvoiceYear();
+    return () => {
+      setInvoiceListYear({});
+    };
+  }, [handleFetchInvoiceYear]);
+
+  useEffect(() => {
+    handleFetchInvoiceMonth();
+    return () => {
+      setInvoiceListMonth({});
+    };
+  }, [handleFetchInvoiceMonth]);
+
+  useEffect(() => {
     LoadRevenueData();
     return () => setData([]);
   }, []);
@@ -253,76 +368,346 @@ const RevenueChart = props => {
   const [type, setType] = useState("date");
 
   return (
-    <>
-      <Space>
-        <DatePicker onChange={onChange} />
-      </Space>
-      <div style={{
-        width: '500px',
-        height: '300px'
-      }}>
-        <ResponsiveContainer width="100%" height="100%">
-          {data.length > 0 && loading === true ? (
-            <BarChart
-              BarChart
-              width={500}
-              height={300}
-              data={invoiceList}
-              margin={{
-                top: 30,
-                right: 0,
-                left: 0,
-                bottom: 5,
-              }}
-            >
-              <CartesianGrid strokeDasharray="3 3" />
-              {/* <XAxis dataKey="name" height={200} textAnchor="end" angle="30" scaleToFit="true" verticalAnchor="start" interval={0} stroke="#8884d8" /> */}
-              <XAxis
-                dataKey="date"
-                tick={<CustomizedAxisTick />}
-                height={100}
-                interval={0}
-                stroke="#8884d8"
-              />
-              <YAxis yAxisId="left" orientation="left" stroke="#380E73" />
-              <YAxis yAxisId="right" orientation="right" stroke="#2e1534" />
-              <Tooltip />
-              <Legend />
-              <Bar
-                yAxisId="left"
-                dataKey="Số lượng"
-                fill="#8884d8"
-                label={{ position: "top" }}
-              />
-              <Bar
-                yAxisId="right"
-                dataKey="Lợi nhuận (VND)"
-                fill="#82ca9d"
-                label={{ position: "top" }}
-              />
-            </BarChart>
-          ) : (
-            <Box sx={{ width: "100%" }}>
-              {loading === true ? (
-                <Typography variant="h6">
-                  Không có sản phẩm nào để hiển thị...
-                </Typography>
-              ) : (
-                <Box sx={{ width: "100%" }}>
-                  <LinearProgress />
-                  <Typography
-                    variant="h6"
-                    sx={{ alignSelf: "center", margin: 5 }}
-                  >
-                    Loading....
+    <div
+      style={{
+        display: "flex",
+        justifyContent: "space-around",
+        alignItems: "center",
+        flexWrap: "wrap",
+      }}
+    >
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+        }}
+      >
+        <Space>
+          <DatePicker
+            onChange={onChangeYear}
+            placeholder="Chọn năm"
+            picker="year"
+          />
+        </Space>
+        <div
+          style={{
+            width: "700px",
+            height: "500px",
+          }}
+        >
+          <ResponsiveContainer width="100%" height="100%">
+            {data.length > 0 && loading === true ? (
+              <BarChart
+                BarChart
+                width={500}
+                height={300}
+                data={invoiceListYear}
+                margin={{
+                  top: 30,
+                  right: 0,
+                  left: 0,
+                  bottom: 5,
+                }}
+              >
+                <CartesianGrid strokeDasharray="3 3" />
+                {/* <XAxis dataKey="name" height={200} textAnchor="end" angle="30" scaleToFit="true" verticalAnchor="start" interval={0} stroke="#8884d8" /> */}
+                <XAxis
+                  dataKey="date"
+                  // tick={<CustomizedAxisTick />}
+                  // height={100}
+                  // interval={0}
+                  // stroke="#8884d8"
+                />
+                <YAxis yAxisId="left" orientation="left" stroke="#8884d8" />
+                <YAxis yAxisId="right" orientation="right" stroke="#82ca9d" />
+                <Tooltip />
+                <Legend />
+                <Bar
+                  yAxisId="left"
+                  dataKey="Số lượng"
+                  fill="#8884d8"
+                  // label={{ position: "top" }}
+                  barSize={30}
+                />
+                <Bar
+                  yAxisId="right"
+                  dataKey="Lợi nhuận (VND)"
+                  fill="#82ca9d"
+                  // label={{ position: "top" }}
+                  barSize={30}
+                />
+              </BarChart>
+            ) : (
+              <Box sx={{ width: "100%" }}>
+                {loading === true ? (
+                  <Typography variant="h6">
+                    Không có sản phẩm nào để hiển thị...
                   </Typography>
-                </Box>
-              )}
-            </Box>
-          )}
-        </ResponsiveContainer>
+                ) : (
+                  <Box sx={{ width: "100%" }}>
+                    <LinearProgress />
+                    <Typography
+                      variant="h6"
+                      sx={{ alignSelf: "center", margin: 5 }}
+                    >
+                      Loading....
+                    </Typography>
+                  </Box>
+                )}
+              </Box>
+            )}
+          </ResponsiveContainer>
+        </div>
       </div>
-    </>
+
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+        }}
+      >
+        <Space>
+          <DatePicker
+            onChange={onChangeMonth}
+            placeholder="Chọn tháng"
+            picker="month"
+          />
+        </Space>
+        <div
+          style={{
+            width: "700px",
+            height: "500px",
+          }}
+        >
+          <ResponsiveContainer width="100%" height="100%">
+            {data.length > 0 && loading === true ? (
+              <BarChart
+                BarChart
+                width={500}
+                height={300}
+                data={invoiceListMonth}
+                margin={{
+                  top: 30,
+                  right: 0,
+                  left: 0,
+                  bottom: 5,
+                }}
+              >
+                <CartesianGrid strokeDasharray="3 3" />
+                {/* <XAxis dataKey="name" height={200} textAnchor="end" angle="30" scaleToFit="true" verticalAnchor="start" interval={0} stroke="#8884d8" /> */}
+                <XAxis
+                  dataKey="date"
+                  // tick={<CustomizedAxisTick />}
+                  // height={100}
+                  // interval={0}
+                  // stroke="#8884d8"
+                />
+                <YAxis yAxisId="left" orientation="left" stroke="#8884d8" />
+                <YAxis yAxisId="right" orientation="right" stroke="#82ca9d" />
+                <Tooltip />
+                <Legend />
+                <Bar
+                  yAxisId="left"
+                  dataKey="Số lượng"
+                  fill="#8884d8"
+                  // label={{ position: "top" }}
+                  barSize={30}
+                />
+                <Bar
+                  yAxisId="right"
+                  dataKey="Lợi nhuận (VND)"
+                  fill="#82ca9d"
+                  // label={{ position: "top" }}
+                  barSize={30}
+                />
+              </BarChart>
+            ) : (
+              <Box sx={{ width: "100%" }}>
+                {loading === true ? (
+                  <Typography variant="h6">
+                    Không có sản phẩm nào để hiển thị...
+                  </Typography>
+                ) : (
+                  <Box sx={{ width: "100%" }}>
+                    <LinearProgress />
+                    <Typography
+                      variant="h6"
+                      sx={{ alignSelf: "center", margin: 5 }}
+                    >
+                      Loading....
+                    </Typography>
+                  </Box>
+                )}
+              </Box>
+            )}
+          </ResponsiveContainer>
+        </div>
+      </div>
+
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+        }}
+      >
+        <Space>
+          <DatePicker
+            onChange={onChangeWeek}
+            placeholder="Chọn tuần"
+            picker="week"
+          />
+        </Space>
+        <div
+          style={{
+            width: "700px",
+            height: "500px",
+          }}
+        >
+          <ResponsiveContainer width="100%" height="100%">
+            {data.length > 0 && loading === true ? (
+              <BarChart
+                BarChart
+                width={500}
+                height={300}
+                data={invoiceList}
+                margin={{
+                  top: 30,
+                  right: 0,
+                  left: 0,
+                  bottom: 5,
+                }}
+              >
+                <CartesianGrid strokeDasharray="3 3" />
+                {/* <XAxis dataKey="name" height={200} textAnchor="end" angle="30" scaleToFit="true" verticalAnchor="start" interval={0} stroke="#8884d8" /> */}
+                <XAxis
+                  dataKey="date"
+                  // tick={<CustomizedAxisTick />}
+                  // height={100}
+                  // interval={0}
+                  // stroke="#8884d8"
+                />
+                <YAxis yAxisId="left" orientation="left" stroke="#8884d8" />
+                <YAxis yAxisId="right" orientation="right" stroke="#82ca9d" />
+                <Tooltip />
+                <Legend />
+                <Bar
+                  yAxisId="left"
+                  dataKey="Số lượng"
+                  fill="#8884d8"
+                  // label={{ position: "top" }}
+                  barSize={30}
+                />
+                <Bar
+                  yAxisId="right"
+                  dataKey="Lợi nhuận (VND)"
+                  fill="#82ca9d"
+                  // label={{ position: "top" }}
+                  barSize={30}
+                />
+              </BarChart>
+            ) : (
+              <Box sx={{ width: "100%" }}>
+                {loading === true ? (
+                  <Typography variant="h6">
+                    Không có sản phẩm nào để hiển thị...
+                  </Typography>
+                ) : (
+                  <Box sx={{ width: "100%" }}>
+                    <LinearProgress />
+                    <Typography
+                      variant="h6"
+                      sx={{ alignSelf: "center", margin: 5 }}
+                    >
+                      Loading....
+                    </Typography>
+                  </Box>
+                )}
+              </Box>
+            )}
+          </ResponsiveContainer>
+        </div>
+      </div>
+
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+        }}
+      >
+        <Space>
+          <DatePicker onChange={onChange} placeholder="Chọn ngày" />
+        </Space>
+        <div
+          style={{
+            width: "700px",
+            height: "500px",
+          }}
+        >
+          <ResponsiveContainer width="100%" height="100%">
+            {data.length > 0 && loading === true ? (
+              <BarChart
+                BarChart
+                width={500}
+                height={300}
+                data={invoiceList}
+                margin={{
+                  top: 30,
+                  right: 0,
+                  left: 0,
+                  bottom: 5,
+                }}
+              >
+                <CartesianGrid strokeDasharray="3 3" />
+                {/* <XAxis dataKey="name" height={200} textAnchor="end" angle="30" scaleToFit="true" verticalAnchor="start" interval={0} stroke="#8884d8" /> */}
+                <XAxis
+                  dataKey="date"
+                  // tick={<CustomizedAxisTick />}
+                  // height={100}
+                  // interval={0}
+                  // stroke="#8884d8"
+                />
+                <YAxis yAxisId="left" orientation="left" stroke="#8884d8" />
+                <YAxis yAxisId="right" orientation="right" stroke="#82ca9d" />
+                <Tooltip />
+                <Legend />
+                <Bar
+                  yAxisId="left"
+                  dataKey="Số lượng"
+                  fill="#8884d8"
+                  // label={{ position: "top" }}
+                  barSize={30}
+                />
+                <Bar
+                  yAxisId="right"
+                  dataKey="Lợi nhuận (VND)"
+                  fill="#82ca9d"
+                  // label={{ position: "top" }}
+                  barSize={30}
+                />
+              </BarChart>
+            ) : (
+              <Box sx={{ width: "100%" }}>
+                {loading === true ? (
+                  <Typography variant="h6">
+                    Không có sản phẩm nào để hiển thị...
+                  </Typography>
+                ) : (
+                  <Box sx={{ width: "100%" }}>
+                    <LinearProgress />
+                    <Typography
+                      variant="h6"
+                      sx={{ alignSelf: "center", margin: 5 }}
+                    >
+                      Loading....
+                    </Typography>
+                  </Box>
+                )}
+              </Box>
+            )}
+          </ResponsiveContainer>
+        </div>
+      </div>
+    </div>
   );
 };
 export default RevenueChart;
