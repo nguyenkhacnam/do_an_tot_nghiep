@@ -141,7 +141,8 @@ const RevenueChart = props => {
       const dailyTotals = {};
 
       let tempList = originalPromiseResult?.data?.map(invoice => {
-        if (invoice.isChecked) {
+        console.log("🚀 ~ file: index.js:144 ~ tempList ~ invoice:", invoice)
+        if (invoice.isPaid) {
           let t = 0;
           invoice.invoiceitem.map(i => {
             t = t + Number(i.total);
@@ -164,10 +165,14 @@ const RevenueChart = props => {
           if (dailyTotals[year]) {
             dailyTotals[year].total += t;
             dailyTotals[year].amount += invoice.invoiceitem[0]?.amount || 0;
+            dailyTotals[year].originPrice += invoice.invoiceitem[0]?.product.colorcoverage || 0;
+            dailyTotals[year].revenue += dailyTotals[year].total + dailyTotals[year].originPrice
           } else {
             dailyTotals[year] = {
               total: t,
               amount: invoice.invoiceitem[0]?.amount || 0,
+              originPrice: invoice.invoiceitem[0]?.product.colorcoverage || 0,
+              revenue: t + (invoice.invoiceitem[0]?.product.colorcoverage || 0),
             };
           }
 
@@ -191,6 +196,8 @@ const RevenueChart = props => {
           date: selectedYear,
           "Lợi nhuận (VND)": dailyTotals[selectedYear].total,
           "Số lượng": dailyTotals[selectedYear].amount,
+          "Giá vốn (VND)": dailyTotals[selectedYear].originPrice,
+          "Doanh thu (VND)": dailyTotals[selectedYear].revenue,
         });
       } else {
         console.log("dailyTotals", dailyTotals);
@@ -198,6 +205,8 @@ const RevenueChart = props => {
           date,
           "Lợi nhuận (VND)": dailyTotals[date].total,
           "Số lượng": dailyTotals[date].amount,
+          "Giá vốn (VND)": dailyTotals[date].originPrice,
+          "Doanh thu (VND)": dailyTotals[date].revenue,
         }));
       }
 
@@ -216,7 +225,7 @@ const RevenueChart = props => {
       const dailyTotals = {};
 
       let tempList = originalPromiseResult?.data?.map(invoice => {
-        if (invoice.isChecked) {
+        if (invoice.isPaid) {
           let t = 0;
           invoice.invoiceitem.map(i => {
             t = t + Number(i.total);
@@ -233,10 +242,14 @@ const RevenueChart = props => {
           if (dailyTotals[monthYearString]) {
             dailyTotals[monthYearString].total += t;
             dailyTotals[monthYearString].amount += invoice.invoiceitem[0]?.amount || 0;
+            dailyTotals[monthYearString].originPrice += invoice.invoiceitem[0]?.product.colorcoverage || 0;
+            dailyTotals[monthYearString].revenue += dailyTotals[monthYearString].total + dailyTotals[monthYearString].originPrice
           } else {
             dailyTotals[monthYearString] = {
               total: t,
               amount: invoice.invoiceitem[0]?.amount || 0,
+              originPrice: invoice.invoiceitem[0]?.product.colorcoverage || 0,
+              revenue: t + (invoice.invoiceitem[0]?.product.colorcoverage || 0),
             };
           }
 
@@ -260,6 +273,8 @@ const RevenueChart = props => {
           date: selectedMonth,
           "Lợi nhuận (VND)": dailyTotals[selectedMonth].total,
           "Số lượng": dailyTotals[selectedMonth].amount,
+          "Giá vốn (VND)": dailyTotals[selectedMonth].originPrice,
+          "Doanh thu (VND)": dailyTotals[selectedMonth].revenue,
         });
       } else {
         console.log("dailyTotals", dailyTotals);
@@ -267,6 +282,8 @@ const RevenueChart = props => {
           date,
           "Lợi nhuận (VND)": dailyTotals[date].total,
           "Số lượng": dailyTotals[date].amount,
+          "Giá vốn (VND)": dailyTotals[date].originPrice,
+          "Doanh thu (VND)": dailyTotals[date].revenue,
         }));
       }
 
@@ -286,7 +303,7 @@ const RevenueChart = props => {
       const dailyTotals = {};
 
       let tempList = originalPromiseResult?.data?.map(invoice => {
-        if (invoice.isChecked) {
+        if (invoice.isPaid) {
           let t = 0;
           invoice.invoiceitem.map(i => {
             t = t + Number(i.total);
@@ -297,10 +314,14 @@ const RevenueChart = props => {
             dailyTotals[invoiceDate].total += t;
             dailyTotals[invoiceDate].amount +=
               invoice.invoiceitem[0]?.amount || 0;
+            dailyTotals[invoiceDate].originPrice += invoice.invoiceitem[0]?.product.colorcoverage || 0;
+            dailyTotals[invoiceDate].revenue += dailyTotals[invoiceDate].total + dailyTotals[invoiceDate].originPrice
           } else {
             dailyTotals[invoiceDate] = {
               total: t,
               amount: invoice.invoiceitem[0]?.amount || 0,
+              originPrice: invoice.invoiceitem[0]?.product.colorcoverage || 0,
+              revenue: t + (invoice.invoiceitem[0]?.product.colorcoverage || 0),
             };
           }
 
@@ -324,6 +345,8 @@ const RevenueChart = props => {
           date: selectedDate,
           "Lợi nhuận (VND)": dailyTotals[selectedDate].total,
           "Số lượng": dailyTotals[selectedDate].amount,
+          "Giá vốn (VND)": dailyTotals[selectedDate].originPrice,
+          "Doanh thu (VND)": dailyTotals[selectedDate].revenue,
         });
         setInvoiceList(finalList);
       } else {
@@ -331,6 +354,8 @@ const RevenueChart = props => {
           date,
           "Lợi nhuận (VND)": dailyTotals[date].total,
           "Số lượng": dailyTotals[date].amount,
+          "Giá vốn (VND)": dailyTotals[date].originPrice,
+          "Doanh thu (VND)": dailyTotals[date].revenue,
         }));
         setInvoiceList(finalList);
       }
@@ -374,6 +399,7 @@ const RevenueChart = props => {
         justifyContent: "space-around",
         alignItems: "center",
         flexWrap: "wrap",
+        gap: '20px'
       }}
     >
       <div
@@ -391,8 +417,8 @@ const RevenueChart = props => {
         </Space>
         <div
           style={{
-            width: "700px",
-            height: "500px",
+            width: "800px",
+            height: "600px",
           }}
         >
           <ResponsiveContainer width="100%" height="100%">
@@ -419,7 +445,7 @@ const RevenueChart = props => {
                   // stroke="#8884d8"
                 />
                 <YAxis yAxisId="left" orientation="left" stroke="#8884d8" />
-                <YAxis yAxisId="right" orientation="right" stroke="#82ca9d" />
+                <YAxis yAxisId="right" orientation="right" stroke="#FFA500" />
                 <Tooltip />
                 <Legend />
                 <Bar
@@ -433,6 +459,20 @@ const RevenueChart = props => {
                   yAxisId="right"
                   dataKey="Lợi nhuận (VND)"
                   fill="#82ca9d"
+                  // label={{ position: "top" }}
+                  barSize={30}
+                />
+                <Bar
+                  yAxisId="right"
+                  dataKey="Doanh thu (VND)"
+                  fill="#FFA500"
+                  // label={{ position: "top" }}
+                  barSize={30}
+                />
+                <Bar
+                  yAxisId="right"
+                  dataKey="Giá vốn (VND)"
+                  fill="#0000FF"
                   // label={{ position: "top" }}
                   barSize={30}
                 />
@@ -475,8 +515,8 @@ const RevenueChart = props => {
         </Space>
         <div
           style={{
-            width: "700px",
-            height: "500px",
+            width: "800px",
+            height: "600px",
           }}
         >
           <ResponsiveContainer width="100%" height="100%">
@@ -503,7 +543,7 @@ const RevenueChart = props => {
                   // stroke="#8884d8"
                 />
                 <YAxis yAxisId="left" orientation="left" stroke="#8884d8" />
-                <YAxis yAxisId="right" orientation="right" stroke="#82ca9d" />
+                <YAxis yAxisId="right" orientation="right" stroke="#FFA500" />
                 <Tooltip />
                 <Legend />
                 <Bar
@@ -517,6 +557,20 @@ const RevenueChart = props => {
                   yAxisId="right"
                   dataKey="Lợi nhuận (VND)"
                   fill="#82ca9d"
+                  // label={{ position: "top" }}
+                  barSize={30}
+                />
+                <Bar
+                  yAxisId="right"
+                  dataKey="Doanh thu (VND)"
+                  fill="#FFA500"
+                  // label={{ position: "top" }}
+                  barSize={30}
+                />
+                <Bar
+                  yAxisId="right"
+                  dataKey="Giá vốn (VND)"
+                  fill="#0000FF"
                   // label={{ position: "top" }}
                   barSize={30}
                 />
@@ -546,8 +600,9 @@ const RevenueChart = props => {
 
       <div
         style={{
-          display: "flex",
-          flexDirection: "column",
+          // display: "flex",
+          // flexDirection: "column",
+          display: 'none'
         }}
       >
         <Space>
@@ -559,8 +614,8 @@ const RevenueChart = props => {
         </Space>
         <div
           style={{
-            width: "700px",
-            height: "500px",
+            width: "800px",
+            height: "600px",
           }}
         >
           <ResponsiveContainer width="100%" height="100%">
@@ -639,8 +694,8 @@ const RevenueChart = props => {
         </Space>
         <div
           style={{
-            width: "700px",
-            height: "500px",
+            width: "1000px",
+            height: "800px",
           }}
         >
           <ResponsiveContainer width="100%" height="100%">
@@ -667,7 +722,7 @@ const RevenueChart = props => {
                   // stroke="#8884d8"
                 />
                 <YAxis yAxisId="left" orientation="left" stroke="#8884d8" />
-                <YAxis yAxisId="right" orientation="right" stroke="#82ca9d" />
+                <YAxis yAxisId="right" orientation="right" stroke="#FFA500" />
                 <Tooltip />
                 <Legend />
                 <Bar
@@ -681,6 +736,20 @@ const RevenueChart = props => {
                   yAxisId="right"
                   dataKey="Lợi nhuận (VND)"
                   fill="#82ca9d"
+                  // label={{ position: "top" }}
+                  barSize={30}
+                />
+                <Bar
+                  yAxisId="right"
+                  dataKey="Doanh thu (VND)"
+                  fill="#FFA500"
+                  // label={{ position: "top" }}
+                  barSize={30}
+                />
+                <Bar
+                  yAxisId="right"
+                  dataKey="Giá vốn (VND)"
+                  fill="#0000FF"
                   // label={{ position: "top" }}
                   barSize={30}
                 />
