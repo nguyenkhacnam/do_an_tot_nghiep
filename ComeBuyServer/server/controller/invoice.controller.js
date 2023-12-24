@@ -170,7 +170,7 @@ exports.findAllInvoice = async (req, res) => {
                         {
                             model: Product,
                             as: "product",
-                            attributes: ["productid", "promotion", /* Other attributes */],
+                            attributes: ["colorcoverage", /* Other attributes */],
                         },
                     ],
                 }

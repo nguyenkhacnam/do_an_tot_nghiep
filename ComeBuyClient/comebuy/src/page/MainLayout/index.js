@@ -110,7 +110,7 @@ const MainLayout = props => {
               {route.name == 'Workspace' && <CountertopsIcon />}
               {route.name == 'Hóa đơn' && <ReceiptIcon />}
               {route.name == 'Distribution' && <MoveDownIcon />}
-              {route.name == 'Banner Manage' && <ViewCarouselIcon />}
+              {route.name == 'Banner' && <ViewCarouselIcon />}
             </ListItemIcon>
             <ListItemText sx={{ color: 'white' }} primary={route.name} />
           </ListItem>

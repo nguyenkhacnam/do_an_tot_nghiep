@@ -425,7 +425,8 @@ export const CheckoutPage = () => {
             try {
                 const resultAction = await dispatch(addInvoice(temp))
                 const originalPromiseResult = unwrapResult(resultAction)
-                setInvoiceId(originalPromiseResult.data.invoiceID)
+                console.log("🚀 ~ file: index.js:428 ~ MakeInvoice ~ originalPromiseResult:", originalPromiseResult)
+                setInvoiceId(originalPromiseResult.data.data.invoiceID)
             } catch (rejectedValueOrSerializedError) {
                 alert(rejectedValueOrSerializedError)
             }
@@ -453,7 +454,9 @@ export const CheckoutPage = () => {
 
     useEffect(() => {
         const fetchData = async () => {
-            if (invoiceId != ' ') {
+            console.log('buoc1')
+            if (invoiceId !== ' ') {
+                console.log('buoc1', invoiceId)
                 _addInvoiceItem(invoiceId)
             }
         }
@@ -461,6 +464,7 @@ export const CheckoutPage = () => {
     }, [invoiceId])
 
     const _addInvoiceItem = async (_invoiceId) => {
+        console.log('buoc1')
         let stringOrder = ''
         for (let i = 0; i < listCart?.length; i++) {
             for (let j = 0; j < listProd?.length; j++) {
@@ -471,9 +475,11 @@ export const CheckoutPage = () => {
                         amount: listCart[i].amount,
                         total: Number(listCart[i].amount) * Number(listProd[j].price)
                     }
+                    console.log("🚀 ~ file: index.js:474 ~ const_addInvoiceItem= ~ item:", item)
                     stringOrder = stringOrder + "\n" + `${listProd[j].name} - Số lượng: ${listCart[i].amount} - Giá tiền: ${item.total} VND `
                     // t.push(item)
                     try {
+                        console.log('buoc1')
                         const resultAction = await dispatch(addInvoiceItem(item))
                         const originalPromiseResult = unwrapResult(resultAction)
                     } catch (rejectedValueOrSerializedError) {

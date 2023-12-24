@@ -130,7 +130,7 @@ const DetailProductModal = ({ open, product, onClose }) => {
                                         <Stack xs={12} spacing={2} padding={2}>
                                             <TechInforLine Icon={<MemoryIcon />} Text={product.cpu} Title='CPU' />
                                             <Box sx={style.boxinfor_Stack_Line}></Box>
-                                            <TechInforLine Icon={<ScreenshotMonitorIcon />} Text={product.screenDimension + ' inch, ' + product.colorCoverage + ' RGBs'} Title='Màn hình' />
+                                            <TechInforLine Icon={<ScreenshotMonitorIcon />} Text={product.screenDimension + ' inch '} Title='Màn hình' />
                                             <Box sx={style.boxinfor_Stack_Line}></Box>
                                             <TechInforLine Icon={<InventoryIcon />} Text={product.memory + ' SSD'} Title='Ổ cứng' />
                                             <Box sx={style.boxinfor_Stack_Line}></Box>

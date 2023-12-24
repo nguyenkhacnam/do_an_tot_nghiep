@@ -280,7 +280,7 @@ const Row = (props) => {
                     </Box>
                 </TableCell>
                 {dataForUpdate.isPaid ? (
-                    <TableCell align="center">
+                    <TableCell align="center" style={{ display: 'none'}}>
                         <Button sx={{ fontSize: '13px' }} onClick={() => setOpenModalBill(true)}>In</Button>
                     </TableCell>
                 ) : (

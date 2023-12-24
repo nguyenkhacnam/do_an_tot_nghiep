@@ -279,7 +279,7 @@ const Invoice = () => {
                                     <TableCell align="center" style={{ color: '#0D0D0D', fontWeight: 'bold', fontSize: '13px' }}>Ngày</TableCell>
                                     <TableCell align="center" style={{ color: '#0D0D0D', fontWeight: 'bold', fontSize: '13px' }}>Tổng&nbsp;(VND)</TableCell>
                                     <TableCell align="center" style={{ color: '#0D0D0D', fontWeight: 'bold', fontSize: '13px' }}>Trạng thái</TableCell>
-                                    <TableCell align="center" style={{ color: '#0D0D0D', fontWeight: 'bold', fontSize: '13px' }}>In hóa đơn</TableCell>
+                                    <TableCell align="center" style={{ color: '#0D0D0D', fontWeight: 'bold', fontSize: '13px', display: 'none' }}>In hóa đơn</TableCell>
                                 </TableRow>
                             </TableHead>
                             <TableBody>

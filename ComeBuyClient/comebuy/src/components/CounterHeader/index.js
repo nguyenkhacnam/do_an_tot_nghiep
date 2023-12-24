@@ -6,7 +6,7 @@ const Header = ({ handlePrint }) => {
         fontSize: '30px',
         marginLeft: '3rem'
       }}>
-        INVOICE
+        HÓA ĐƠN
       </h1>
     </>
   )

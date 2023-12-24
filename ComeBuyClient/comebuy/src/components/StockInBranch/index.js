@@ -116,7 +116,9 @@ const StockInBranch = (props) => {
     const [invoiceList, setInvoiceList] = useState([])
 
     const filteredInvoiceItems = invoiceList?.reduce((accumulator, currentInvoice) => {
-        if (currentInvoice.isChecked && branch.branchID === currentInvoice.branchid) {
+        console.log("🚀 ~ file: index.js:119 ~ filteredInvoiceItems ~ currentInvoice:", currentInvoice)
+        
+        if (currentInvoice.isPaid && branch.branchID === currentInvoice.branchid) {
           const { invoiceitem } = currentInvoice;
           accumulator.push(...invoiceitem);
         }

@@ -3,10 +3,11 @@ import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
+import './index.css'
 
 export default function BannerItem(props) {
   return (
-    <Card sx={{ maxWidth: 345, minWidth: 300 }}>
+    <Card sx={{ maxWidth: 345, minWidth: 300 }} className='banner-css'>
       <CardMedia
         component="img"
         height="140"
