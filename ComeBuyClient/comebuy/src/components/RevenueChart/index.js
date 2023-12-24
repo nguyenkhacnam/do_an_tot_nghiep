@@ -106,10 +106,12 @@ const RevenueChart = props => {
   const [invoiceListMonth, setInvoiceListMonth] = useState([]);
 
   const [selectedYear, setSelectedYear] = useState("");
+  console.log("🚀 ~ file: index.js:109 ~ RevenueChart ~ selectedYear:", selectedYear)
   const [selectedMonth, setSelelectedMonth] = useState("");
-  console.log("🚀 ~ file: index.js:110 ~ RevenueChart ~ selectedMonth:", selectedMonth)
+  console.log("🚀 ~ file: index.js:111 ~ RevenueChart ~ selectedMonth:", selectedMonth)
   const [selectedWeek, setSelectedWeek] = useState("");
   const [selectedDate, setSelectedDate] = useState("");
+  console.log("🚀 ~ file: index.js:113 ~ RevenueChart ~ selectedDate:", selectedDate)
 
   const onChangeYear = (date, dateString) => {
     // const formattedDate = moment(dateString).format("DD/MM/YYYY");
@@ -141,7 +143,7 @@ const RevenueChart = props => {
       const dailyTotals = {};
 
       let tempList = originalPromiseResult?.data?.map(invoice => {
-        console.log("🚀 ~ file: index.js:144 ~ tempList ~ invoice:", invoice)
+        console.log("🚀 ~ file: index.js:144 ~ tempList ~ invoice:", invoice);
         if (invoice.isPaid) {
           let t = 0;
           invoice.invoiceitem.map(i => {
@@ -165,8 +167,10 @@ const RevenueChart = props => {
           if (dailyTotals[year]) {
             dailyTotals[year].total += t;
             dailyTotals[year].amount += invoice.invoiceitem[0]?.amount || 0;
-            dailyTotals[year].originPrice += invoice.invoiceitem[0]?.product.colorcoverage || 0;
-            dailyTotals[year].revenue += dailyTotals[year].total + dailyTotals[year].originPrice
+            dailyTotals[year].originPrice +=
+              invoice.invoiceitem[0]?.product.colorcoverage || 0;
+            dailyTotals[year].revenue +=
+              dailyTotals[year].total + dailyTotals[year].originPrice;
           } else {
             dailyTotals[year] = {
               total: t,
@@ -187,20 +191,30 @@ const RevenueChart = props => {
 
       // Lọc các đối tượng null để loại bỏ các đối tượng không phù hợp
       tempList = tempList.filter(item => item !== null);
-      console.log("tempList", dailyTotals);
       let finalList = [];
 
-      if (selectedYear && dailyTotals[selectedYear]) {
-        console.log("first");
-        finalList.push({
-          date: selectedYear,
-          "Lợi nhuận (VND)": dailyTotals[selectedYear].total,
-          "Số lượng": dailyTotals[selectedYear].amount,
-          "Giá vốn (VND)": dailyTotals[selectedYear].originPrice,
-          "Doanh thu (VND)": dailyTotals[selectedYear].revenue,
-        });
+      if (selectedYear !== 'Invalid date' && selectedYear !== '' ) {
+        console.log('buoc1')
+        if (dailyTotals[selectedYear]) {
+          finalList.push({
+            date: selectedYear,
+            "Lợi nhuận (VND)": dailyTotals[selectedYear].total,
+            "Số lượng": dailyTotals[selectedYear].amount,
+            "Giá vốn (VND)": dailyTotals[selectedYear].originPrice,
+            "Doanh thu (VND)": dailyTotals[selectedYear].revenue,
+          });
+          setInvoiceListYear(finalList);
+        } else {
+          finalList.push({
+            date: selectedYear,
+            "Lợi nhuận (VND)": 0,
+            "Số lượng": 0,
+            "Giá vốn (VND)": 0,
+            "Doanh thu (VND)": 0,
+          });
+          setInvoiceListYear(finalList);
+        }
       } else {
-        console.log("dailyTotals", dailyTotals);
         finalList = Object.keys(dailyTotals).map(date => ({
           date,
           "Lợi nhuận (VND)": dailyTotals[date].total,
@@ -208,9 +222,9 @@ const RevenueChart = props => {
           "Giá vốn (VND)": dailyTotals[date].originPrice,
           "Doanh thu (VND)": dailyTotals[date].revenue,
         }));
+        setInvoiceListYear(finalList);
       }
 
-      setInvoiceListYear(finalList);
     } catch (rejectedValueOrSerializedError) {
       console.log(rejectedValueOrSerializedError);
     }
@@ -237,13 +251,18 @@ const RevenueChart = props => {
           const monthYearString = `${month}/${year}`;
           console.log(
             "🚀 ~ file: index.js:153 ~ tempList ~ year:",
-            invoiceDate, monthYearString
+            invoiceDate,
+            monthYearString
           );
           if (dailyTotals[monthYearString]) {
             dailyTotals[monthYearString].total += t;
-            dailyTotals[monthYearString].amount += invoice.invoiceitem[0]?.amount || 0;
-            dailyTotals[monthYearString].originPrice += invoice.invoiceitem[0]?.product.colorcoverage || 0;
-            dailyTotals[monthYearString].revenue += dailyTotals[monthYearString].total + dailyTotals[monthYearString].originPrice
+            dailyTotals[monthYearString].amount +=
+              invoice.invoiceitem[0]?.amount || 0;
+            dailyTotals[monthYearString].originPrice +=
+              invoice.invoiceitem[0]?.product.colorcoverage || 0;
+            dailyTotals[monthYearString].revenue +=
+              dailyTotals[monthYearString].total +
+              dailyTotals[monthYearString].originPrice;
           } else {
             dailyTotals[monthYearString] = {
               total: t,
@@ -264,19 +283,32 @@ const RevenueChart = props => {
 
       // Lọc các đối tượng null để loại bỏ các đối tượng không phù hợp
       tempList = tempList.filter(item => item !== null);
-      console.log("tempList", dailyTotals);
       let finalList = [];
 
-      if (selectedMonth && dailyTotals[selectedMonth]) {
-        console.log("first");
-        finalList.push({
-          date: selectedMonth,
-          "Lợi nhuận (VND)": dailyTotals[selectedMonth].total,
-          "Số lượng": dailyTotals[selectedMonth].amount,
-          "Giá vốn (VND)": dailyTotals[selectedMonth].originPrice,
-          "Doanh thu (VND)": dailyTotals[selectedMonth].revenue,
-        });
+      if (selectedMonth !== 'Invalid date' && selectedMonth !== '') {
+        console.log('buoc1')
+        if (dailyTotals[selectedMonth]) {
+          finalList.push({
+            date: selectedMonth,
+            "Lợi nhuận (VND)": dailyTotals[selectedMonth].total,
+            "Số lượng": dailyTotals[selectedMonth].amount,
+            "Giá vốn (VND)": dailyTotals[selectedMonth].originPrice,
+            "Doanh thu (VND)": dailyTotals[selectedMonth].revenue,
+          });
+          setInvoiceListMonth(finalList);
+        } else {
+        console.log('buoc2')
+          finalList.push({
+            date: selectedMonth,
+            "Lợi nhuận (VND)": 0,
+            "Số lượng": 0,
+            "Giá vốn (VND)": 0,
+            "Doanh thu (VND)": 0,
+          });
+          setInvoiceListMonth(finalList);
+        }
       } else {
+        console.log('buoc2')
         console.log("dailyTotals", dailyTotals);
         finalList = Object.keys(dailyTotals).map(date => ({
           date,
@@ -285,9 +317,8 @@ const RevenueChart = props => {
           "Giá vốn (VND)": dailyTotals[date].originPrice,
           "Doanh thu (VND)": dailyTotals[date].revenue,
         }));
+        setInvoiceListMonth(finalList);
       }
-
-      setInvoiceListMonth(finalList);
     } catch (rejectedValueOrSerializedError) {
       console.log(rejectedValueOrSerializedError);
     }
@@ -314,8 +345,11 @@ const RevenueChart = props => {
             dailyTotals[invoiceDate].total += t;
             dailyTotals[invoiceDate].amount +=
               invoice.invoiceitem[0]?.amount || 0;
-            dailyTotals[invoiceDate].originPrice += invoice.invoiceitem[0]?.product.colorcoverage || 0;
-            dailyTotals[invoiceDate].revenue += dailyTotals[invoiceDate].total + dailyTotals[invoiceDate].originPrice
+            dailyTotals[invoiceDate].originPrice +=
+              invoice.invoiceitem[0]?.product.colorcoverage || 0;
+            dailyTotals[invoiceDate].revenue +=
+              dailyTotals[invoiceDate].total +
+              dailyTotals[invoiceDate].originPrice;
           } else {
             dailyTotals[invoiceDate] = {
               total: t,
@@ -340,15 +374,26 @@ const RevenueChart = props => {
       let finalList = [];
       let finalListYear = [];
 
-      if (selectedDate && dailyTotals[selectedDate]) {
-        finalList.push({
-          date: selectedDate,
-          "Lợi nhuận (VND)": dailyTotals[selectedDate].total,
-          "Số lượng": dailyTotals[selectedDate].amount,
-          "Giá vốn (VND)": dailyTotals[selectedDate].originPrice,
-          "Doanh thu (VND)": dailyTotals[selectedDate].revenue,
-        });
-        setInvoiceList(finalList);
+      if (selectedDate !== 'Invalid date' && selectedDate !== '') {
+        if (dailyTotals[selectedDate]) {
+          finalList.push({
+            date: selectedDate,
+            "Lợi nhuận (VND)": dailyTotals[selectedDate].total,
+            "Số lượng": dailyTotals[selectedDate].amount,
+            "Giá vốn (VND)": dailyTotals[selectedDate].originPrice,
+            "Doanh thu (VND)": dailyTotals[selectedDate].revenue,
+          });
+          setInvoiceList(finalList);
+        } else {
+          finalList.push({
+            date: selectedDate,
+            "Lợi nhuận (VND)": 0,
+            "Số lượng": 0,
+            "Giá vốn (VND)": 0,
+            "Doanh thu (VND)": 0,
+          });
+          setInvoiceList(finalList);
+        }
       } else {
         finalList = Object.keys(dailyTotals).map(date => ({
           date,
@@ -399,7 +444,7 @@ const RevenueChart = props => {
         justifyContent: "space-around",
         alignItems: "center",
         flexWrap: "wrap",
-        gap: '20px'
+        gap: "50px",
       }}
     >
       <div
@@ -417,7 +462,7 @@ const RevenueChart = props => {
         </Space>
         <div
           style={{
-            width: "800px",
+            width: "860px",
             height: "600px",
           }}
         >
@@ -481,7 +526,7 @@ const RevenueChart = props => {
               <Box sx={{ width: "100%" }}>
                 {loading === true ? (
                   <Typography variant="h6">
-                    Không có sản phẩm nào để hiển thị...
+                    Không có doanh thu nào để hiển thị...
                   </Typography>
                 ) : (
                   <Box sx={{ width: "100%" }}>
@@ -515,7 +560,7 @@ const RevenueChart = props => {
         </Space>
         <div
           style={{
-            width: "800px",
+            width: "860px",
             height: "600px",
           }}
         >
@@ -579,7 +624,7 @@ const RevenueChart = props => {
               <Box sx={{ width: "100%" }}>
                 {loading === true ? (
                   <Typography variant="h6">
-                    Không có sản phẩm nào để hiển thị...
+                    Không có doanh thu nào để hiển thị...
                   </Typography>
                 ) : (
                   <Box sx={{ width: "100%" }}>
@@ -602,7 +647,7 @@ const RevenueChart = props => {
         style={{
           // display: "flex",
           // flexDirection: "column",
-          display: 'none'
+          display: "none",
         }}
       >
         <Space>
@@ -664,7 +709,7 @@ const RevenueChart = props => {
               <Box sx={{ width: "100%" }}>
                 {loading === true ? (
                   <Typography variant="h6">
-                    Không có sản phẩm nào để hiển thị...
+                    Không có doanh thu nào để hiển thị...
                   </Typography>
                 ) : (
                   <Box sx={{ width: "100%" }}>
@@ -694,8 +739,10 @@ const RevenueChart = props => {
         </Space>
         <div
           style={{
-            width: "1000px",
+            width: "1400px",
             height: "800px",
+            marginBottom: '50px',
+            marginTop: '50px'
           }}
         >
           <ResponsiveContainer width="100%" height="100%">
@@ -758,7 +805,7 @@ const RevenueChart = props => {
               <Box sx={{ width: "100%" }}>
                 {loading === true ? (
                   <Typography variant="h6">
-                    Không có sản phẩm nào để hiển thị...
+                    Không có doanh thu nào để hiển thị...
                   </Typography>
                 ) : (
                   <Box sx={{ width: "100%" }}>
