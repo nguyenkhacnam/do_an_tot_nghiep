@@ -349,12 +349,15 @@ exports.getRevenueInBrach = catchAsync(async (req, res, next) => {
         next(new AppError("Error : " + err, 500))
     })
     if (data) {
+        // console.log("🚀 ~ file: invoice.controller.js:352 ~ exports.getRevenueInBrach=catchAsync ~ data:", data[0])
         let result = []
         data.map((item) => result = result.concat(item.invoiceitem))
         result = result.filter((item) => item.productid != null)
+        // console.log("🚀 ~ file: invoice.controller.js:356 ~ exports.getRevenueInBrach=catchAsync ~ result:", result)
         let result2 = []
         for (i = 0; i < result.length; i++) {
             let checker = result2.some(e => e.name == result[i].productid)
+            // console.log('date result', result[0])
             if (!checker) {
                 result2.push({
                     name: result[i].productid,

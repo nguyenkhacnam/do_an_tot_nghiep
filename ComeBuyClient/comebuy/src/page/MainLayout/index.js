@@ -148,7 +148,7 @@ const MainLayout = props => {
         >
           {list('left')}
         </Drawer>
-        <Stack sx={{ height: "100%", width: '100%', mt: 2, backgroundColor: 'grey' }}>
+        <Stack sx={{ height: "100%", width: '100%', mt: 2 }}>
           <Routes>
             {showRoutes(props.routes)}
             <Route element={
