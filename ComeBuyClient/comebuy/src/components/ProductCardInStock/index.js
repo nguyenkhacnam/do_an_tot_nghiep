@@ -86,7 +86,7 @@ const ProductCardInStock = props => {
           >
             {props.stock != null ? "Tổng đã thêm vào kho:" + props.stock.totalAmount : null}
           </Typography>
-          {filterProduct?.amount ? (
+          {filterProduct?.amount && false ? (
             <Typography
               sx={{ margin: 1 }}
               variant="body1"

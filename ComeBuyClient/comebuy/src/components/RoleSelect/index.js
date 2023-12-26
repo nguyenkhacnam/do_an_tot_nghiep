@@ -18,7 +18,7 @@ const RoleSelect = (props) => {
                     onChange={props.handleChange}
                 >
                     <MenuItem value='staff'>Nhân viên</MenuItem>
-                    <MenuItem value='manager'>Quản lý</MenuItem>
+                    {/* <MenuItem value='manager'>Quản lý</MenuItem> */}
                 </Select>
             </FormControl>
         </Box>

@@ -145,7 +145,7 @@ const EditProduct = () => {
       case "Màn hình":
         SetScreenDimension(event.target.value);
         break;
-      case "Độ phủ màu":
+      case "Giá gốc":
         SetColorCoverage(event.target.value);
         break;
       case "Ổ cứng":
@@ -536,7 +536,7 @@ const EditProduct = () => {
               <TextFieldForEdit
                 Icon={<GradientIcon />}
                 Text={colorCoverage}
-                Title="Độ phủ màu (RGBs)"
+                Title="Giá gốc"
                 onChange={handleValueChange}
               />
               <Box sx={style.boxinfor_Stack_Line}></Box>

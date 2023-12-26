@@ -35,6 +35,7 @@
 //     return true
 // }
 const SplitFeatureFromList = async (features, setBrand, setRAM, setCPU, setGPU, setScreenDimension, setWeight, setMemory, setYear) => {
+    console.log('features', features);
     setCPU({loading : true, option : features.cpuOptions})
     // brand
     setBrand({loading : true, option : features.brandOptions})

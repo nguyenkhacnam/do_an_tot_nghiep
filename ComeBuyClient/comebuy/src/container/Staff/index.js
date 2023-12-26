@@ -184,7 +184,7 @@ const Staff = () => {
                 }}>
                     <Stack sx={{ alignItems: 'center', justifyItems: 'center', pl: 2, pt: 2 }} direction={'row'} spacing={2}>
                         <AccountCircleIcon />
-                        <Typography variant="h6">Quản lý nhân viên</Typography>
+                        <Typography variant="h6">Quản lý nhân viên và khách hàng</Typography>
                     </Stack>
                     <Button sx={{
                         width: 150,

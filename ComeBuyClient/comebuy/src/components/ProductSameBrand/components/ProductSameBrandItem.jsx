@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { cartListSelector, currentUser } from '../../../redux/selectors';
 import { addFavorite } from '../../../redux/slices/favoriteSlice';
@@ -131,6 +131,10 @@ const ProductSameBrandItem = ({products}) => {
         }
         setOpenSnackbar(false);
     };
+    // const [isScroll, setIsScroll] = useState(false)
+    // useEffect(() => {
+    //     window.scrollTo(0, 0); // Đặt vị trí cuộn trang về đầu trang khi component được mount
+    //   }, [isScroll]);
     return (
         <Div>
             {/* <div
@@ -170,7 +174,7 @@ const ProductSameBrandItem = ({products}) => {
                                     cover={<img alt="Ảnh laptop" src={product.productimage[0]?.imageURL} />}
                                 >
 
-                                    <Link to={`/productSpace/` + product.productID}>
+                                    <Link to={`/productSpace/` + product.productID} onClick={() => window.scrollTo(0, 0)}>
                                         <Meta title={product.name} />
                                     </Link>
                                     <div

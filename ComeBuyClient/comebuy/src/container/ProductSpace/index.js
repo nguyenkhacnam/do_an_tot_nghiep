@@ -113,7 +113,7 @@ const ProductSpace = () => {
   };
 
   useEffect(() => {
-    handleSocket();
+    // handleSocket();
     LoadRecords(1);
     // Load Feature
     return () => {
@@ -199,10 +199,10 @@ const ProductSpace = () => {
                   )}
                 </div>
               </Stack>
-              {Math.ceil(total / 9) > 1 && (
+              {Math.ceil(total / 8) > 1 && (
                 <Pagination
                   sx={{ alignSelf: "center", m: 1 }}
-                  count={Math.ceil(total / 9)}
+                  count={Math.ceil(total / 8)}
                   color="secondary"
                   onChange={async e => {
                     await LoadRecords(e.target.textContent);

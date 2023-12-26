@@ -180,9 +180,9 @@ const ProductInCart = props => {
             </Dialog>
             {/* <DialogActions> */}
               {/* <Button onClick={handleClose}>Hủy</Button> */}
-              <Button onClick={() => setIsLoading1(true)}>
+              {/* <Button onClick={() => setIsLoading1(true)}>
                 Xóa
-              </Button>
+              </Button> */}
             {/* </DialogActions> */}
             <IconButton
               color="primary"

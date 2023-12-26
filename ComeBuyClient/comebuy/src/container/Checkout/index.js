@@ -60,7 +60,9 @@ export const CheckoutPage = () => {
     const [openPayOnline, setOpenPayOnline] = useState(false)
 
     const [listCart, setListCart] = useState([])
+    console.log("🚀 ~ file: index.js:63 ~ CheckoutPage ~ listCart:", listCart)
     const [listProd, setListProd] = useState([])
+    console.log("🚀 ~ file: index.js:64 ~ CheckoutPage ~ listProd:", listProd)
 
     const [discount, setDiscount] = useState(0)
     const [typeCus, setTypeCus] = useState('Rare member')
@@ -99,7 +101,7 @@ export const CheckoutPage = () => {
                             listProd.push(originalPromiseResult2)
                         }
                     }
-                    await setListCart(listCart)
+                    await setListCart(listCart.filter(item => item.amount > 0))
                     await setListProd(listProd)
                     await CountTotal(listCart, listProd)
                     await MakePurchaseUnit(listCart, listProd)

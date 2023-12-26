@@ -188,7 +188,7 @@ const ProductBrand = ({ productList, title }) => {
                   cover={<img alt="Ảnh laptop" src={product.productimage[0]?.imageURL} />}
                 >
 
-                  <Link to={`/productSpace/` + product.productID}>
+                  <Link to={`/productSpace/` + product.productID} onClick={() => window.scrollTo(0, 0)}>
                     <Meta title={product.name} />
                   </Link>
                   <div

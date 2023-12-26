@@ -318,6 +318,23 @@ const RevenueChart = props => {
           "Doanh thu (VND)": dailyTotals[date].revenue,
         }));
         setInvoiceListMonth(finalList);
+        function customDateSort(a, b) {
+          const [monthA, yearA] = a.date.split('/').map(Number);
+          const [monthB, yearB] = b.date.split('/').map(Number);
+        
+          // So sánh năm trước
+          if (yearA !== yearB) {
+            return yearA - yearB;
+          }
+        
+          // Nếu năm bằng nhau, so sánh theo tháng
+          return monthA - monthB;
+        }
+        
+        finalList.sort(customDateSort);
+        
+        // Kết quả: finalList được sắp xếp theo trường 'date' (tháng và năm)
+        console.log('finalList1', finalList);
       }
     } catch (rejectedValueOrSerializedError) {
       console.log(rejectedValueOrSerializedError);
@@ -402,7 +419,21 @@ const RevenueChart = props => {
           "Giá vốn (VND)": dailyTotals[date].originPrice,
           "Doanh thu (VND)": dailyTotals[date].revenue,
         }));
-        setInvoiceList(finalList);
+        // setInvoiceList(finalList);
+        finalList.sort((a, b) => {
+          // Chuyển đổi chuỗi ngày thành đối tượng Date với định dạng "MM/DD/YYYY"
+          const dateA = new Date(
+            a.date.split('/').reverse().join('-') // Chuyển đổi sang định dạng "YYYY-MM-DD"
+          );
+          const dateB = new Date(
+            b.date.split('/').reverse().join('-') // Chuyển đổi sang định dạng "YYYY-MM-DD"
+          );
+        
+          // So sánh hai ngày và trả về kết quả sắp xếp
+          return dateA - dateB;
+        });
+        console.log("🚀 ~ file: index.js:407 ~ handleFetchInvoice ~ finalList:", finalList)
+        setInvoiceList(finalList.slice(-5));
       }
     } catch (rejectedValueOrSerializedError) {
       console.log(rejectedValueOrSerializedError);

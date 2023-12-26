@@ -246,12 +246,12 @@ const FavoritePlace = () => {
     setOpenMoveAllSuccess(true)
   }
   const handleSpeedDialClick = (action) => {
-    if (action.name === 'Thêm tắt cả vào giỏ hàng') {
-      if (favoriteList.length != 0) {
+    if (action.name === 'Chuyển tất cả sang giỏ hàng') {
+      if (favoriteList.length !== 0) {
         setOpenConfirmMove(true)
       }
     } else {
-      if (favoriteList.length != 0) {
+      if (favoriteList.length !== 0) {
         setOpenConfirmDelete(true)
       }
     }
@@ -432,13 +432,13 @@ const FavoritePlace = () => {
 
       <Snackbar open={openSnackbar} autoHideDuration={6000} onClose={handleCloseSnackbar}>
         <Alert onClose={handleCloseSnackbar} severity="warning" sx={{ width: '100%' }}>
-          Add some product ti your cart first
+          Cần có sản phẩm để thực hiện chức năng này
         </Alert>
       </Snackbar>
 
       <Snackbar open={openMoveToCartSuccess} autoHideDuration={6000} onClose={handleCloseMoveToCartSuccess}>
         <Alert onClose={handleCloseMoveToCartSuccess} severity="success" sx={{ width: '100%' }}>
-          Added to cart successfully
+        Đã thêm vào giỏ hàng thành công
         </Alert>
       </Snackbar>
 
@@ -450,7 +450,7 @@ const FavoritePlace = () => {
 
       <Snackbar open={openMoveAllSuccess} autoHideDuration={6000} onClose={handleCloseMoveAllSuccess}>
         <Alert onClose={handleCloseMoveAllSuccess} severity="success" sx={{ width: '100%' }}>
-          Added all to cart successfully
+        Đã thêm tất cả vào giỏ hàng thành công
         </Alert>
       </Snackbar>
 
@@ -463,7 +463,7 @@ const FavoritePlace = () => {
         <DialogTitle>Xác nhận thông tin</DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-slide-description">
-          Bạn có chắc chắn xóa tất cả sản phẩm yêu thích của mình không?
+          Bạn có chắc chắn chuyển tất cả sản phẩm yêu thích của mình không?
           </DialogContentText>
         </DialogContent>
         <DialogActions>

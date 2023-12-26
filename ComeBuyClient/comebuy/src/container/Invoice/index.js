@@ -84,6 +84,7 @@ const Invoice = () => {
                         tempList.push(obj)
                     })
                     setInvoiceList(tempList)
+                    console.log("🚀 ~ file: index.js:90 ~ fetchInvoice ~ tempList:", tempList)
                 } catch (rejectedValueOrSerializedError) {
                     console.log(rejectedValueOrSerializedError);
                 }
@@ -298,7 +299,7 @@ const Invoice = () => {
                             </TableBody>
                         </Table>
                         <TablePagination
-                            rowsPerPageOptions={[10, 25, 50]}
+                            rowsPerPageOptions={[10, 25, 50, { label: 'All', value: -1 }]}
                             component="div"
                             style={{}}
                             count={invoiceList.length}

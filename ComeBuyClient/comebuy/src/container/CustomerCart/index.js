@@ -37,7 +37,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { unwrapResult } from "@reduxjs/toolkit";
 import { currentUser } from "../../redux/selectors";
 import { getProductWithID } from "../../redux/slices/productSlice";
-import './index.css'
+import "./index.css";
+import { message } from "antd";
 const Container = styled.div`
   background-color: white;
 `;
@@ -129,7 +130,7 @@ const CustomerCart = () => {
 
   const [isLoading, setIsLoading] = useState(true);
   const [cartList, setCartList] = useState([]);
-  console.log("🚀 ~ file: index.js:132 ~ CustomerCart ~ cartList:", cartList)
+  console.log("🚀 ~ file: index.js:132 ~ CustomerCart ~ cartList:", cartList);
   const [prodList, setProdList] = useState([]);
   const [subTotal, setSubTotal] = useState(0);
   const [openSnackbar, setOpenSnackbar] = useState(false);
@@ -158,6 +159,14 @@ const CustomerCart = () => {
     try {
       const resultAction = await dispatch(getAllCart());
       const originalPromiseResult = unwrapResult(resultAction);
+      console.log(
+        "🚀 ~ file: index.js:161 ~ fetchYourCart ~ originalPromiseResult:",
+        originalPromiseResult
+      );
+      const filter = originalPromiseResult.filter(
+        item => item.userid === _currentUser.userID
+      );
+      console.log("🚀 ~ file: index.js:163 ~ fetchYourCart ~ filter:", filter);
       temp = originalPromiseResult;
       for (let i = 0; i < temp.length; i++) {
         if (temp[i].userid === _currentUser.userID) {
@@ -196,7 +205,7 @@ const CustomerCart = () => {
       setCartList(listCart);
       setmasterData(listCart);
       setProdList(listProduct);
-      setOpen1(true)
+      setOpen1(true);
     }
   }, []);
 
@@ -306,7 +315,7 @@ const CustomerCart = () => {
   console.log("re-render");
   //handle agree dis-cart
   const handleAgree = async item => {
-    console.log("🚀 ~ file: index.js:307 ~ handleAgree ~ item:", item)
+    console.log("🚀 ~ file: index.js:307 ~ handleAgree ~ item:", item);
     setIsDeleteCart(true);
     try {
       // dispatch(cartSlice.actions.removeCart(item));
@@ -316,7 +325,7 @@ const CustomerCart = () => {
         resultAction
       );
       const originalPromiseResult = unwrapResult(resultAction);
-      console.log('originalPromiseResult', originalPromiseResult);
+      console.log("originalPromiseResult", originalPromiseResult);
       // for (let i = 0; i < cartList.length; i++) {
       //   if (cartList[i].cartID === item.cartID) {
       //     cartList.splice(i, 1);
@@ -327,10 +336,8 @@ const CustomerCart = () => {
       //   cart => cart.cartID !== item.cartID
       // );
       // console.log("🚀 ~ file: index.js:325 ~ handleAgree ~ updatedCartList:", updatedCartList)
-      setCartList(cartList.filter(
-        cart => cart.cartID !== item.cartID
-      ));
-      
+      setCartList(cartList.filter(cart => cart.cartID !== item.cartID));
+
       handleClose();
     } catch (rejectedValueOrSerializedError) {
       alert(rejectedValueOrSerializedError);
@@ -341,7 +348,14 @@ const CustomerCart = () => {
 
   const handleCheckout = () => {
     if (cartList.length > 0) {
-      navigate("/myplace/mycart/checkout");
+      const hasZeroAmount = cartList.some(item => item.amount === 0);
+      if (hasZeroAmount) {
+        message.info('Sản phẩm thanh toán cần phải có số lượng ít nhất là 1');
+      } else {
+        // Nếu không có phần tử nào có amount = 0, chuyển hướng đến "/myplace/mycart/checkout"
+        navigate("/myplace/mycart/checkout");
+      }
+      // navigate("/myplace/mycart/checkout", { state: { key: "value" } });
     } else {
       setOpenSnackbar(true);
     }
@@ -421,40 +435,48 @@ const CustomerCart = () => {
             value={search}
             onChange={text => searchFilter(text.target.value)}
           />
-          <TopButton onClick={handleCheckout} type="filled" style={{
-            background: '#1976d2'
-          }}>
+          <TopButton
+            onClick={handleCheckout}
+            type="filled"
+            style={{
+              background: "#1976d2",
+            }}
+          >
             THANH TOÁN NGAY
           </TopButton>
         </Top>
         <Bottom>
           <Stack sx={{ m: 2, p: 2 }}>
-            {open1 && cartList && cartList?.map((item, i) => (
-              <div key={i}>
-                <ProductInCart
-                  productInCart={item}
-                  handleChangeAmount={handleChangeAmount}
-                  onAgree={handleAgree}
-                ></ProductInCart>
-                <Dialog
-                  open={open}
-                  TransitionComponent={Transition}
-                  keepMounted
-                  aria-describedby="alert-dialog-slide-description"
-                >
-                  <DialogTitle>{"Discart"}</DialogTitle>
-                  <DialogContent>
-                    <DialogContentText id="alert-dialog-slide-description">
-                      Bạn có chắc chắn muốn loại bỏ sản phẩm này?
-                    </DialogContentText>
-                  </DialogContent>
+            {open1 &&
+              cartList &&
+              cartList?.map((item, i) => (
+                <div key={i}>
+                  <ProductInCart
+                    productInCart={item}
+                    handleChangeAmount={handleChangeAmount}
+                    onAgree={handleAgree}
+                  ></ProductInCart>
+                  <Dialog
+                    open={open}
+                    TransitionComponent={Transition}
+                    keepMounted
+                    aria-describedby="alert-dialog-slide-description"
+                  >
+                    <DialogTitle>{"Discart"}</DialogTitle>
+                    <DialogContent>
+                      <DialogContentText id="alert-dialog-slide-description">
+                        Bạn có chắc chắn muốn loại bỏ sản phẩm này?
+                      </DialogContentText>
+                    </DialogContent>
                     <DialogActions>
                       <Button onClick={handleClose}>Hủy</Button>
-                      <Button onClick={() => handleAgree(item)}>Xác nhận</Button>
+                      <Button onClick={() => handleAgree(item)}>
+                        Xác nhận
+                      </Button>
                     </DialogActions>
-                </Dialog>
-              </div>
-            ))}
+                  </Dialog>
+                </div>
+              ))}
           </Stack>
           <Summary>
             <SummaryTitle>THÔNG TIN ĐẶT HÀNG</SummaryTitle>
@@ -521,7 +543,7 @@ const CustomerCart = () => {
           severity="warning"
           sx={{ width: "100%" }}
         >
-          Add some product ti your cart first
+          Cần có sản phẩm để thực hiện chức năng này
         </Alert>
       </Snackbar>
     </Container>

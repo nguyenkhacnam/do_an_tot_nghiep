@@ -48,7 +48,7 @@ function App() {
     };
 
     loadUserData();
-  }, [role]);
+  }, []);
 
   // useEffect(() => {
   //   console.log('abccccc')

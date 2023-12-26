@@ -243,12 +243,16 @@ const Product = () => {
                     <DetailProductModal open={openModal} onClose={handleCloseModal} product={currentProduct.value} />
                     <ProductTable
                         pageSize={pageSize}
-                        onPageSizeChange={(newPage) => setPageSize(newPage)}
+                        onPageSizeChange={(newPage) => {
+                            console.log('clg', pageSize);
+                            setPageSize(newPage)}}
                         pagination
                         columns={columns}
                         rows={productList}
                         getRowId={(row) => row.productID}
                         onCellDoubleClick={handleOnCellClick}
+                        rowsPerPageOptions={[10, 25, 50]}
+                        // pageSizeOptions={[5, 10, 25]}
                     />
                     <SnackBarAlert severity='success' open={openSuccessAlert} handleClose={handleClose} message={messageSuccess} />
                     <SnackBarAlert severity='error' open={openErrorAlert} handleClose={handleClose} message={messageError} />

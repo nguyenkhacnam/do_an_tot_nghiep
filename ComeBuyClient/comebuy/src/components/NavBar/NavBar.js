@@ -72,7 +72,7 @@ export default function NavBar(props) {
 
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
-
+    console.log('mounted')
   const selections_1 = [
     {
       icon: <UserOutlined />,
