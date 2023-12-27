@@ -177,7 +177,8 @@ const CommentsProduct = (props) => {
                                         marginLeft: '48px',
                                         alignItems: 'center',
                                         justifyContent: 'flex-start',
-                                        gap: '10px'
+                                        gap: '10px',
+                                        display: 'none'
                                     }}>
                                         <p
                                             style={{

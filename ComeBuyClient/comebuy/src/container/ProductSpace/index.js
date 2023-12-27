@@ -188,6 +188,7 @@ const ProductSpace = () => {
                     alignItems: "center",
                     flexWrap: "wrap",
                     gap: "25px",
+                    width: "1200px"
                   }}
                 >
                   {productList.length > 0 ? (

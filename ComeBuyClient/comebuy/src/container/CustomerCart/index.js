@@ -399,9 +399,17 @@ const CustomerCart = () => {
   const [num, setNum] = useState(2);
   console.log("re-render", cartList);
   console.log("re-render", cartList.reverse());
+  
+  const [isHidden, setIsHidden] = useState(false)
+  console.log("🚀 ~ file: index.js:404 ~ CustomerCart ~ isHidden:", isHidden)
+  // useEffect(() => {
+  //   return () => {
+  //     setIsHidden(false)
+  //   }
+  // })
   return (
     <Container>
-      <NavBar hiddenCartLabel={false} />
+      <NavBar hiddenCartLabel={false} cartList={cartList} isHidden={isHidden}/>
       <Stack
         direction="row"
         spacing={3}
@@ -455,6 +463,7 @@ const CustomerCart = () => {
                     productInCart={item}
                     handleChangeAmount={handleChangeAmount}
                     onAgree={handleAgree}
+                    setIsHidden={setIsHidden}
                   ></ProductInCart>
                   <Dialog
                     open={open}

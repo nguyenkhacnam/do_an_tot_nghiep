@@ -311,9 +311,9 @@ exports.filter = catchAsync(async (req, res, next) => {
   console.log('req.body', req.body, brand)
   const result = await Product.findAll().then(async (rs) => {
     let brands = rs.map((item) => {
-      console.log('itemmmm', item.brand)
+      // console.log('itemmmm', item.brand)
       return item.brand});
-      console.log('kekekeekekekekekek', brand.length)
+      // console.log('kekekeekekekekekek', brand.length)
     var brandOptions =
     brand.length > 0 ? brand : brands.filter((v, i, a) => a.indexOf(v) === i);
     // cpu
@@ -456,6 +456,7 @@ exports.getAllFeature = catchAsync(async (req, res, next) => {
   await Product.findAll()
     .then((rs) => {
       let brands = rs.map((item) => item.brand);
+      //Hàm này sử dụng indexOf() để kiểm tra xem chỉ số của phần tử hiện tại (v) trong mảng a có bằng với chỉ số hiện tại (i) hay không. 
       var brandOptions = brands.filter((v, i, a) => a.indexOf(v) === i);
       // cpu
       let cpus = rs.map((item) => item.cpu);

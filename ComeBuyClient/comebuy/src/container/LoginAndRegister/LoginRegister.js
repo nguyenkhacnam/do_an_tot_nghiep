@@ -98,7 +98,7 @@ const LoginRegister = () => {
   const [dataForReg, setDataForReg] = useState({
     phoneNumber: "0111111111",
     name: "",
-    dob: "1/1/2000",
+    dob: "1/1/2001",
     avatar:
       "https://www.pngitem.com/pimgs/m/150-1503945_transparent-user-png-default-user-image-png-png.png",
     email: "",

@@ -61,6 +61,14 @@ const ProductInCart = props => {
       setAmount(0);
     };
   }, [props.productInCart.amount]);
+
+  useEffect(() => {
+    // props?.setIsHidden(true)
+    return () => {
+      props?.setIsHidden(false)
+    };
+  }, []);
+
   const [isLoading1, setIsLoading1] = useState(false);
 
   return (
@@ -173,7 +181,9 @@ const ProductInCart = props => {
               <DialogActions>
                 <Button onClick={() => setIsLoading1(false)}>Hủy</Button>
                 <Button onClick={() => {
-                  props.onAgree(props.productInCart)}}>
+                  props.onAgree(props.productInCart)
+                }
+                  }>
                   Xóa
                 </Button>
               </DialogActions>

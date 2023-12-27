@@ -60,6 +60,7 @@ export default function NavBar(props) {
   const _currentUser = useSelector(currentUser);
   let isSignedIn = localStorage.getItem("role") !== "" ? true : false;
   const _cart = useSelector(cartListSelector);
+  console.log("🚀 ~ file: NavBar.js:63 ~ NavBar ~ _cart:", _cart)
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -301,6 +302,17 @@ export default function NavBar(props) {
     </Menu>
   );
 
+  const [path, setPath] = useState('');
+  console.log("🚀 ~ file: NavBar.js:306 ~ NavBar ~ path:", path)
+
+  useEffect(() => {
+    // Lấy thông tin về URL hiện tại
+    const currentURL = window.location.pathname;
+
+    // Lưu giá trị path vào state
+    setPath(currentURL);
+  }, []);
+
   return (
     <Box sx={currentPath != "/" ? style.base : style.homeNavbar}>
       <AppBar
@@ -356,7 +368,7 @@ export default function NavBar(props) {
           {(localStorage.getItem("role") === "customer" ||
             (localStorage.getItem("role") === "" &&
               props.hiddenCartLabel !== false)) && (
-            <Badge count={numberCart}>
+            <Badge count={path === '/myplace/mycart' ? 0 : numberCart}>
               <Button
                 type="primary"
                 onClick={navigateToCart}

@@ -714,7 +714,11 @@ export const CheckoutPage = () => {
                                     padding: '0.5em',
                                     justifyContent: 'space-between',
                                     marginTop: '0.25em'
-                                }}>
+                                }}
+                                style={{
+                                    display: 'none'
+                                }}
+                                >
                                 <Stack direction="row" sx={{ marginTop: '0.5em' }}>
                                     <Radio
                                         checked
@@ -1357,7 +1361,7 @@ export const CheckoutPage = () => {
                             </Stack>
                         ))}
                         <div style={{ height: '1px', width: '100%', backgroundColor: '#BFBFBF' }}></div>
-                        <Grid container width="100%" spacing={1}>
+                        <Grid container width="100%" spacing={1} style={{display: 'none'}}>
                             <Grid item xs={8.5}>
                                 <TextField
                                     fullWidth
@@ -1378,7 +1382,7 @@ export const CheckoutPage = () => {
                             </Grid>
                         </Grid>
                         
-                        <div style={{ height: '1px', width: '100%', backgroundColor: '#BFBFBF' }}></div>
+                        {/* <div style={{ height: '1px', width: '100%', backgroundColor: '#BFBFBF' }}></div> */}
                         <Stack direction="row" width='100%' justifyContent="space-between">
                             <Typography sx={{ marginTop: '1.2em', color: 'gray' }}>Tổng tiền sản phẩm</Typography>
                             <Typography sx={{

@@ -43,7 +43,7 @@ function App() {
   useEffect(() => {
     const loadUserData = async () => {
       await LoadCurrentUser();
-      navigate("/");
+      // navigate("/");
       // navigate(previousPath);
     };
 

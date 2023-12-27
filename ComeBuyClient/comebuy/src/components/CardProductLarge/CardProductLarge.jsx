@@ -16,6 +16,14 @@ const CardProductLarge = ({ product = null }) => {
     const [openSnackbar, setOpenSnackbar] = useState(false);
     const [openBackdrop, setOpenBackdrop] = useState(false)
     const discountedPrice = product.price + (product.price * (parseFloat(product.promotion) / 100))
+    const [promotionYear, setPromotionYear] = useState(null)
+    
+    if (product?.year < 2018) {
+        const  price = (product.price - (product.price / 2))
+        console.log('first', price )
+        setPromotionYear(price)
+    }
+    console.log("🚀 ~ file: CardProductLarge.jsx:20 ~ CardProductLarge ~ promotionYear:", promotionYear,  )
     const dispatch = useDispatch()
     const _currentUser = useSelector(currentUser)
     const _cart = useSelector(cartListSelector)
@@ -160,13 +168,13 @@ const CardProductLarge = ({ product = null }) => {
                                 color: 'red',
                                 fontSize: '20px'
                             }}
-                            title={product.price.toLocaleString('en-US') + '₫'} />
+                            title={product.price - (product.price / 2)} />
                         <Meta
                             style={{
                                 textDecorationLine: 'line-through',
                                 fontSize: '16px'
                             }}
-                            description={discountedPrice.toLocaleString('en-US') + '₫'} />
+                            description={product.price} />
                     </div>
                     <div
                         style={{

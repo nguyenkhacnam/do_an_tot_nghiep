@@ -2,7 +2,7 @@ import validator from 'validator'
 
 //Validate password if it's false then it's false
 export function CheckPassword(password) {
-  // at least one number, one lowercase and one uppercase letter
+  // ít nhất một số, một chữ thường và một chữ hoa
   var re = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z])/;
   return re.test(password);
 };
